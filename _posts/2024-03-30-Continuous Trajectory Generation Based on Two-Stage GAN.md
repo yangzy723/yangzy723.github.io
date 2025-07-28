@@ -1,9 +1,9 @@
 ---
 layout: mypost
-title: 《Continuous Trajectory Generation Based on Two-Stage GAN》
+title: Continuous Trajectory Generation Based on Two-Stage GAN
 categories: [论文阅读]
 ---
-# 《Continuous Trajectory Generation Based on Two-Stage GAN》
+# Continuous Trajectory Generation Based on Two-Stage GAN
 
 **[原文](trojectory+generator.pdf)**
 

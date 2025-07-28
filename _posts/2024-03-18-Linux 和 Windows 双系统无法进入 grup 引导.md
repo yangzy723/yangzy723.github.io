@@ -4,7 +4,7 @@ title: Linux 和 Windows 双系统无法进入grup引导
 categories: [Linux相关]
 ---
 
-# Linux 和 Windows 双系统无法进入grup引导
+# Linux 和 Windows 双系统无法进入 grup 引导
 
 ## 问题描述
 在台式电脑原有的硬盘上已安装`Ubuntu22.04`操作系统。随后老师给了我另一块固态硬盘硬盘，于是计划在该硬盘上安装`Windows10`操作系统，实现双硬盘双操作系统的格局。但是在制作`Windows10`系统安装U盘并且将该`Windows10`系统写入新的硬盘后，重启电脑，发现该电脑直接进入`Windows10`系统，并不会停留在grip引导界面，等待用户选择操作系统使用。

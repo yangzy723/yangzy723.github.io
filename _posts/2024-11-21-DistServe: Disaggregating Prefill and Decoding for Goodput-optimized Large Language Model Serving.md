@@ -1,10 +1,10 @@
 ---
 layout: mypost
-title: 《DistServe：Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving》
+title: DistServe：Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving
 categories: [论文阅读]
 ---
 
-# 《DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving》
+# DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving
 
 **[原文](DistServe.pdf)**
 

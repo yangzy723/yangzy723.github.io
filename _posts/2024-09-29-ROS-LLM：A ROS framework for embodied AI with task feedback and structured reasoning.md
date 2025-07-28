@@ -1,6 +1,6 @@
 ---
 layout: mypost
-title: 《ROS-LLM：A ROS framework for embodied AI with task feedback and structured reasoning》
+title: ROS-LLM：A ROS framework for embodied AI with task feedback and structured reasoning
 categories: [论文阅读]
 ---
 # 《ROS-LLM: A ROS framework for embodied AI with task feedback and structured reasoning》

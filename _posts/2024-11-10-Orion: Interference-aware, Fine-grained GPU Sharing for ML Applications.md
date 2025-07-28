@@ -1,10 +1,10 @@
 ---
 layout: mypost
-title: 《Orion：Interference-aware, Fine-grained GPU Sharing for ML Applications》
+title: Orion：Interference-aware, Fine-grained GPU Sharing for ML Applications
 categories: [论文阅读]
 ---
 
-# 《Orion：Interference-aware, Fine-grained GPU Sharing for ML Applications》
+# Orion: Interference-aware, Fine-grained GPU Sharing for ML Applications
 
 **[原文](orion.pdf)**
 

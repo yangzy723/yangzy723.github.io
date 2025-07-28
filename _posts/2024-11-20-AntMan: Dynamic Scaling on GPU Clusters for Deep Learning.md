@@ -1,10 +1,10 @@
 ---
 layout: mypost
-title: 《AntMan：Dynamic Scaling on GPU Clusters for Deep Learning》
+title: AntMan：Dynamic Scaling on GPU Clusters for Deep Learning
 categories: [论文阅读]
 ---
 
-# 《AntMan: Dynamic Scaling on GPU Clusters for Deep Learning》
+# AntMan: Dynamic Scaling on GPU Clusters for Deep Learning
 
 **[原文](antman.pdf)**
 

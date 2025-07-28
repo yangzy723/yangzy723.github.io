@@ -1,6 +1,6 @@
 ---
 layout: mypost
-title: 《Microscopic Traffic Simulation using SUMO》
+title: Microscopic Traffic Simulation using SUMO》
 categories: [论文阅读]
 ---
 ## Microscopic Traffic Simulation using SUMO

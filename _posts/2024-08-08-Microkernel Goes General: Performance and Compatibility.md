@@ -1,9 +1,9 @@
 ---
 layout: mypost
-title: 《Microkernel Goes General： Performance and Compatibility in the HongMeng Production Microkernel》
+title: Microkernel Goes General： Performance and Compatibility in the HongMeng Production Microkernel
 categories: [论文阅读]
 ---
-# 《Microkernel Goes General： Performance and Compatibility in the HongMeng Production Microkernel》
+# Microkernel Goes General： Performance and Compatibility in the HongMeng Production Microkernel
 
 **[原文](osdi24-chen-haibo.pdf)**
 
