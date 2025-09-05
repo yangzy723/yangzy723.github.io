@@ -27,15 +27,15 @@ baseurl: '/pages'
 # 可选字段 target: '_blank' 新页面打开 
 menu:
   - title: 首页
-    url: about.html
+    url: /
   - title: 时间线
-    url: timeline.html
+    url: /timeline.html
   - title: 归类
-    url: categories.html
+    url: /categories.html
   - title: 搜索
-    url: search.html
+    url: /search.html
   - title: 友链
-    url: links.html
+    url: /links.html
 #  - title: 留言
 #    url: /pages/chat.html
 
