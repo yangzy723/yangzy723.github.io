@@ -17,7 +17,7 @@ exclude: ['README.md', '_site', 'dist', 'Gemfile', 'Gemfile.lock', 'blog.sh']
 # 域名配置
 # baseurl配置,如果网站部署在根目录下的其他目录中，请设置为 /目录名
 domainUrl: 'https://yangzy723.github.io'
-baseurl: ''
+baseurl: '/pages'
 
 # 吐个槽地址，会在chat页面中重定向到该地址
 # tucaoUrl: https://support.qq.com/product/86335
@@ -27,17 +27,17 @@ baseurl: ''
 # 可选字段 target: '_blank' 新页面打开 
 menu:
   - title: 首页
-    url: /
+    url: about.html
+  - title: 时间线
+    url: timeline.html
   - title: 归类
-    url: /pages/categories.html
+    url: categories.html
   - title: 搜索
-    url: /pages/search.html
+    url: search.html
   - title: 友链
-    url: /pages/links.html
+    url: links.html
 #  - title: 留言
 #    url: /pages/chat.html
-  - title: 关于
-    url: /pages/about.html
 
 # 点击页面文字冒出特效,不需要请设置为false
 extClickEffect: true
