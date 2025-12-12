@@ -9,9 +9,7 @@
       navigator.serviceWorker.register(blog.baseurl + '/service-worker.js').catch(function (e) {
         console.error('serviceWorker register fail', e)
       })
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        window.location.reload()
-      })
+      // Removed controllerchange reload to avoid infinite refresh loop during SW updates
     })
   })()
 </script>

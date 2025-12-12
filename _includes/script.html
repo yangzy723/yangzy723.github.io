@@ -21,5 +21,13 @@
 {% endif %}
 
 {%- if site.extCount %}
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+  // Async load busuanzi counter to avoid blocking page render
+  (function() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+    document.head.appendChild(s);
+  })();
+</script>
 {% endif %}
