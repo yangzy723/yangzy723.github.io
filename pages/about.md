@@ -32,6 +32,9 @@ title: 关于我
 Yuan Wang, **Zhenyuan Yang**, Zhanbo Wang, Mingyu Li, Zhilin Wu, Haibo Chen.  
 "Towards Large Language Model-Friendly APIs." *ACM SIGOPS Operating Systems Review*, vol. 59, no. 1, pp. 17-23. [DOI](https://doi.org/10.1145/3759441.3759445)
 
+**Zhenyuan Yang**, Wenxin Zheng, Mingyu Li, Haibo Chen.
+"Performance Isolation and Semantic Determinism in Efficient GPU Spatial Sharing." *arXiv preprint arXiv:2603.15042* (2026). [arXiv](https://arxiv.org/abs/2603.15042)
+
 ## Hobbies
 
 喜欢[中大型犬](https://www.dogsindepth.com) 🐾，关注[篮球](https://en.wikipedia.org/wiki/2019_NBA_Finals) 🏀 
@@ -49,7 +52,7 @@ Yuan Wang, **Zhenyuan Yang**, Zhanbo Wang, Mingyu Li, Zhilin Wu, Haibo Chen.
 
 ## Contact
 
-- QQ: 1813083415
+- QQ: yangzy723
 - Email: [yangzy723@gmail.com](mailto:yangzy723@gmail.com)  
 - GitHub: [https://github.com/yangzy723](https://github.com/yangzy723)
 - 地址: 北京市海淀区中关村街道南四街4号
