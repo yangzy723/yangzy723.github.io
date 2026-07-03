@@ -20,9 +20,9 @@ I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, 
 
 ## Research Interests
 
-- Efficient inference for edge and resource-constrained systems
+- Efficient inference for resource-constrained edge devices
+- Flexible spatial multiplexing for modern GPUs
 - Communication and scheduling for edge-cloud collaborative systems
-- Performance isolation and determinism in GPU sharing
 
 ## Selected Works
 {% for paper in site.data.publications %}
@@ -37,7 +37,7 @@ I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, 
 
 ## Skills
 
-- Languages: Java, C, C++, Python
+- Languages: C/C++, Python, Java
 - Systems: Linux, Docker, CMake, GDB, Git
 - AI Infra: PyTorch, DeepSpeed, TensorRT, CUDA
 
