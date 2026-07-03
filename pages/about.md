@@ -13,6 +13,12 @@ My primary interests are AI systems, systems optimization, and high-performance 
 | 2021.09 - 2025.06 | Nanjing University | B.Eng. in Computer Science and Technology |
 | 2025.09 - Present | Institute of Software, CAS | M.S. in Computer Science and Technology |
 
+## Awards
+
+- SOSP 2025 SRC First Prize
+- Nanjing University Outstanding Graduate
+- Nanjing University Outstanding Student
+
 ## Research Interests
 
 - Efficient inference for edge and resource-constrained systems

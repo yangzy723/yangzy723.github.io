@@ -29,15 +29,20 @@ title: Home
       <article class="portal-card">
         <h3>Publications</h3>
         <p>Selected publications and active submissions.</p>
-        <ul>
+        <ul class="pub-list">
           {%- for paper in site.data.publications limit:3 %}
-          <li>
-            {%- if paper.url %}
-            <a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a>
-            {%- else %}
-            {{ paper.title }}
-            {%- endif %}
-            {%- if paper.venue %} ({{ paper.venue }}){%- endif %}
+          <li class="pub-item">
+            <div class="pub-title">
+              {%- if paper.url %}
+              <a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a>
+              {%- else %}
+              {{ paper.title }}
+              {%- endif %}
+            </div>
+            <div class="pub-meta">
+              {%- if paper.venue %}<span>{{ paper.venue }}</span>{%- endif %}
+              {%- if paper.note %}<span>{{ paper.note }}</span>{%- endif %}
+            </div>
           </li>
           {%- endfor %}
         </ul>
@@ -52,6 +57,21 @@ title: Home
           <li><a href="https://github.com/yangzy723" target="_blank" rel="noopener">More repositories on GitHub</a></li>
         </ul>
         <a class="portal-more" href="https://github.com/yangzy723" target="_blank" rel="noopener">Open GitHub</a>
+      </article>
+      <article class="portal-card">
+        <h3>Awards</h3>
+        <p>Selected honors and competition achievements.</p>
+        <ul class="award-list">
+          <li>
+            <span class="award-name">SOSP 2025 SRC First Prize</span>
+          </li>
+          <li>
+            <span class="award-name">Nanjing University Outstanding Graduate</span>
+          </li>
+          <li>
+            <span class="award-name">Nanjing University Outstanding Student</span>
+          </li>
+        </ul>
       </article>
     </div>
   </section>

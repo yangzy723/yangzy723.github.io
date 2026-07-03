@@ -85,6 +85,12 @@ html.dark .portal-card li {
   border-bottom-color: #2f3b52;
 }
 
+html.dark .pub-list .pub-meta span {
+  background: #1a2a42;
+  border-color: #344864;
+  color: #a8bdd7;
+}
+
 html.dark .portal-more,
 html.dark .more-link {
   color: #9dbce0;
