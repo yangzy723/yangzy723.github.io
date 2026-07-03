@@ -27,6 +27,8 @@ menu:
     url: /
   - title: Categories
     url: /pages/categories.html
+  - title: Search
+    url: /pages/search.html
   - title: About
     url: /pages/about.html
 
