@@ -1,8 +1,7 @@
 <footer class="footer">
-  {%- if site.extCount %}
-    <span>总访问量</span>
-    <span id="busuanzi_value_site_pv"></span>
-  {% endif %}
+  <span>{{ site.author }}</span>
+  <span>·</span>
+  <span>{{ site.time | date: "%Y" }}</span>
   <div class="footer-btn theme-toggler hide">
     <i class="svg-icon icon-theme-light"></i>
   </div>

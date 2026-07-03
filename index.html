@@ -1,31 +1,72 @@
 ---
 layout: page
-title: 时间线
+title: Home
 ---
 <div class="page page-index">
-  {% for post in site.posts  -%}
-    {%- capture post_year %}{{ post.date | date: "%Y" }}{% endcapture -%}
-    {%- capture post_previous_year %}{{ post.previous.date | date: "%Y" }}{% endcapture -%}
-    {%- capture post_next_year %}{{ post.next.date | date: "%Y" }}{% endcapture -%}
-    {%- if forloop.first or post_next_year != post_year -%}
+  <section class="hero">
+    <div class="hero-content">
+      <h1>杨镇源</h1>
+      <p class="identity">M.S. Student · Institute of Software, Chinese Academy of Sciences</p>
+      <p class="lead">
+        I am an M.S. student at the Institute of Software, Chinese Academy of Sciences,
+        focusing on AI systems and high-performance infrastructure.
+        This site contains my research notes, engineering write-ups, and selected work.
+      </p>
+      <div class="hero-actions">
+        <a href="{{site.baseurl}}/pages/about.html">About</a>
+        <a href="mailto:yangzy723@gmail.com">Contact</a>
+        <a href="{{site.baseurl}}/pages/search.html">Search Posts</a>
+      </div>
+    </div>
+    <img class="hero-avatar" src="{{site.baseurl}}/avatar.png" alt="Portrait of Zhenyuan Yang" />
+  </section>
+
+  <section class="section-card">
+    <div class="section-head compact">
+      <h2>Quick Links</h2>
+    </div>
+    <div class="portal-grid">
+      <article class="portal-card">
+        <h3>Publications</h3>
+        <p>Selected publications and active submissions.</p>
+        <ul>
+          <li><a href="https://doi.org/10.1145/3759441.3759445" target="_blank" rel="noopener">Towards Large Language
+              Model-Friendly APIs</a></li>
+          <li>Anonymous submission (under review, 2026)</li>
+          <li><a href="https://arxiv.org/abs/2603.15042" target="_blank" rel="noopener">Efficient GPU Spatial
+              Sharing</a></li>
+        </ul>
+        <a class="portal-more" href="{{site.baseurl}}/pages/about.html">View full list</a>
+      </article>
+      <article class="portal-card">
+        <h3>Projects</h3>
+        <p>Systems engineering projects and open-source work.</p>
+        <ul>
+          <li><a href="https://github.com/yangzy723/SoulKnight" target="_blank" rel="noopener">SoulKnight (LibGDX +
+              Netty)</a></li>
+          <li><a href="https://github.com/yangzy723" target="_blank" rel="noopener">More repositories on GitHub</a></li>
+        </ul>
+        <a class="portal-more" href="https://github.com/yangzy723" target="_blank" rel="noopener">Open GitHub</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-head compact">
+      <h2>Recent Writing</h2>
+      <a class="more-link" href="{{site.baseurl}}/pages/categories.html">All categories</a>
+    </div>
     <div class="list-post">
-      <h2 id="{{post_year}}">{{post_year}}</h2>
       <ul>
-    {%- endif %}
+        {% for post in site.posts limit:6 -%}
         <li>
           <span class="date">{{ post.date | date: "%Y/%m/%d" }}</span>
           <div class="title">
             <a href="{{ site.baseurl | append: post.url }}" class="hover-underline">{{ post.title }}</a>
           </div>
-          <div class="categories">
-            {% for categorie in post.categories -%}
-            <a href="{{site.baseurl}}/pages/categories.html#{{ categorie }}" class="hover-underline">{{ categorie }}</a>
-            {%- endfor %}
-          </div>
         </li>
-    {%- if forloop.last or post_previous_year != post_year %}
+        {%- endfor %}
       </ul>
     </div>
-    {%- endif %}
-  {%- endfor %}
+  </section>
 </div>

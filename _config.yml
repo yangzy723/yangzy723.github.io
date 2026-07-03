@@ -1,9 +1,9 @@
 encoding: utf-8
 
 # SEO相关信息
-title: yangzy's blog
-description: 杨镇源的个人博客
-keywords: 个人博客
+title: yangzy's homepage
+description: 杨镇源的个人主页
+keywords: 个人主页
 author: 杨镇源
 
 # 这些不要动
@@ -12,7 +12,7 @@ kramdown:
   auto_ids: true
   input: GFM
   syntax_highlighter: rouge
-exclude: ['README.md', '_site', 'dist', 'Gemfile', 'Gemfile.lock', 'blog.sh']
+exclude: ['README.md', '_site', 'dist', 'Gemfile', 'Gemfile.lock', 'blog.sh', 'archive']
 
 # 域名配置
 # baseurl配置,如果网站部署在根目录下的其他目录中，请设置为 /目录名
@@ -26,36 +26,13 @@ baseurl: ''
 # 必填字段 title: '文本' url: '链接'
 # 可选字段 target: '_blank' 新页面打开 
 menu:
-  - title: 时间线
+  - title: 首页
     url: /
   - title: 归类
     url: /pages/categories.html
-  - title: 搜索
-    url: /pages/search.html
-  - title: 友链
-    url: /pages/links.html
-#  - title: 留言
-#    url: /pages/chat.html
   - title: 关于
     url: /pages/about.html
 
-# 点击页面文字冒出特效,不需要请设置为false
-extClickEffect: true
+# 数学公式支持，默认关闭，需要时在文章 front matter 中按需开启
+extMath: false
 
-# Google Adsense,不需要请设置为false
-# _includes/ext-adsense.html 里面修改为自己的配置
-extAdsense: false
-
-# 数学公式支持，比较影响加载速度,不需要请设置为false
-extMath: true
-
-# 显示访问量统计，由不蒜子提供服务
-extCount: true
-
-# 在myblog/pages/links.md中被使用
-# 友情链接
-links:
-#  - title: 文科中的技术宅
-#    url: https://www.townwang.com
-#  - title: Auuu Nya Blog
-#    url: http://mu1er.cn
