@@ -1,80 +1,130 @@
-# 本地运行
+# Zhenyuan Yang Personal Site
 
-一般提交到 github 过个几十秒就可以看到效果，如果你需要对在本地查看效果需要安装 ruby 环境和依赖
+Personal academic website powered by Jekyll.
 
-windows 下推荐在 wsl 下装 ruby，直接一句`apt install build-essential ruby ruby-dev` 就行了
+- Site: https://yangzy723.github.io
+- Focus: research notes, engineering write-ups, selected publications/projects, and recent writing
+
+## Local Development
+
+### Prerequisites
+
+- Ruby: >= 2.7.0 (required by jekyll 4.4.x)
+- Bundler: 2.4.22 (matches Gemfile.lock)
+
+Recommended on macOS:
+
+- Do not rely on system Ruby (/usr/bin/ruby 2.6)
+- Use a Ruby version manager (rbenv or asdf), then install Ruby 3.2+
+
+### 1. Install dependencies
+
+macOS/Linux:
 
 ```bash
-# gem sources --remove https://rubygems.org/
-# gem sources -a https://mirrors.tuna.tsinghua.edu.cn/rubygems/
-# gem sources -l
-# gem sources --clear-all
-# gem sources --update
-gem install bundler
-# bundle config mirror.https://rubygems.org https://mirrors.tuna.tsinghua.edu.cn/rubygems
-# bundle config list
+gem install bundler -v 2.4.22
 bundle install
 ```
 
-通过下面命令启动/编译项目
+Optional mirror setup (China mainland network):
+
+```bash
+bundle config mirror.https://rubygems.org https://mirrors.tuna.tsinghua.edu.cn/rubygems
+bundle install
+```
+
+### 2. Run local server
 
 ```bash
 bundle exec jekyll serve --watch --host=127.0.0.1 --port=8080
+```
+
+Open http://127.0.0.1:8080.
+
+### 3. Build static output
+
+```bash
 bundle exec jekyll build --destination=dist
 ```
 
-如果需要替换代码高亮的样式可以通过下面的命令生成 css
+### Troubleshooting
+
+If you see:
+
+Could not find bundler (2.4.22) required by Gemfile.lock
+
+Run:
 
 ```bash
-rougify help style
-rougify style github > highlighting.css
+gem install --user-install bundler -v 2.4.22
+export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
+bundle _2.4.22_ install
 ```
 
-# 项目配置
+If you then see:
 
-1. 如果使用自己的域名，`CNAME`文件里的内容请换成你自己的域名，然后 CNAME 解析到`用户名.github.com`
+jekyll >= 4.4.0 depends on Ruby >= 2.7.0
 
-2. 如果使用 GitHub 的的域名，请删除`CNAME`文件，然后把你的项目修改为`用户名.github.io`
+Your Ruby is too old. Install newer Ruby with rbenv (recommended):
 
-3. 修改`pages/about.md`中关于我的内容
+```bash
+brew install rbenv ruby-build
+rbenv install 3.2.6
+rbenv local 3.2.6
+gem install bundler -v 2.4.22
+bundle _2.4.22_ install
+```
 
-4. 修改`_config.yml`文件，具体作用请参考注释
+## Content Workflow
 
-5. 清空`posts`和`_posts`目录下所有文件，注意是清空，不是删除这两个目录
+### Write a new post
 
-6. 网站的 logo 和 favicon 放在了`static/img/`下，替换即可，大小无所谓，图片比例最好是 1:1
+Create a markdown file in [_posts](_posts) with filename pattern:
 
-7. 如果你是把项目 fork 过去的，想要删除我的提交记录可以使用下面的命令
+```text
+yyyy-MM-dd-title.md
+```
 
-   ```
-   git checkout --orphan temp
-   git add . && git commit -m init
-   git branch -D master
-   git branch -m temp master
-   git push --force
-   ```
-
-# 使用
-
-文章放在`_posts`目录下，命名为`yyyy-MM-dd-xxxx-xxxx.md`，内容格式如下
+Front matter example:
 
 ```yaml
 ---
 layout: mypost
-title: 标题
-categories: [分类1, 分类2]
+title: My Post Title
+categories: [Category1, Category2]
 ---
-文章内容，Markdown格式
 ```
 
-文章资源放在`posts`目录，如文章文件名是`2019-05-01-theme-usage.md`，则该篇文章的资源需要放在`posts/2019/05/01`下，在文章使用时直接引用即可。当然了，写作的时候会提示资源不存在忽略即可
+### Add post assets
 
-```md
-![这是图片](xxx.png)
+Place post assets under [posts](posts), typically by date path:
 
-[xxx.zip 下载](xxx.zip)
+```text
+posts/yyyy/mm/dd/
 ```
 
-# 致谢
+Then reference assets directly in markdown.
 
-基于一款 jekyll 主题（[GitHub 地址](https://github.com/TMaize/tmaize-blog)），简洁纯净(主题资源请求<20KB)，未引入任何框架，秒开页面，支持自适应，支持全文检索，支持夜间模式
+## Profile and Branding Update Guide
+
+When updating profile information, keep these locations aligned:
+
+1. Hero name and intro: [index.html](index.html)
+2. Header small name and SEO fields: [_config.yml](_config.yml)
+3. Full CV-like details: [pages/about.md](pages/about.md)
+4. Publications list: [_data/publications.yml](_data/publications.yml)
+
+## Deployment Notes
+
+This repository is intended for GitHub Pages style deployment.
+
+- If using username domain, use repository name username.github.io
+- If using custom domain, configure DNS and CNAME accordingly
+
+## Credits
+
+Based on the Jekyll theme tmaize-blog:
+
+- https://github.com/TMaize/tmaize-blog
+
+Customized for personal academic homepage layout, bilingual profile display, and research-oriented content organization.

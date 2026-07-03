@@ -3,15 +3,14 @@ layout: mypost
 title: About
 ---
 
-I am an M.S. student at the Institute of Software, Chinese Academy of Sciences.
-My primary interests are AI systems, systems optimization, and high-performance infrastructure.
+I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, focusing on AI systems and high-performance infrastructure. This site contains my research notes, engineering write-ups, and selected work.
 
 ## Education
 
 | Period | Institution | Program |
 | --- | --- | --- |
 | 2021.09 - 2025.06 | Nanjing University | B.Eng. in Computer Science and Technology |
-| 2025.09 - Present | Institute of Software, CAS | M.S. in Computer Science and Technology |
+| 2025.09 - Present | Institute of Software, Chinese Academy of Sciences | M.S. in Computer Science and Technology |
 
 ## Awards
 
@@ -33,6 +32,7 @@ My primary interests are AI systems, systems optimization, and high-performance 
 ## Projects
 
 - Zhenyuan Yang. SoulKnight: a roguelike game project built with LibGDX and Netty. [GitHub](https://github.com/yangzy723/SoulKnight)
+- Zhenyuan Yang. vGPU: a GPU kernel hooking and dispatching library. [GitHub](https://github.com/yangzy723/vGPU)
 
 ## Skills
 
