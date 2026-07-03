@@ -14,9 +14,9 @@ I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, 
 
 ## Awards
 
-- SOSP 2025 SRC First Prize
-- Nanjing University Outstanding Graduate
-- Nanjing University Outstanding Student
+{% for award in site.data.awards %}
+- {{ award }}
+{% endfor %}
 
 ## Research Interests
 
@@ -25,14 +25,15 @@ I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, 
 - Performance isolation and determinism in GPU sharing
 
 ## Selected Works
-- **Zhenyuan Yang**, Shicheng Deng, Zhao Zhang, Mingyu Li, Leibin Ni, Han Lin, Mengying Guo, Tao Wang and Haibo Chen. Harmonizing PIM-Accelerated LLM Inference and Mobile Applications via Spatial-Temporal Isolation. (Under Review)
-- **Zhenyuan Yang**, Wenxin Zheng, Mingyu Li, Haibo Chen. Performance Isolation and Semantic Determinism in Efficient GPU Spatial Sharing. *arXiv:2603.15042* (2026). [arXiv](https://arxiv.org/abs/2603.15042)
-- Yuan Wang, **Zhenyuan Yang**, Zhanbo Wang, Mingyu Li, Zhilin Wu, Haibo Chen. Towards Large Language Model-Friendly APIs. *ACM SIGOPS Operating Systems Review* 59(1):17-23. [DOI](https://doi.org/10.1145/3759441.3759445)
+{% for paper in site.data.publications %}
+- {{ paper.authors }}. {% if paper.url %}[{{ paper.title }}]({{ paper.url }}){% else %}{{ paper.title }}{% endif %}.{% if paper.venue %} *{{ paper.venue }}*{% endif %}{% if paper.note %}, {{ paper.note }}{% endif %}.
+{% endfor %}
 
 ## Projects
 
-- Zhenyuan Yang. SoulKnight: a roguelike game project built with LibGDX and Netty. [GitHub](https://github.com/yangzy723/SoulKnight)
-- Zhenyuan Yang. vGPU: a GPU kernel hooking and dispatching library. [GitHub](https://github.com/yangzy723/vGPU)
+{% for project in site.data.projects %}
+- {{ project.name }}: {{ project.description }} [GitHub]({{ project.url }})
+{% endfor %}
 
 ## Skills
 

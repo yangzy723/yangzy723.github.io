@@ -93,7 +93,10 @@
 }
 
 .portal-card h3 {
+  font-family: var(--font-sans);
   font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
   margin-bottom: 4px;
 }
 
@@ -157,6 +160,18 @@
 .project-list li a,
 .award-list .award-name {
   line-height: 1.6;
+}
+
+.project-list .project-link {
+  font-weight: 600;
+}
+
+.project-list .project-desc {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.65;
 }
 
 .portal-more {

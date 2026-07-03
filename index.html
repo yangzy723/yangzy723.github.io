@@ -53,11 +53,12 @@ title: Home
           <h3>Projects</h3>
           <p>Systems engineering projects and open-source work.</p>
           <ul class="project-list">
-            <li><a href="https://github.com/yangzy723/SoulKnight" target="_blank" rel="noopener">SoulKnight (LibGDX +
-                Netty)</a></li>
-            <li><a href="https://github.com/yangzy723/vGPU" target="_blank" rel="noopener">vGPU</a>. A GPU kernel
-              hooking and
-              dispatching library.</li>
+            {% for project in site.data.projects %}
+            <li>
+              <a class="project-link" href="{{ project.url }}" target="_blank" rel="noopener">{{ project.name }}</a>
+              <span class="project-desc">{{ project.description }}</span>
+            </li>
+            {% endfor %}
             <li><a href="https://github.com/yangzy723" target="_blank" rel="noopener">More repositories on GitHub</a>
             </li>
           </ul>
@@ -67,15 +68,11 @@ title: Home
           <h3>Awards</h3>
           <p>Selected honors and competition achievements.</p>
           <ul class="award-list">
+            {% for award in site.data.awards %}
             <li>
-              <span class="award-name">SOSP 2025 SRC First Prize</span>
+              <span class="award-name">{{ award }}</span>
             </li>
-            <li>
-              <span class="award-name">Nanjing University Outstanding Graduate</span>
-            </li>
-            <li>
-              <span class="award-name">Nanjing University Outstanding Student</span>
-            </li>
+            {% endfor %}
           </ul>
         </article>
       </div>
