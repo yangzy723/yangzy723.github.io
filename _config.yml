@@ -1,9 +1,9 @@
 encoding: utf-8
 
 # SEO相关信息
-title: yangzy's homepage
-description: 杨镇源的个人主页
-keywords: 个人主页
+title: Zhenyuan Yang
+description: Personal website of Zhenyuan Yang
+keywords: AI systems, performance engineering, research notes
 author: 杨镇源
 
 # 这些不要动
@@ -26,11 +26,11 @@ baseurl: ''
 # 必填字段 title: '文本' url: '链接'
 # 可选字段 target: '_blank' 新页面打开 
 menu:
-  - title: 首页
+  - title: Home
     url: /
-  - title: 归类
+  - title: Categories
     url: /pages/categories.html
-  - title: 关于
+  - title: About
     url: /pages/about.html
 
 # 数学公式支持，默认关闭，需要时在文章 front matter 中按需开启

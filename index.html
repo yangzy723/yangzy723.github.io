@@ -30,11 +30,16 @@ title: Home
         <h3>Publications</h3>
         <p>Selected publications and active submissions.</p>
         <ul>
-          <li><a href="https://doi.org/10.1145/3759441.3759445" target="_blank" rel="noopener">Towards Large Language
-              Model-Friendly APIs</a></li>
-          <li>Anonymous submission (under review, 2026)</li>
-          <li><a href="https://arxiv.org/abs/2603.15042" target="_blank" rel="noopener">Efficient GPU Spatial
-              Sharing</a></li>
+          {%- for paper in site.data.publications limit:3 %}
+          <li>
+            {%- if paper.url %}
+            <a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a>
+            {%- else %}
+            {{ paper.title }}
+            {%- endif %}
+            {%- if paper.venue %} ({{ paper.venue }}){%- endif %}
+          </li>
+          {%- endfor %}
         </ul>
         <a class="portal-more" href="{{site.baseurl}}/pages/about.html">View full list</a>
       </article>

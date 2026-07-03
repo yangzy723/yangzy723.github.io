@@ -32,7 +32,7 @@ My primary interests are AI systems, systems optimization, and high-performance 
 
 - Languages: Java, C, C++, Python
 - Systems: Linux, Docker, CMake, GDB, Git
-- AI Infra: PyTorch, ONNX, TensorRT, CUDA
+- AI Infra: PyTorch, DeepSpeed, TensorRT, CUDA
 
 ## Personal Interests
 

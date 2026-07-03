@@ -56,10 +56,11 @@
 }
 
 .hero-avatar {
-  width: 156px;
-  height: 156px;
+  width: 168px;
+  height: 208px;
   border-radius: 18px;
   object-fit: cover;
+  object-position: center 20%;
   border: 1px solid #dce4ef;
   box-shadow: 0 12px 30px rgba(17, 37, 70, 0.22);
 }
@@ -295,7 +296,7 @@
 
   .hero-avatar {
     width: 118px;
-    height: 118px;
+    height: 146px;
     border-radius: 18px;
   }
 

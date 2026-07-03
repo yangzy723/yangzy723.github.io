@@ -1,0 +1,16 @@
+- authors: "Zhenyuan Yang, Shicheng Deng, Zhao Zhang, Mingyu Li, Leibin Ni, Han Lin, Mengying Guo, Tao Wang, Haibo Chen"
+  title: "Harmonizing PIM-Accelerated LLM Inference and Mobile Applications via Spatial-Temporal Isolation"
+  venue: "Under Review"
+  note: "2026"
+
+- authors: "Zhenyuan Yang, Wenxin Zheng, Mingyu Li, Haibo Chen"
+  title: "Performance Isolation and Semantic Determinism in Efficient GPU Spatial Sharing"
+  venue: "arXiv"
+  note: "2603.15042 (2026)"
+  url: "https://arxiv.org/abs/2603.15042"
+
+- authors: "Yuan Wang, Zhenyuan Yang, Zhanbo Wang, Mingyu Li, Zhilin Wu, Haibo Chen"
+  title: "Towards Large Language Model-Friendly APIs"
+  venue: "ACM SIGOPS Operating Systems Review"
+  note: "59(1):17-23"
+  url: "https://doi.org/10.1145/3759441.3759445"
