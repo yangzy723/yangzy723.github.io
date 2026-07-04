@@ -1,6 +1,14 @@
 html.dark {
-  color: #d5deeb;
-  background: #0c1422;
+  --bg: #0c1422;
+  --surface: #111d30;
+  --surface-soft: #111d30;
+  --text-main: #dbe6f7;
+  --text-muted: #9eb0c9;
+  --line: #2f3b52;
+  --accent: #9ec8ff;
+  --accent-soft: #1a2e4a;
+  color: var(--text-main);
+  background: var(--bg);
 }
 
 html.dark body::before {
@@ -83,6 +91,19 @@ html.dark .list-category div a:hover {
 
 html.dark .portal-card li {
   border-bottom-color: #2f3b52;
+}
+
+html.dark .pub-list .pub-title,
+html.dark .pub-list .pub-title a,
+html.dark .project-list .project-link,
+html.dark .award-list .award-name,
+html.dark .portal-card li {
+  color: #dbe6f7;
+}
+
+html.dark .project-list .project-desc,
+html.dark .portal-card p {
+  color: #9eb0c9;
 }
 
 html.dark .pub-list .pub-meta span {
