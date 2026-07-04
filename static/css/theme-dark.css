@@ -101,6 +101,13 @@ html.dark .portal-card li {
   color: #dbe6f7;
 }
 
+html.dark .portal-card-publications .pub-item,
+html.dark .portal-card-publications .pub-title,
+html.dark .portal-card-publications .pub-title a {
+  color: #e6efff !important;
+  opacity: 1 !important;
+}
+
 html.dark .project-list .project-desc,
 html.dark .portal-card p {
   color: #9eb0c9;
