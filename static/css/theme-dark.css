@@ -108,6 +108,13 @@ html.dark .portal-card-publications .pub-title a {
   opacity: 1 !important;
 }
 
+html.dark .page-search h1,
+html.dark .page-search h1 span,
+html.dark .page-search .list-search .title,
+html.dark .page-search .list-search .title a {
+  color: #e6efff !important;
+}
+
 html.dark .project-list .project-desc,
 html.dark .portal-card p {
   color: #9eb0c9;
