@@ -1,4 +1,4 @@
-# Zhenyuan Yang Personal Site
+# Personal Site
 
 Personal academic website powered by Jekyll.
 
@@ -47,34 +47,6 @@ Open http://127.0.0.1:8080.
 bundle exec jekyll build --destination=dist
 ```
 
-### Troubleshooting
-
-If you see:
-
-Could not find bundler (2.4.22) required by Gemfile.lock
-
-Run:
-
-```bash
-gem install --user-install bundler -v 2.4.22
-export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
-bundle _2.4.22_ install
-```
-
-If you then see:
-
-jekyll >= 4.4.0 depends on Ruby >= 2.7.0
-
-Your Ruby is too old. Install newer Ruby with rbenv (recommended):
-
-```bash
-brew install rbenv ruby-build
-rbenv install 3.2.6
-rbenv local 3.2.6
-gem install bundler -v 2.4.22
-bundle _2.4.22_ install
-```
-
 ## Content Workflow
 
 ### Write a new post
@@ -116,61 +88,6 @@ When updating profile information, keep these locations aligned:
 5. Publications data: [_data/publications.yml](_data/publications.yml)
 6. Projects data: [_data/projects.yml](_data/projects.yml)
 7. Awards data: [_data/awards.yml](_data/awards.yml)
-
-## Data Model
-
-### Publications
-
-Publications are stored in [_data/publications.yml](_data/publications.yml) and rendered in both [index.html](index.html) and [pages/about.md](pages/about.md).
-
-Recommended fields:
-
-- authors: full author string
-- title: paper title
-- status: one of under_review / preprint / published
-- venue: conference, journal, or platform (for example, arXiv)
-- note: volume, issue, pages, or identifier
-- year: publication/release year (number)
-- url: optional external link
-
-Example:
-
-```yaml
-- authors: "A, B, C"
-	title: "Example Paper"
-	status: "published"
-	venue: "Example Journal"
-	note: "12(3):45-67"
-	year: 2026
-	url: "https://example.org"
-```
-
-## Deployment Notes
-
-This repository is intended for GitHub Pages style deployment.
-
-- If using username domain, use repository name username.github.io
-- If using custom domain, configure DNS and CNAME accordingly
-
-### GitHub Pages Actions Failure: "Deployment failed, try again later"
-
-If GitHub Actions shows this at the `deploy-pages` step:
-
-- This is often a temporary GitHub Pages service-side failure.
-- A warning like `punycode module is deprecated` is usually not the root cause.
-
-Recommended checks:
-
-1. Re-run failed workflow jobs from Actions.
-2. Confirm repository Pages source is set to GitHub Actions.
-3. Confirm build succeeds locally:
-
-```bash
-bundle exec jekyll build
-```
-
-4. Confirm latest commit is pushed to `main`.
-5. After deployment succeeds, hard refresh browser cache (`Cmd+Shift+R` on macOS).
 
 ## Credits
 
