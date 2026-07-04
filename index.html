@@ -39,8 +39,10 @@ title: Home
               {%- endif %}
             </div>
             <div class="pub-meta">
+              {%- if paper.status %}<span>{{ paper.status | replace: "_", " " | capitalize }}</span>{%- endif %}
               {%- if paper.venue %}<span>{{ paper.venue }}</span>{%- endif %}
               {%- if paper.note %}<span>{{ paper.note }}</span>{%- endif %}
+              {%- if paper.year %}<span>{{ paper.year }}</span>{%- endif %}
             </div>
           </li>
           {%- endfor %}

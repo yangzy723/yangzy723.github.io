@@ -26,7 +26,7 @@ I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, 
 
 ## Selected Works
 {% for paper in site.data.publications %}
-- {{ paper.authors }}. {% if paper.url %}[{{ paper.title }}]({{ paper.url }}){% else %}{{ paper.title }}{% endif %}.{% if paper.venue %} *{{ paper.venue }}*{% endif %}{% if paper.note %}, {{ paper.note }}{% endif %}.
+- {{ paper.authors }}. {% if paper.url %}[{{ paper.title }}]({{ paper.url }}){% else %}{{ paper.title }}{% endif %}.{% if paper.status %} [{{ paper.status | replace: "_", " " | capitalize }}]{% endif %}{% if paper.venue %} *{{ paper.venue }}*{% endif %}{% if paper.note %}, {{ paper.note }}{% endif %}{% if paper.year %}, {{ paper.year }}{% endif %}.
 {% endfor %}
 
 ## Projects
