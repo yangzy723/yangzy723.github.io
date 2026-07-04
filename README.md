@@ -88,7 +88,7 @@ posts/yyyy/mm/dd/
 
 Then reference assets directly in markdown.
 
-## Profile and Branding Update Guide
+### Profile and Branding Update Guide
 
 When updating profile information, keep these locations aligned:
 
