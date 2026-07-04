@@ -9,21 +9,30 @@ Personal academic website powered by Jekyll.
 
 ### Prerequisites
 
-- Ruby: >= 2.7.0 (required by jekyll 4.4.x)
+- Conda (Miniconda or Anaconda)
+- Ruby: 3.2.x (installed in conda env)
 - Bundler: 2.4.22 (matches Gemfile.lock)
-
-Recommended on macOS:
-
-- Do not rely on system Ruby (/usr/bin/ruby 2.6)
-- Use a Ruby version manager (rbenv or asdf), then install Ruby 3.2+
 
 ### 1. Install dependencies
 
-macOS/Linux:
+Use this exact setup (macOS/Linux, conda):
 
 ```bash
+conda create -n homepage -c conda-forge ruby=3.2 -y
+conda activate homepage
+
+which ruby
+ruby --version
+
 gem install bundler -v 2.4.22
 bundle install
+```
+
+If your shell still resolves `/usr/bin/ruby`, use explicit binaries from conda env:
+
+```bash
+"$CONDA_PREFIX/bin/gem" install bundler -v 2.4.22
+"$CONDA_PREFIX/bin/bundle" _2.4.22_ install
 ```
 
 Optional mirror setup (China mainland network):
@@ -36,7 +45,8 @@ bundle install
 ### 2. Run local server
 
 ```bash
-bundle exec jekyll serve --watch --host=127.0.0.1 --port=8080
+conda activate homepage
+bundle _2.4.22_ exec jekyll serve --watch --host=127.0.0.1 --port=8080
 ```
 
 Open http://127.0.0.1:8080.
@@ -44,7 +54,8 @@ Open http://127.0.0.1:8080.
 ### 3. Build static output
 
 ```bash
-bundle exec jekyll build --destination=dist
+conda activate homepage
+bundle _2.4.22_ exec jekyll build --destination=dist
 ```
 
 ## Content Workflow

@@ -1,144 +1,167 @@
-// 加载所有文章数据，优先使用localStorage缓存
-function loadAllPostData(callback) {
-  if (localStorage.db && localStorage.dbVersion == blog.buildAt) {
-    document.querySelector('.page-search .icon-loading').style.opacity = 0
-    callback ? callback(localStorage.db) : ''
-    return
-  }
-
-  localStorage.removeItem('dbVersion')
-  localStorage.removeItem('db')
-
-  blog.ajax(
-    {
-      timeout: 20000,
-      url: blog.baseurl + '/static/xml/search.xml?t=' + blog.buildAt
-    },
-    function (data) {
-      document.querySelector('.page-search .icon-loading').style.opacity = 0
-      localStorage.db = data
-      localStorage.dbVersion = blog.buildAt
-      callback ? callback(data) : ''
-    },
-    function () {
-      console.error('全文检索数据加载失败...')
-      callback ? callback(null) : ''
-    }
-  )
-}
-
-// 搜索功能
 blog.addLoadEvent(function () {
-  // 标题等信息
-  let titles = []
-  // 正文内容
-  let contents = []
-  // 低版本chrome，输入拼音的过程中也会触发input事件
-  let inputLock = false
-  // 输入框
-  let input = document.getElementById('search-input')
+  var input = document.getElementById('search-input')
+  if (!input) return
 
-  // 非搜索页面
-  if (!input) {
-    return
+  var loadingIcon = document.querySelector('.page-search .icon-loading')
+  var items = document.querySelectorAll('.list-search li')
+  var rawTitles = []
+  var contents = null
+  var pendingPromise = null
+  var inputLock = false
+  var debounceTimer = null
+  var CACHE_KEY = 'search_db'
+  var CACHE_VERSION_KEY = 'search_db_version'
+  var cacheVersion = blog.buildAt || 'static'
+
+  for (var i = 0; i < items.length; i++) {
+    var titleEl = items[i].querySelector('.title')
+    rawTitles.push(titleEl ? titleEl.textContent || '' : '')
   }
 
-  loadAllPostData(function (data) {
-    titles = parseTitle()
-    contents = parseContent(data)
-    search(input.value)
-  })
+  function setLoading(isLoading) {
+    if (!loadingIcon) return
+    loadingIcon.style.opacity = isLoading ? 1 : 0
+  }
 
-  function parseTitle() {
-    let arr = []
-    let doms = document.querySelectorAll('.list-search .title')
-    for (let i = 0; i < doms.length; i++) {
-      arr.push(doms[i].innerHTML)
+  function parseContent(xmlText) {
+    var arr = []
+    if (!xmlText) return arr
+
+    try {
+      var xml = new DOMParser().parseFromString(xmlText, 'application/xml')
+      var nodes = xml.querySelectorAll('li')
+      for (var i = 0; i < nodes.length; i++) {
+        arr.push(nodes[i].textContent || '')
+      }
+      return arr
+    } catch (e) {
+      return arr
     }
-    return arr
   }
 
-  function parseContent(data) {
-    let arr = []
-    let root = document.createElement('div')
-    root.innerHTML = data
-    let doms = root.querySelectorAll('li')
-    for (let i = 0; i < doms.length; i++) {
-      arr.push(doms[i].innerHTML)
+  function ensureContentLoaded() {
+    if (contents) return Promise.resolve(contents)
+    if (pendingPromise) return pendingPromise
+
+    var cachedVersion = localStorage.getItem(CACHE_VERSION_KEY)
+    var cachedData = localStorage.getItem(CACHE_KEY)
+    if (cachedData && cachedVersion === cacheVersion) {
+      contents = parseContent(cachedData)
+      return Promise.resolve(contents)
     }
-    return arr
+
+    setLoading(true)
+    pendingPromise = new Promise(function (resolve) {
+      blog.ajax(
+        {
+          timeout: 20000,
+          url: blog.baseurl + '/static/xml/search.xml'
+        },
+        function (data) {
+          try {
+            localStorage.setItem(CACHE_KEY, data)
+            localStorage.setItem(CACHE_VERSION_KEY, cacheVersion)
+          } catch (e) {
+            // ignore storage quota errors
+          }
+          contents = parseContent(data)
+          setLoading(false)
+          pendingPromise = null
+          resolve(contents)
+        },
+        function () {
+          setLoading(false)
+          pendingPromise = null
+          resolve([])
+        }
+      )
+    })
+
+    return pendingPromise
   }
 
-  function search(key) {
-    // <>& 替换
-    key = blog.trim(key)
+  function hideAll() {
+    for (var i = 0; i < items.length; i++) {
+      var titleEl = items[i].querySelector('.title')
+      var contentEl = items[i].querySelector('.content')
+      if (titleEl) titleEl.textContent = rawTitles[i] || ''
+      if (contentEl) contentEl.textContent = ''
+      items[i].setAttribute('hidden', true)
+    }
+  }
+
+  function runSearch(keyword) {
+    var key = blog.trim(keyword || '')
     key = key.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')
 
-    let doms = document.querySelectorAll('.list-search li')
-    let h1 = '<span class="hint">'
-    let h2 = '</span>'
-    for (let i = 0; i < doms.length; i++) {
-      let title = titles[i]
-      let content = contents[i]
-      let dom_li = doms[i]
-      let dom_title = dom_li.querySelector('.title')
-      let dom_content = dom_li.querySelector('.content')
+    if (!key) {
+      hideAll()
+      return
+    }
 
-      dom_title.innerHTML = title
-      dom_content.innerHTML = ''
+    var markStart = '<span class="hint">'
+    var markEnd = '</span>'
+    var keyRegGlobal = new RegExp(blog.encodeRegChar(key), 'gi')
+    var keyRegSingle = new RegExp(blog.encodeRegChar(key), 'i')
 
-      // 空字符隐藏
-      if (key == '') {
-        dom_li.setAttribute('hidden', true)
-        continue
-      }
-      let hide = true
-      let r1 = new RegExp(blog.encodeRegChar(key), 'gi')
-      let r2 = new RegExp(blog.encodeRegChar(key), 'i')
+    for (var i = 0; i < items.length; i++) {
+      var title = rawTitles[i] || ''
+      var content = (contents && contents[i]) || ''
+      var li = items[i]
+      var titleEl = li.querySelector('.title')
+      var contentEl = li.querySelector('.content')
+      var matched = false
 
-      // 标题全局替换
-      if (r1.test(title)) {
-        hide = false
-        dom_title.innerHTML = title.replace(r1, h1 + key + h2)
+      if (titleEl) titleEl.textContent = title
+      if (contentEl) contentEl.textContent = ''
+
+      if (keyRegSingle.test(title)) {
+        matched = true
+        if (titleEl) titleEl.innerHTML = title.replace(keyRegGlobal, markStart + key + markEnd)
       }
-      // 内容先找到第一个，然后确定100个字符，再对这100个字符做全局替换
-      let cResult = r2.exec(content)
-      if (cResult) {
-        hide = false
-        let index = cResult.index
-        let leftShifting = 10
-        let left = index - leftShifting
-        let right = index + (100 - leftShifting)
-        if (left < 0) {
-          right = right - left
-        }
-        content = content.substring(left, right)
-        dom_content.innerHTML = content.replace(r1, h1 + key + h2) + '...'
+
+      var contentMatch = keyRegSingle.exec(content)
+      if (contentMatch) {
+        matched = true
+        var idx = contentMatch.index
+        var start = Math.max(0, idx - 10)
+        var end = Math.min(content.length, idx + 90)
+        var snippet = content.substring(start, end)
+        if (contentEl) contentEl.innerHTML = snippet.replace(keyRegGlobal, markStart + key + markEnd) + '...'
+      } else if (matched && content && contentEl) {
+        contentEl.textContent = content.substring(0, 100) + '...'
       }
-      // 内容未命中标题命中，内容直接展示前100个字符
-      if (!cResult && !hide && content) {
-        dom_content.innerHTML = content.substring(0, 100) + '...'
-      }
-      if (hide) {
-        dom_li.setAttribute('hidden', true)
-      } else {
-        dom_li.removeAttribute('hidden')
-      }
+
+      if (matched) li.removeAttribute('hidden')
+      else li.setAttribute('hidden', true)
     }
   }
 
+  function handleInput(value) {
+    if (debounceTimer) clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(function () {
+      if (!blog.trim(value || '')) {
+        hideAll()
+        return
+      }
+      ensureContentLoaded().then(function () {
+        runSearch(value)
+      })
+    }, 140)
+  }
+
+  hideAll()
+
   blog.addEvent(input, 'input', function (event) {
-    if (!inputLock) {
-      search(event.target.value)
-    }
+    if (!inputLock) handleInput(event.target.value)
   })
 
-  blog.addEvent(input, 'compositionstart', function (event) {
+  blog.addEvent(input, 'compositionstart', function () {
     inputLock = true
   })
 
   blog.addEvent(input, 'compositionend', function (event) {
     inputLock = false
-    search(event.target.value)
+    handleInput(event.target.value)
   })
 })
