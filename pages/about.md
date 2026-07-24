@@ -3,7 +3,7 @@ layout: mypost
 title: About
 lang: en
 eyebrow: Research profile
-subtitle: AI systems researcher focused on efficient inference, predictable GPU sharing, and collaborative edge–cloud systems.
+subtitle: AI systems researcher focused on efficient inference, predictable GPU sharing, and edge–cloud systems.
 page_class: page-about
 description: Research profile, publications, projects, experience, and contact information for Zhenyuan Yang.
 permalink: /pages/about.html

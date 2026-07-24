@@ -324,13 +324,22 @@
 }
 
 .page-about {
-  max-width: 880px;
+  max-width: 940px;
+}
+
+.page-about .post-deck {
+  max-width: 740px;
 }
 
 .page-about .about-summary {
+  max-width: 740px;
   color: var(--text-muted);
   font-size: 16px;
   line-height: 1.85;
+}
+
+.page-about .post > ul {
+  max-width: 740px;
 }
 
 .page-about .about-publications {
