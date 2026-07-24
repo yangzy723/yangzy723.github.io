@@ -6,28 +6,33 @@
       <span>AI Systems &amp; Infrastructure</span>
     </span>
   </a>
-  <nav class="menu" aria-label="Main navigation">
-    {% for menu in site.menu -%}
+  <div class="header-actions">
+    <nav class="menu" aria-label="Main navigation">
+      {% for menu in site.menu -%}
 
-    {%- assign target = "" %}
-    {%- assign rel = "" %}
-    {%- if menu.target %}
-    {% capture target %}target="{{ menu.target }}"{% endcapture %}
-    {% assign rel = 'rel="noopener noreferrer"' %}
-    {%- endif %}
+      {%- assign target = "" %}
+      {%- assign rel = "" %}
+      {%- if menu.target %}
+      {% capture target %}target="{{ menu.target }}"{% endcapture %}
+      {% assign rel = 'rel="noopener noreferrer"' %}
+      {%- endif %}
 
-    {%- assign href = menu.url %}
-    {%- unless href contains "://" %}
-    {% capture href %}{{ site.baseurl }}{{ menu.url }}{% endcapture %}
-    {%- endunless -%}
+      {%- assign href = menu.url %}
+      {%- unless href contains "://" %}
+      {% capture href %}{{ site.baseurl }}{{ menu.url }}{% endcapture %}
+      {%- endunless -%}
 
-    {%- assign is_active = false -%}
-    {%- if menu.url == page.url -%}
-    {%- assign is_active = true -%}
-    {%- elsif page.url != "/" and menu.url contains page.url -%}
-    {%- assign is_active = true -%}
-    {%- endif -%}
-    <a href="{{href}}" {{target}} {{rel}} class="menu-link{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>{{ menu.title }}</a>
-    {% endfor -%}
-  </nav>
+      {%- assign is_active = false -%}
+      {%- if menu.url == page.url -%}
+      {%- assign is_active = true -%}
+      {%- elsif page.url != "/" and menu.url contains page.url -%}
+      {%- assign is_active = true -%}
+      {%- endif -%}
+      <a href="{{href}}" {{target}} {{rel}} class="menu-link{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>{{ menu.title }}</a>
+      {% endfor -%}
+    </nav>
+    <button class="theme-toggle theme-toggler" type="button" aria-label="{% if page.lang == "en" %}Switch color theme{% else %}切换颜色主题{% endif %}" aria-pressed="false" hidden>
+      <i class="svg-icon icon-theme-light" aria-hidden="true"></i>
+    </button>
+  </div>
 </header>

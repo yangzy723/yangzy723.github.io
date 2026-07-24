@@ -446,3 +446,33 @@
     padding: 18px;
   }
 }
+
+@media print {
+  .page-post,
+  html.dark .page-post {
+    padding: 0;
+    border: 0;
+    color: #111111;
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  .post-navigation,
+  .heading-anchor,
+  .image-dialog {
+    display: none !important;
+  }
+
+  .page-post a {
+    color: #111111;
+    text-decoration: underline;
+  }
+
+  .page-post pre,
+  html.dark .page-post pre,
+  .page-post code,
+  html.dark .page-post code {
+    color: #111111;
+    background: #f5f5f5;
+  }
+}

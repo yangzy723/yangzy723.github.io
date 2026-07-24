@@ -39,7 +39,7 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
       <article class="portal-card portal-card-publications">
         <div class="card-title-row">
           <h3>Publications</h3>
-          <span>{{ site.data.publications | size }}</span>
+          <span aria-label="{{ site.data.publications | size }} publications" title="{{ site.data.publications | size }} publications">{{ site.data.publications | size }}</span>
         </div>
         <p>Research papers, preprints, and ongoing work.</p>
         <ul class="pub-list">
@@ -47,7 +47,7 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
           <li class="pub-item">
             <div class="pub-title">
               {%- if paper.url %}
-              <a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a>
+              <a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">{{ paper.title }}</a>
               {%- else %}
               {{ paper.title }}
               {%- endif %}
@@ -67,25 +67,23 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
         <article class="portal-card">
           <div class="card-title-row">
             <h3>Projects</h3>
-            <span>{{ site.data.projects | size }}</span>
+            <span aria-label="{{ site.data.projects | size }} projects" title="{{ site.data.projects | size }} projects">{{ site.data.projects | size }}</span>
           </div>
           <p>Open-source systems and engineering projects.</p>
           <ul class="project-list">
             {% for project in site.data.projects %}
             <li>
-              <a class="project-link" href="{{ project.url }}" target="_blank" rel="noopener">{{ project.name }}</a>
+              <a class="project-link" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">{{ project.name }}</a>
               <span class="project-desc">{{ project.description }}</span>
             </li>
             {% endfor %}
-            <li><a href="https://github.com/yangzy723" target="_blank" rel="noopener">More repositories on GitHub</a>
-            </li>
           </ul>
-          <a class="portal-more" href="https://github.com/yangzy723" target="_blank" rel="noopener">Open GitHub</a>
+          <a class="portal-more" href="https://github.com/yangzy723" target="_blank" rel="noopener noreferrer">Open GitHub</a>
         </article>
         <article class="portal-card">
           <div class="card-title-row">
             <h3>Awards</h3>
-            <span>{{ site.data.awards | size }}</span>
+            <span aria-label="{{ site.data.awards | size }} awards" title="{{ site.data.awards | size }} awards">{{ site.data.awards | size }}</span>
           </div>
           <p>Selected honors and competition achievements.</p>
           <ul class="award-list">

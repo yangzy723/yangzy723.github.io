@@ -1,68 +1,82 @@
-# Personal Site
+# Zhenyuan Yang — Personal Academic Site
 
-Personal academic website powered by Jekyll.
+Personal academic website powered by Jekyll, focused on AI systems research, engineering notes,
+publications, and open-source projects.
 
-- Site: https://yangzy723.github.io
-- Focus: research notes, engineering write-ups, selected publications/projects, and recent writing
+- Live site: <https://yangzy723.github.io>
+- Runtime: Jekyll 4.4 on Ruby 3.2
+- Local environment: conda `agent`
 
 ## Local Development
 
-### Prerequisites
+The repository includes [environment.yml](environment.yml) for the native Ruby toolchain and
+[Gemfile.lock](Gemfile.lock) for reproducible Jekyll dependencies.
 
-- Conda (Miniconda or Anaconda)
-- Ruby: 3.2.x (installed in conda env)
-- Bundler: 2.4.22 (matches Gemfile.lock)
+### 1. Prepare the conda `agent` environment
 
-### 1. Install dependencies
-
-Use this exact setup (macOS/Linux, conda):
+For the existing `agent` environment:
 
 ```bash
-conda create -n homepage -c conda-forge ruby=3.2 -y
-conda activate homepage
-
-which ruby
-ruby --version
-
-gem install bundler -v 2.4.22
-bundle install
+env -u HTTP_PROXY -u HTTPS_PROXY -u http_proxy -u https_proxy \
+  conda env update -n agent -f environment.yml
+conda activate agent
+hash -r
 ```
 
-If your shell still resolves `/usr/bin/ruby`, use explicit binaries from conda env:
+On a new machine where `agent` does not exist:
 
 ```bash
-"$CONDA_PREFIX/bin/gem" install bundler -v 2.4.22
-"$CONDA_PREFIX/bin/bundle" _2.4.22_ install
+env -u HTTP_PROXY -u HTTPS_PROXY -u http_proxy -u https_proxy \
+  conda env create -f environment.yml
+conda activate agent
 ```
 
-Optional mirror setup (China mainland network):
+Install the Bundler version recorded in the lockfile and the project gems:
 
 ```bash
-bundle config mirror.https://rubygems.org https://mirrors.tuna.tsinghua.edu.cn/rubygems
-bundle install
+env -u HTTP_PROXY -u HTTPS_PROXY -u http_proxy -u https_proxy \
+  "$CONDA_PREFIX/bin/gem" install bundler -v 2.4.22 --no-document --force
+env -u HTTP_PROXY -u HTTPS_PROXY -u http_proxy -u https_proxy \
+  "$CONDA_PREFIX/bin/bundle" _2.4.22_ install
 ```
 
-### 2. Run local server
+Verify that the environment is being used:
 
 ```bash
-conda activate homepage
-bundle _2.4.22_ exec jekyll serve --watch --host=127.0.0.1 --port=8080
+"$CONDA_PREFIX/bin/ruby" --version
+"$CONDA_PREFIX/bin/bundle" _2.4.22_ --version
+"$CONDA_PREFIX/bin/bundle" _2.4.22_ exec jekyll --version
 ```
 
-Open http://127.0.0.1:8080.
+The explicit `$CONDA_PREFIX/bin/...` paths prevent macOS `/usr/bin/ruby` from being selected when
+the shell has cached or reordered command paths.
 
-### 3. Build static output
+### 2. Run the local server
 
 ```bash
-conda activate homepage
-bundle _2.4.22_ exec jekyll build --destination=dist
+conda activate agent
+"$CONDA_PREFIX/bin/bundle" _2.4.22_ exec jekyll serve \
+  --watch --host=127.0.0.1 --port=8080
 ```
+
+Open <http://127.0.0.1:8080>. Changes to pages, posts, data, CSS, and JavaScript are rebuilt
+automatically.
+
+### 3. Build the production output
+
+```bash
+conda activate agent
+JEKYLL_ENV=production "$CONDA_PREFIX/bin/bundle" _2.4.22_ exec jekyll build \
+  --destination=dist
+```
+
+The generated `dist/` directory is ignored by Git.
 
 ## Content Workflow
 
 ### Write a new post
 
-Create a markdown file in [_posts](_posts) with filename pattern:
+Create a Markdown file in [_posts](_posts) using the filename pattern:
 
 ```text
 yyyy-MM-dd-title.md
@@ -78,32 +92,29 @@ categories: [Category1, Category2]
 ---
 ```
 
-### Add post assets
+Place post assets under [posts](posts), typically using a date path such as
+`posts/yyyy/mm/dd/`, then reference them directly from Markdown.
 
-Place post assets under [posts](posts), typically by date path:
+### Keep profile content aligned
 
-```text
-posts/yyyy/mm/dd/
-```
+When updating profile information, check these sources together:
 
-Then reference assets directly in markdown.
+1. Homepage introduction: [index.html](index.html)
+2. Site identity, navigation, and SEO: [_config.yml](_config.yml)
+3. Full profile and research history: [pages/about.md](pages/about.md)
+4. Publications: [_data/publications.yml](_data/publications.yml)
+5. Projects: [_data/projects.yml](_data/projects.yml)
+6. Awards: [_data/awards.yml](_data/awards.yml)
 
-### Profile and Branding Update Guide
+## Project Structure
 
-When updating profile information, keep these locations aligned:
-
-1. Hero name and intro: [index.html](index.html)
-2. Header small name and SEO fields: [_config.yml](_config.yml)
-3. Full CV-like details: [pages/about.md](pages/about.md)
-4. Homepage cards (Publications/Projects/Awards): [index.html](index.html)
-5. Publications data: [_data/publications.yml](_data/publications.yml)
-6. Projects data: [_data/projects.yml](_data/projects.yml)
-7. Awards data: [_data/awards.yml](_data/awards.yml)
+- `_layouts/` and `_includes/`: shared page shell, navigation, footer, and article layout
+- `_data/`: structured homepage and profile content
+- `static/css/`: design tokens, responsive layouts, post styles, and dark theme
+- `static/js/`: theme switching, search, image preview, and accessibility enhancements
+- `_posts/` and `posts/`: articles and their assets
 
 ## Credits
 
-Based on the Jekyll theme tmaize-blog:
-
-- https://github.com/TMaize/tmaize-blog
-
-Customized for personal academic homepage layout and research-oriented content organization.
+Originally based on [TMaize/tmaize-blog](https://github.com/TMaize/tmaize-blog), then customized
+for a research-oriented personal homepage.

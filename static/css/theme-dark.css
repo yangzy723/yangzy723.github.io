@@ -99,7 +99,7 @@ html.dark .portal-card {
   background: var(--surface-soft);
 }
 
-html.dark .portal-card:hover,
+html.dark .portal-card:focus-within,
 html.dark .page-search .list-search a:hover {
   border-color: var(--line-strong);
 }

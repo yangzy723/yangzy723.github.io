@@ -1,0 +1,10 @@
+name: agent
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - ruby=3.2
+  - c-compiler
+  - cxx-compiler
+  - make
+  - pkg-config

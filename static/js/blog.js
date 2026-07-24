@@ -1,6 +1,12 @@
 ;(function () {
   'use strict'
 
+  var isChinese = document.documentElement.lang.toLowerCase().indexOf('zh') === 0
+
+  function translate(english, chinese) {
+    return isChinese ? chinese : english
+  }
+
   function ready(callback) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', callback, { once: true })
@@ -35,10 +41,13 @@
 
     function renderToggle() {
       var action = blog.darkMode ? 'light' : 'dark'
+      var label = isChinese
+        ? '切换到' + (blog.darkMode ? '浅色' : '深色') + '模式'
+        : 'Switch to ' + action + ' mode'
       icon.classList.toggle('icon-theme-light', blog.darkMode)
       icon.classList.toggle('icon-theme-dark', !blog.darkMode)
-      toggle.setAttribute('aria-label', 'Switch to ' + action + ' mode')
-      toggle.setAttribute('title', 'Switch to ' + action + ' mode')
+      toggle.setAttribute('aria-label', label)
+      toggle.setAttribute('title', label)
       toggle.setAttribute('aria-pressed', String(blog.darkMode))
     }
 
@@ -108,7 +117,7 @@
       var wrapper = document.createElement('div')
       wrapper.className = 'table-container'
       wrapper.setAttribute('role', 'region')
-      wrapper.setAttribute('aria-label', 'Scrollable table')
+      wrapper.setAttribute('aria-label', translate('Scrollable table', '可横向滚动的表格'))
       wrapper.setAttribute('tabindex', '0')
       table.parentNode.insertBefore(wrapper, table)
       wrapper.appendChild(table)
@@ -123,7 +132,10 @@
       anchor.className = 'heading-anchor'
       anchor.href = '#' + encodeURIComponent(heading.id)
       anchor.textContent = '#'
-      anchor.setAttribute('aria-label', 'Link to “' + heading.textContent.trim() + '”')
+      anchor.setAttribute(
+        'aria-label',
+        translate('Link to “', '链接到“') + heading.textContent.trim() + '”'
+      )
       heading.appendChild(anchor)
     })
   }
@@ -140,12 +152,12 @@
     var activeImage = null
 
     dialog.className = 'image-dialog'
-    dialog.setAttribute('aria-label', 'Image preview')
+    dialog.setAttribute('aria-label', translate('Image preview', '图片预览'))
     preview.alt = ''
     close.className = 'image-dialog-close'
     close.type = 'button'
     close.textContent = '×'
-    close.setAttribute('aria-label', 'Close image preview')
+    close.setAttribute('aria-label', translate('Close image preview', '关闭图片预览'))
     dialog.appendChild(preview)
     dialog.appendChild(close)
     document.body.appendChild(dialog)
@@ -153,7 +165,7 @@
     function openDialog(image) {
       activeImage = image
       preview.src = image.currentSrc || image.src
-      preview.alt = image.alt || 'Expanded article image'
+      preview.alt = image.alt || translate('Expanded article image', '放大的文章图片')
       dialog.showModal()
     }
 
@@ -176,7 +188,12 @@
       if (image.closest('a')) return
       image.setAttribute('tabindex', '0')
       image.setAttribute('role', 'button')
-      image.setAttribute('aria-label', image.alt ? 'Enlarge image: ' + image.alt : 'Enlarge image')
+      image.setAttribute(
+        'aria-label',
+        image.alt
+          ? translate('Enlarge image: ', '放大图片：') + image.alt
+          : translate('Enlarge image', '放大图片')
+      )
       image.addEventListener('click', function () {
         openDialog(image)
       })

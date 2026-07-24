@@ -186,13 +186,12 @@
   border-radius: 13px;
   background: var(--surface-soft);
   flex-direction: column;
-  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
-.portal-card:hover {
+.portal-card:focus-within {
   border-color: var(--line-strong);
   box-shadow: 0 8px 20px rgba(22, 38, 64, 0.06);
-  transform: translateY(-1px);
 }
 
 .card-title-row {
