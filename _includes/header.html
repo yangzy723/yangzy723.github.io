@@ -3,7 +3,7 @@
     <span class="brand-avatar" aria-hidden="true"></span>
     <span class="brand-text">
       <strong>{{ site.author_en }}</strong>
-      <span>AI Systems &amp; Infrastructure</span>
+      <span>{{ site.tagline | default: "AI Systems & Infrastructure" | escape }}</span>
     </span>
   </a>
   <div class="header-actions">

@@ -7,11 +7,11 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
 <div class="page page-index">
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">AI Systems · GPU Infrastructure</p>
+      <p class="eyebrow">{{ site.tagline | default: "AI Systems & Infrastructure" | escape }}</p>
       <h1>Zhenyuan Yang</h1>
       <p class="identity">Master’s student at the Institute of Software, Chinese Academy of Sciences</p>
       <p class="lead">
-        I work on efficient and predictable AI inference across GPUs, resource-constrained
+        I work on efficient and reliable AI inference across GPUs, resource-constrained
         devices, and collaborative edge–cloud systems. This site brings together selected
         research, open-source projects, and practical notes from systems work.
       </p>
@@ -93,7 +93,10 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
           <ul class="award-list">
             {% for award in site.data.awards %}
             <li>
-              <span class="award-name">{{ award }}</span>
+              <span class="award-name">{{ award.name | default: award }}</span>
+              {% if award.related_url %}
+              <a class="award-related" href="{{ award.related_url }}" target="_blank" rel="noopener noreferrer">{{ award.related_label }} <span aria-hidden="true">↗</span></a>
+              {% endif %}
             </li>
             {% endfor %}
           </ul>

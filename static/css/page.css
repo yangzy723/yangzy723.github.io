@@ -306,6 +306,19 @@
   line-height: 1.55;
 }
 
+.award-list .award-related {
+  display: inline-block;
+  margin-top: 3px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 620;
+}
+
+.award-list .award-related:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+}
+
 .project-list .project-link {
   font-weight: 680;
   line-height: 1.55;

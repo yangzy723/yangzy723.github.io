@@ -324,22 +324,28 @@
 }
 
 .page-about {
-  max-width: 940px;
+  max-width: none;
 }
 
 .page-about .post-deck {
-  max-width: 740px;
+  max-width: 860px;
 }
 
 .page-about .about-summary {
-  max-width: 740px;
+  max-width: 860px;
   color: var(--text-muted);
   font-size: 16px;
   line-height: 1.85;
+  text-wrap: pretty;
 }
 
 .page-about .post > ul {
-  max-width: 740px;
+  max-width: 860px;
+}
+
+.page-about .about-award-related {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .page-about .about-publications {
@@ -638,6 +644,11 @@
   .page-about .about-facts > div {
     grid-template-columns: 1fr;
     gap: 2px;
+  }
+
+  .page-about .about-award-related {
+    display: inline;
+    white-space: normal;
   }
 
   .image-dialog {

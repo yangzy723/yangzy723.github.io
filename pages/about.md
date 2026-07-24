@@ -3,7 +3,7 @@ layout: mypost
 title: About
 lang: en
 eyebrow: Research profile
-subtitle: AI systems researcher focused on efficient inference, predictable GPU sharing, and edge–cloud systems.
+subtitle: AI systems researcher focused on efficient inference, reliable GPU sharing, and edge–cloud systems.
 page_class: page-about
 description: Research profile, publications, projects, experience, and contact information for Zhenyuan Yang.
 permalink: /pages/about.html
@@ -27,7 +27,7 @@ permalink: /pages/about.html
 ## Research Interests
 
 - Efficient inference for resource-constrained edge devices
-- Flexible, predictable spatial sharing on modern GPUs
+- Flexible, reliable, and predictable spatial sharing on modern GPUs
 - Communication and scheduling in collaborative edge–cloud systems
 
 ## Selected Research
@@ -63,7 +63,7 @@ permalink: /pages/about.html
 ## Awards
 
 {% for award in site.data.awards %}
-- {{ award }}
+- {{ award.name | default: award }}{% if award.related_url %} · <a class="about-award-related" href="{{ award.related_url }}" target="_blank" rel="noopener noreferrer">{{ award.related_label }} <span aria-hidden="true">↗</span></a>{% endif %}
 {% endfor %}
 
 ## Skills
@@ -85,8 +85,8 @@ permalink: /pages/about.html
 
 ## Personal Interests
 
-- Dogs, especially medium and large breeds
-- Basketball, especially the NBA
+- [Dogs](https://www.dogsindepth.com), especially medium and large breeds
+- [Basketball](https://en.wikipedia.org/wiki/2019_NBA_Finals), especially the NBA
 
 ## Contact
 
