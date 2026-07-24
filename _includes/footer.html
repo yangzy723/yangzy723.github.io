@@ -1,11 +1,17 @@
 <footer class="footer">
-  <span>{{ site.author }}</span>
-  <span>·</span>
-  <span>{{ site.time | date: "%Y" }}</span>
-  <div class="footer-btn theme-toggler hide">
-    <i class="svg-icon icon-theme-light"></i>
+  <div class="footer-meta">
+    <span>© {{ site.time | date: "%Y" }} {{ site.author_en }}</span>
+    <span class="footer-note">Built for research notes and systems work.</span>
   </div>
-  <div class="footer-btn to-top">
-    <i class="svg-icon icon-arrow-top"></i>
-  </div>
+  <nav class="footer-links" aria-label="Profile links">
+    <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="{{ site.orcid }}" target="_blank" rel="noopener noreferrer">ORCID</a>
+    <a href="{{ site.baseurl }}/static/xml/rss.xml">RSS</a>
+  </nav>
+  <button class="footer-btn theme-toggler" type="button" aria-label="Switch color theme" aria-pressed="false" hidden>
+    <i class="svg-icon icon-theme-light" aria-hidden="true"></i>
+  </button>
+  <button class="footer-btn to-top" type="button" aria-label="Back to top" hidden>
+    <i class="svg-icon icon-arrow-top" aria-hidden="true"></i>
+  </button>
 </footer>

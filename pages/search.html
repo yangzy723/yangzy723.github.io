@@ -1,14 +1,29 @@
 ---
 layout: page
 title: Search
+lang: en
+description: Search all articles and technical notes on Zhenyuan Yang's website.
 ---
 
 <div class="page page-search">
-  <input id="search-input" type="text" placeholder="Type keywords to search titles and content"></input>
-  <h1>
-    <span>Search Results</span>
-    <i class="svg-icon icon-loading"></i>
-  </h1>
+  <header class="page-heading">
+    <p class="eyebrow">Article index</p>
+    <h1>Search</h1>
+    <p>Search article titles and full text. Chinese and English keywords are both supported.</p>
+  </header>
+  <form class="search-form" role="search" action="#" onsubmit="return false">
+    <label class="visually-hidden" for="search-input">Search articles</label>
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true"></span>
+      <input id="search-input" type="search" inputmode="search" autocomplete="off" placeholder="Try “GPU”, “Linux”, or “SimPy”" />
+      <button class="search-clear" type="button" aria-label="Clear search" hidden>Clear</button>
+    </div>
+  </form>
+  <div class="search-results-head">
+    <h2>Results</h2>
+    <span id="search-status" role="status" aria-live="polite">Enter a keyword to begin.</span>
+    <i class="svg-icon icon-loading" aria-hidden="true"></i>
+  </div>
   <ul class="list-search">
     {%- for post in site.posts %}
     <li hidden>
@@ -19,4 +34,5 @@ title: Search
     </li>
     {%- endfor %}
   </ul>
+  <p class="search-empty">Your matches will appear here.</p>
 </div>

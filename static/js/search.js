@@ -1,167 +1,243 @@
-blog.addLoadEvent(function () {
-  var input = document.getElementById('search-input')
-  if (!input) return
+;(function () {
+  'use strict'
 
-  var loadingIcon = document.querySelector('.page-search .icon-loading')
-  var items = document.querySelectorAll('.list-search li')
-  var rawTitles = []
-  var contents = null
-  var pendingPromise = null
-  var inputLock = false
-  var debounceTimer = null
-  var CACHE_KEY = 'search_db'
-  var CACHE_VERSION_KEY = 'search_db_version'
-  var cacheVersion = blog.buildAt || 'static'
-
-  for (var i = 0; i < items.length; i++) {
-    var titleEl = items[i].querySelector('.title')
-    rawTitles.push(titleEl ? titleEl.textContent || '' : '')
-  }
-
-  function setLoading(isLoading) {
-    if (!loadingIcon) return
-    loadingIcon.style.opacity = isLoading ? 1 : 0
-  }
-
-  function parseContent(xmlText) {
-    var arr = []
-    if (!xmlText) return arr
-
-    try {
-      var xml = new DOMParser().parseFromString(xmlText, 'application/xml')
-      var nodes = xml.querySelectorAll('li')
-      for (var i = 0; i < nodes.length; i++) {
-        arr.push(nodes[i].textContent || '')
-      }
-      return arr
-    } catch (e) {
-      return arr
+  function ready(callback) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', callback, { once: true })
+    } else {
+      callback()
     }
   }
 
-  function ensureContentLoaded() {
-    if (contents) return Promise.resolve(contents)
-    if (pendingPromise) return pendingPromise
+  ready(function () {
+    var input = document.getElementById('search-input')
+    if (!input) return
 
-    var cachedVersion = localStorage.getItem(CACHE_VERSION_KEY)
-    var cachedData = localStorage.getItem(CACHE_KEY)
-    if (cachedData && cachedVersion === cacheVersion) {
-      contents = parseContent(cachedData)
-      return Promise.resolve(contents)
-    }
-
-    setLoading(true)
-    pendingPromise = new Promise(function (resolve) {
-      blog.ajax(
-        {
-          timeout: 20000,
-          url: blog.baseurl + '/static/xml/search.xml'
-        },
-        function (data) {
-          try {
-            localStorage.setItem(CACHE_KEY, data)
-            localStorage.setItem(CACHE_VERSION_KEY, cacheVersion)
-          } catch (e) {
-            // ignore storage quota errors
-          }
-          contents = parseContent(data)
-          setLoading(false)
-          pendingPromise = null
-          resolve(contents)
-        },
-        function () {
-          setLoading(false)
-          pendingPromise = null
-          resolve([])
-        }
-      )
+    var list = document.querySelector('.list-search')
+    var items = Array.from(document.querySelectorAll('.list-search li'))
+    var loadingIcon = document.querySelector('.search-results-head .icon-loading')
+    var status = document.getElementById('search-status')
+    var clearButton = document.querySelector('.search-clear')
+    var emptyState = document.querySelector('.search-empty')
+    var titles = items.map(function (item) {
+      return item.querySelector('.title').textContent.trim()
     })
+    var contents = null
+    var pendingRequest = null
+    var debounceTimer = null
+    var composing = false
+    var cacheKey = 'search_db_v2'
+    var cacheVersionKey = 'search_db_version_v2'
+    var cacheVersion = blog.buildAt || 'static'
 
-    return pendingPromise
-  }
-
-  function hideAll() {
-    for (var i = 0; i < items.length; i++) {
-      var titleEl = items[i].querySelector('.title')
-      var contentEl = items[i].querySelector('.content')
-      if (titleEl) titleEl.textContent = rawTitles[i] || ''
-      if (contentEl) contentEl.textContent = ''
-      items[i].setAttribute('hidden', true)
-    }
-  }
-
-  function runSearch(keyword) {
-    var key = blog.trim(keyword || '')
-    key = key.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&/g, '&amp;')
-
-    if (!key) {
-      hideAll()
-      return
+    function setLoading(isLoading) {
+      list.setAttribute('aria-busy', String(isLoading))
+      loadingIcon.classList.toggle('is-loading', isLoading)
     }
 
-    var markStart = '<span class="hint">'
-    var markEnd = '</span>'
-    var keyRegGlobal = new RegExp(blog.encodeRegChar(key), 'gi')
-    var keyRegSingle = new RegExp(blog.encodeRegChar(key), 'i')
+    function setStatus(message) {
+      status.textContent = message
+    }
 
-    for (var i = 0; i < items.length; i++) {
-      var title = rawTitles[i] || ''
-      var content = (contents && contents[i]) || ''
-      var li = items[i]
-      var titleEl = li.querySelector('.title')
-      var contentEl = li.querySelector('.content')
-      var matched = false
+    function getCachedContents() {
+      try {
+        if (localStorage.getItem(cacheVersionKey) !== cacheVersion) return null
+        var value = localStorage.getItem(cacheKey)
+        return value ? JSON.parse(value) : null
+      } catch (error) {
+        return null
+      }
+    }
 
-      if (titleEl) titleEl.textContent = title
-      if (contentEl) contentEl.textContent = ''
+    function storeContents(value) {
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify(value))
+        localStorage.setItem(cacheVersionKey, cacheVersion)
+      } catch (error) {
+        // Search remains functional if browser storage is unavailable or full.
+      }
+    }
 
-      if (keyRegSingle.test(title)) {
-        matched = true
-        if (titleEl) titleEl.innerHTML = title.replace(keyRegGlobal, markStart + key + markEnd)
+    function parseSearchDocument(xmlText) {
+      var xml = new DOMParser().parseFromString(xmlText, 'application/xml')
+      if (xml.querySelector('parsererror')) throw new Error('Invalid search index')
+      return Array.from(xml.querySelectorAll('li')).map(function (node) {
+        return node.textContent.replace(/\s+/g, ' ').trim()
+      })
+    }
+
+    function loadContents() {
+      if (contents) return Promise.resolve(contents)
+      if (pendingRequest) return pendingRequest
+
+      var cached = getCachedContents()
+      if (cached && cached.length === items.length) {
+        contents = cached
+        return Promise.resolve(contents)
       }
 
-      var contentMatch = keyRegSingle.exec(content)
-      if (contentMatch) {
-        matched = true
-        var idx = contentMatch.index
-        var start = Math.max(0, idx - 10)
-        var end = Math.min(content.length, idx + 90)
-        var snippet = content.substring(start, end)
-        if (contentEl) contentEl.innerHTML = snippet.replace(keyRegGlobal, markStart + key + markEnd) + '...'
-      } else if (matched && content && contentEl) {
-        contentEl.textContent = content.substring(0, 100) + '...'
+      setLoading(true)
+      setStatus('Loading article index…')
+      pendingRequest = fetch(blog.baseurl + '/static/xml/search.xml', { credentials: 'same-origin' })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Search index request failed')
+          return response.text()
+        })
+        .then(parseSearchDocument)
+        .then(function (value) {
+          contents = value
+          storeContents(value)
+          return value
+        })
+        .finally(function () {
+          pendingRequest = null
+          setLoading(false)
+        })
+
+      return pendingRequest
+    }
+
+    function hideResults() {
+      items.forEach(function (item, index) {
+        item.hidden = true
+        item.querySelector('.title').textContent = titles[index]
+        item.querySelector('.content').textContent = ''
+      })
+    }
+
+    function appendHighlighted(element, text, keyword) {
+      element.textContent = ''
+      var lowerText = text.toLocaleLowerCase()
+      var lowerKeyword = keyword.toLocaleLowerCase()
+      var start = 0
+      var matchIndex = lowerText.indexOf(lowerKeyword, start)
+
+      while (matchIndex !== -1) {
+        element.appendChild(document.createTextNode(text.slice(start, matchIndex)))
+        var mark = document.createElement('mark')
+        mark.textContent = text.slice(matchIndex, matchIndex + keyword.length)
+        element.appendChild(mark)
+        start = matchIndex + keyword.length
+        matchIndex = lowerText.indexOf(lowerKeyword, start)
       }
 
-      if (matched) li.removeAttribute('hidden')
-      else li.setAttribute('hidden', true)
+      element.appendChild(document.createTextNode(text.slice(start)))
     }
-  }
 
-  function handleInput(value) {
-    if (debounceTimer) clearTimeout(debounceTimer)
-    debounceTimer = setTimeout(function () {
-      if (!blog.trim(value || '')) {
-        hideAll()
+    function createSnippet(content, matchIndex) {
+      if (!content) return ''
+      var start = matchIndex >= 0 ? Math.max(0, matchIndex - 45) : 0
+      var end = Math.min(content.length, start + 170)
+      return (start > 0 ? '…' : '') + content.slice(start, end).trim() + (end < content.length ? '…' : '')
+    }
+
+    function runSearch(rawKeyword) {
+      var keyword = rawKeyword.trim()
+      if (!keyword) {
+        hideResults()
+        emptyState.hidden = false
+        emptyState.textContent = 'Your matches will appear here.'
+        setStatus('Enter a keyword to begin.')
         return
       }
-      ensureContentLoaded().then(function () {
-        runSearch(value)
+
+      var lowerKeyword = keyword.toLocaleLowerCase()
+      var resultCount = 0
+
+      items.forEach(function (item, index) {
+        var title = titles[index]
+        var content = contents[index] || ''
+        var titleMatch = title.toLocaleLowerCase().indexOf(lowerKeyword)
+        var contentMatch = content.toLocaleLowerCase().indexOf(lowerKeyword)
+        var matched = titleMatch !== -1 || contentMatch !== -1
+        var titleElement = item.querySelector('.title')
+        var contentElement = item.querySelector('.content')
+
+        if (!matched) {
+          item.hidden = true
+          return
+        }
+
+        appendHighlighted(titleElement, title, keyword)
+        var snippet = createSnippet(content, contentMatch)
+        if (snippet) appendHighlighted(contentElement, snippet, keyword)
+        else contentElement.textContent = ''
+        item.hidden = false
+        resultCount += 1
       })
-    }, 140)
-  }
 
-  hideAll()
+      emptyState.hidden = resultCount > 0
+      emptyState.textContent = 'No articles matched “' + keyword + '”. Try a shorter or broader term.'
+      setStatus(resultCount + (resultCount === 1 ? ' result' : ' results') + ' for “' + keyword + '”.')
+    }
 
-  blog.addEvent(input, 'input', function (event) {
-    if (!inputLock) handleInput(event.target.value)
+    function updateUrl(keyword) {
+      if (!window.history.replaceState) return
+      var url = new URL(window.location.href)
+      if (keyword.trim()) url.searchParams.set('q', keyword.trim())
+      else url.searchParams.delete('q')
+      window.history.replaceState({}, '', url.pathname + url.search + url.hash)
+    }
+
+    function search(value) {
+      window.clearTimeout(debounceTimer)
+      clearButton.hidden = !value
+
+      debounceTimer = window.setTimeout(function () {
+        updateUrl(value)
+        if (!value.trim()) {
+          runSearch('')
+          return
+        }
+
+        loadContents()
+          .then(function () {
+            runSearch(value)
+          })
+          .catch(function () {
+            hideResults()
+            emptyState.hidden = false
+            emptyState.textContent = 'The search index could not be loaded. Please refresh and try again.'
+            setStatus('Search is temporarily unavailable.')
+          })
+      }, 160)
+    }
+
+    hideResults()
+    emptyState.hidden = false
+
+    input.addEventListener('input', function (event) {
+      if (!composing) search(event.target.value)
+    })
+
+    input.addEventListener('compositionstart', function () {
+      composing = true
+    })
+
+    input.addEventListener('compositionend', function (event) {
+      composing = false
+      search(event.target.value)
+    })
+
+    clearButton.addEventListener('click', function () {
+      input.value = ''
+      search('')
+      input.focus()
+    })
+
+    document.addEventListener('keydown', function (event) {
+      var target = event.target
+      var isTyping = target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)
+      if (event.key === '/' && !isTyping && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        event.preventDefault()
+        input.focus()
+      }
+    })
+
+    var initialQuery = new URL(window.location.href).searchParams.get('q')
+    if (initialQuery) {
+      input.value = initialQuery
+      search(initialQuery)
+    }
   })
-
-  blog.addEvent(input, 'compositionstart', function () {
-    inputLock = true
-  })
-
-  blog.addEvent(input, 'compositionend', function (event) {
-    inputLock = false
-    handleInput(event.target.value)
-  })
-})
+})()

@@ -1,36 +1,36 @@
 ---
 layout: mypost
 title: About
+lang: en
+description: Biography, research interests, publications, projects, experience, and contact information for Zhenyuan Yang.
+permalink: /pages/about.html
 ---
 
-I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, focusing on AI systems and high-performance infrastructure. This site contains my research notes, engineering write-ups, and selected work.
+I am a master's student at the Institute of Software, Chinese Academy of Sciences (ISCAS), working on AI systems and high-performance infrastructure. My current interests center on efficient inference for resource-constrained devices, predictable GPU sharing, and edge–cloud collaboration.
+
+I use this site to document research ideas, implementation notes, and lessons learned while building systems.
 
 ## Education
 
 | Period | Institution | Program |
 | --- | --- | --- |
-| 2021.09 - 2025.06 | Nanjing University | B.Eng. in Computer Science and Technology |
-| 2025.09 - Present | Institute of Software, Chinese Academy of Sciences | M.S. in Computer Science and Technology |
+| Sep 2025 – Present | Institute of Software, Chinese Academy of Sciences | M.S. in Computer Science and Technology |
+| Sep 2021 – Jun 2025 | Nanjing University | B.Eng. in Computer Science and Technology |
 
 ## Experience
 
 | Period | Organization | Role |
 | --- | --- | --- |
-| 2026.07 - Present | Huawei 2012 Lab Central Research Institute | Research Intern |
-
-## Awards
-
-{% for award in site.data.awards %}
-- {{ award }}
-{% endfor %}
+| Jul 2026 – Present | Huawei 2012 Lab, Central Research Institute | Research Intern |
 
 ## Research Interests
 
 - Efficient inference for resource-constrained edge devices
-- Flexible spatial multiplexing for modern GPUs
-- Communication and scheduling for edge-cloud collaborative systems
+- Flexible and predictable spatial multiplexing on modern GPUs
+- Communication and scheduling for edge–cloud collaborative systems
 
-## Selected Works
+## Selected Research
+
 {% for paper in site.data.publications %}
 - {{ paper.authors }}. {% if paper.url %}[{{ paper.title }}]({{ paper.url }}){% else %}{{ paper.title }}{% endif %}.{% if paper.status %} [{{ paper.status | replace: "_", " " | capitalize }}]{% endif %}{% if paper.venue %} *{{ paper.venue }}*{% endif %}{% if paper.note %}, {{ paper.note }}{% endif %}{% if paper.year %}, {{ paper.year }}{% endif %}.
 {% endfor %}
@@ -38,7 +38,13 @@ I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, 
 ## Projects
 
 {% for project in site.data.projects %}
-- {{ project.name }}: {{ project.description }} [GitHub]({{ project.url }})
+- [{{ project.name }}]({{ project.url }}) — {{ project.description }}
+{% endfor %}
+
+## Awards
+
+{% for award in site.data.awards %}
+- {{ award }}
 {% endfor %}
 
 ## Skills
@@ -54,6 +60,6 @@ I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, 
 
 ## Contact
 
-- Email: [yangzy723@gmail.com](mailto:yangzy723@gmail.com)
-- GitHub: [github.com/yangzy723](https://github.com/yangzy723)
-- ORCID: [0009-0008-3110-8715](https://orcid.org/0009-0008-3110-8715)
+- Email: [{{ site.email }}](mailto:{{ site.email }})
+- GitHub: [github.com/yangzy723]({{ site.github }})
+- ORCID: [0009-0008-3110-8715]({{ site.orcid }})

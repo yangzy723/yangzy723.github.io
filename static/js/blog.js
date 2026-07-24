@@ -1,473 +1,199 @@
-// 打印主题标识,请保留出处
 ;(function () {
-  var style1 = 'background:#4BB596;color:#ffffff;border-radius: 2px;'
-  var style2 = 'color:auto;'
-  var author = ' TMaize'
-  var github = ' https://github.com/TMaize/tmaize-blog'
-  var build = ' ' + blog.buildAt.substr(0, 4)
-  build += '/' + blog.buildAt.substr(4, 2)
-  build += '/' + blog.buildAt.substr(6, 2)
-  build += ' ' + blog.buildAt.substr(8, 2)
-  build += ':' + blog.buildAt.substr(10, 2)
-  console.info('%c Author %c' + author, style1, style2)
-  console.info('%c Build  %c' + build, style1, style2)
-  console.info('%c GitHub %c' + github, style1, style2)
-})()
+  'use strict'
 
-/**
- * 工具，允许多次onload不被覆盖
- * @param {方法} func
- */
-blog.addLoadEvent = function (func) {
-  var oldonload = window.onload
-  if (typeof window.onload != 'function') {
-    window.onload = func
-  } else {
-    window.onload = function () {
-      oldonload()
-      func()
-    }
-  }
-}
-
-/**
- * 工具，兼容的方式添加事件
- * @param {单个DOM节点} dom
- * @param {事件名} eventName
- * @param {事件方法} func
- * @param {是否捕获} useCapture
- */
-blog.addEvent = function (dom, eventName, func, useCapture) {
-  if (window.attachEvent) {
-    dom.attachEvent('on' + eventName, func)
-  } else if (window.addEventListener) {
-    if (useCapture != undefined && useCapture === true) {
-      dom.addEventListener(eventName, func, true)
+  function ready(callback) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', callback, { once: true })
     } else {
-      dom.addEventListener(eventName, func, false)
+      callback()
     }
   }
-}
 
-/**
- * 工具，DOM添加某个class
- * @param {单个DOM节点} dom
- * @param {class名} className
- */
-blog.addClass = function (dom, className) {
-  if (!blog.hasClass(dom, className)) {
-    var c = dom.className || ''
-    dom.className = c + ' ' + className
-    dom.className = blog.trim(dom.className)
-  }
-}
-
-/**
- * 工具，DOM是否有某个class
- * @param {单个DOM节点} dom
- * @param {class名} className
- */
-blog.hasClass = function (dom, className) {
-  var list = (dom.className || '').split(/\s+/)
-  for (var i = 0; i < list.length; i++) {
-    if (list[i] == className) return true
-  }
-  return false
-}
-
-/**
- * 工具，DOM删除某个class
- * @param {单个DOM节点} dom
- * @param {class名} className
- */
-blog.removeClass = function (dom, className) {
-  if (blog.hasClass(dom, className)) {
-    var list = (dom.className || '').split(/\s+/)
-    var newName = ''
-    for (var i = 0; i < list.length; i++) {
-      if (list[i] != className) newName = newName + ' ' + list[i]
+  function setStoredTheme(value) {
+    try {
+      if (value === null) localStorage.removeItem('darkMode')
+      else localStorage.setItem('darkMode', value)
+    } catch (error) {
+      // Theme switching still works for the current page when storage is unavailable.
     }
-    dom.className = blog.trim(newName)
   }
-}
 
-/**
- * 工具，兼容问题，某些OPPO手机不支持ES5的trim方法
- * @param {字符串} str
- */
-blog.trim = function (str) {
-  return str.replace(/^\s+|\s+$/g, '')
-}
-
-/**
- * 工具，转义html字符
- * @param {字符串} str
- */
-blog.htmlEscape = function (str) {
-  var temp = document.createElement('div')
-  temp.innerText = str
-  str = temp.innerHTML
-  temp = null
-  return str
-}
-
-/**
- * 工具，转换实体字符防止XSS
- * @param {字符串} str
- */
-blog.encodeHtml = function (html) {
-  var o = document.createElement('div')
-  o.innerText = html
-  var temp = o.innerHTML
-  o = null
-  return temp
-}
-
-/**
- * 工具， 转义正则关键字
- * @param {字符串} str
- */
-blog.encodeRegChar = function (str) {
-  // \ 必须在第一位
-  var arr = ['\\', '.', '^', '$', '*', '+', '?', '{', '}', '[', ']', '|', '(', ')']
-  arr.forEach(function (c) {
-    var r = new RegExp('\\' + c, 'g')
-    str = str.replace(r, '\\' + c)
-  })
-  return str
-}
-
-/**
- * 工具，Ajax
- * @param {字符串} str
- */
-blog.ajax = function (option, success, fail) {
-  var xmlHttp = null
-  if (window.XMLHttpRequest) {
-    xmlHttp = new XMLHttpRequest()
-  } else {
-    xmlHttp = new ActiveXObject('Microsoft.XMLHTTP')
+  function getStoredTheme() {
+    try {
+      return localStorage.getItem('darkMode')
+    } catch (error) {
+      return null
+    }
   }
-  var url = option.url
-  var method = (option.method || 'GET').toUpperCase()
-  var sync = option.sync === false ? false : true
-  var timeout = option.timeout || 10000
 
-  var timer
-  var isTimeout = false
-  xmlHttp.open(method, url, sync)
-  xmlHttp.onreadystatechange = function () {
-    if (isTimeout) {
-      fail({
-        error: '请求超时'
-      })
-    } else {
-      if (xmlHttp.readyState == 4) {
-        if (xmlHttp.status == 200) {
-          success(xmlHttp.responseText)
-        } else {
-          fail({
-            error: '状态错误',
-            code: xmlHttp.status
-          })
+  function initThemeToggle() {
+    var toggle = document.querySelector('.theme-toggler')
+    if (!toggle) return
+
+    var icon = toggle.querySelector('.svg-icon')
+    var media = window.matchMedia('(prefers-color-scheme: dark)')
+
+    function renderToggle() {
+      var action = blog.darkMode ? 'light' : 'dark'
+      icon.classList.toggle('icon-theme-light', blog.darkMode)
+      icon.classList.toggle('icon-theme-dark', !blog.darkMode)
+      toggle.setAttribute('aria-label', 'Switch to ' + action + ' mode')
+      toggle.setAttribute('title', 'Switch to ' + action + ' mode')
+      toggle.setAttribute('aria-pressed', String(blog.darkMode))
+    }
+
+    function applyTheme(value) {
+      document.documentElement.setAttribute('transition', '')
+      blog.initDarkMode(value)
+      renderToggle()
+      window.setTimeout(function () {
+        document.documentElement.removeAttribute('transition')
+      }, 360)
+    }
+
+    toggle.removeAttribute('hidden')
+    renderToggle()
+
+    toggle.addEventListener('click', function () {
+      var nextValue = blog.darkMode ? 'false' : 'true'
+      setStoredTheme(nextValue)
+      applyTheme(nextValue)
+    })
+
+    function handleSystemTheme(event) {
+      if (getStoredTheme() === null) {
+        applyTheme(event.matches ? 'true' : 'false')
+      }
+    }
+
+    if (media.addEventListener) media.addEventListener('change', handleSystemTheme)
+    else if (media.addListener) media.addListener(handleSystemTheme)
+  }
+
+  function initBackToTop() {
+    var button = document.querySelector('.to-top')
+    if (!button) return
+
+    var ticking = false
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+    function update() {
+      button.classList.toggle('show', window.scrollY > 560)
+      ticking = false
+    }
+
+    button.removeAttribute('hidden')
+    window.addEventListener(
+      'scroll',
+      function () {
+        if (!ticking) {
+          window.requestAnimationFrame(update)
+          ticking = true
         }
-        //清除未执行的定时函数
-        clearTimeout(timer)
-      }
-    }
-  }
-  timer = setTimeout(function () {
-    isTimeout = true
-    fail({
-      error: '请求超时'
+      },
+      { passive: true }
+    )
+
+    button.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' })
     })
-    xmlHttp.abort()
-  }, timeout)
-  xmlHttp.send()
-}
 
-/**
- * 特效：点击页面文字冒出特效
- */
-blog.initClickEffect = function (textArr) {
-  function createDOM(text) {
-    var dom = document.createElement('span')
-    dom.innerText = text
-    dom.style.left = 0
-    dom.style.top = 0
-    dom.style.position = 'fixed'
-    dom.style.fontSize = '12px'
-    dom.style.whiteSpace = 'nowrap'
-    dom.style.webkitUserSelect = 'none'
-    dom.style.userSelect = 'none'
-    dom.style.opacity = 0
-    dom.style.transform = 'translateY(0)'
-    dom.style.webkitTransform = 'translateY(0)'
-    return dom
+    update()
   }
 
-  blog.addEvent(window, 'click', function (ev) {
-    let target = ev.target
-    while (target !== document.documentElement) {
-      if (target.tagName.toLocaleLowerCase() == 'a') return
-      if (blog.hasClass(target, 'footer-btn')) return
-      target = target.parentNode
+  function wrapTables() {
+    var tables = document.querySelectorAll('.page-post .post > table')
+    tables.forEach(function (table) {
+      if (table.parentElement.classList.contains('table-container')) return
+      var wrapper = document.createElement('div')
+      wrapper.className = 'table-container'
+      wrapper.setAttribute('role', 'region')
+      wrapper.setAttribute('aria-label', 'Scrollable table')
+      wrapper.setAttribute('tabindex', '0')
+      table.parentNode.insertBefore(wrapper, table)
+      wrapper.appendChild(table)
+    })
+  }
+
+  function addHeadingAnchors() {
+    var headings = document.querySelectorAll('.page-post .post h1[id], .page-post .post h2[id], .page-post .post h3[id]')
+    headings.forEach(function (heading) {
+      if (heading.querySelector('.heading-anchor')) return
+      var anchor = document.createElement('a')
+      anchor.className = 'heading-anchor'
+      anchor.href = '#' + encodeURIComponent(heading.id)
+      anchor.textContent = '#'
+      anchor.setAttribute('aria-label', 'Link to “' + heading.textContent.trim() + '”')
+      heading.appendChild(anchor)
+    })
+  }
+
+  function initImageDialog() {
+    if (!window.HTMLDialogElement) return
+
+    var images = document.querySelectorAll(".page-post .post img:not([alt='line'])")
+    if (!images.length) return
+
+    var dialog = document.createElement('dialog')
+    var preview = document.createElement('img')
+    var close = document.createElement('button')
+    var activeImage = null
+
+    dialog.className = 'image-dialog'
+    dialog.setAttribute('aria-label', 'Image preview')
+    preview.alt = ''
+    close.className = 'image-dialog-close'
+    close.type = 'button'
+    close.textContent = '×'
+    close.setAttribute('aria-label', 'Close image preview')
+    dialog.appendChild(preview)
+    dialog.appendChild(close)
+    document.body.appendChild(dialog)
+
+    function openDialog(image) {
+      activeImage = image
+      preview.src = image.currentSrc || image.src
+      preview.alt = image.alt || 'Expanded article image'
+      dialog.showModal()
     }
 
-    var text = textArr[parseInt(Math.random() * textArr.length)]
-    var dom = createDOM(text)
+    function closeDialog() {
+      if (dialog.open) dialog.close()
+    }
 
-    document.body.appendChild(dom)
-    var w = parseInt(window.getComputedStyle(dom, null).getPropertyValue('width'))
-    var h = parseInt(window.getComputedStyle(dom, null).getPropertyValue('height'))
+    close.addEventListener('click', closeDialog)
+    preview.addEventListener('click', closeDialog)
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) closeDialog()
+    })
+    dialog.addEventListener('close', function () {
+      preview.removeAttribute('src')
+      if (activeImage) activeImage.focus()
+      activeImage = null
+    })
 
-    var sh = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-    dom.style.left = ev.pageX - w / 2 + 'px'
-    dom.style.top = ev.pageY - sh - h + 'px'
-    dom.style.opacity = 1
+    images.forEach(function (image) {
+      if (image.closest('a')) return
+      image.setAttribute('tabindex', '0')
+      image.setAttribute('role', 'button')
+      image.setAttribute('aria-label', image.alt ? 'Enlarge image: ' + image.alt : 'Enlarge image')
+      image.addEventListener('click', function () {
+        openDialog(image)
+      })
+      image.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          openDialog(image)
+        }
+      })
+    })
+  }
 
-    setTimeout(function () {
-      dom.style.transition = 'transform 500ms ease-out, opacity 500ms ease-out'
-      dom.style.webkitTransition = 'transform 500ms ease-out, opacity 500ms ease-out'
-      dom.style.opacity = 0
-      dom.style.transform = 'translateY(-26px)'
-      dom.style.webkitTransform = 'translateY(-26px)'
-    }, 20)
-
-    setTimeout(function () {
-      document.body.removeChild(dom)
-      dom = null
-    }, 520)
+  ready(function () {
+    initThemeToggle()
+    initBackToTop()
+    wrapTables()
+    addHeadingAnchors()
+    initImageDialog()
   })
-}
-
-// 新建DIV包裹TABLE
-blog.addLoadEvent(function () {
-  // 文章页生效
-  if (document.getElementsByClassName('page-post').length == 0) {
-    return
-  }
-  var tables = document.getElementsByTagName('table')
-  for (var i = 0; i < tables.length; i++) {
-    var table = tables[i]
-    var elem = document.createElement('div')
-    elem.setAttribute('class', 'table-container')
-    table.parentNode.insertBefore(elem, table)
-    elem.appendChild(table)
-  }
-})
-
-// 回到顶部
-blog.addLoadEvent(function () {
-  var el = document.querySelector('.footer-btn.to-top')
-  if (!el) return
-  function getScrollTop() {
-    if (document.documentElement && document.documentElement.scrollTop) {
-      return document.documentElement.scrollTop
-    } else if (document.body) {
-      return document.body.scrollTop
-    }
-  }
-  function ckeckToShow() {
-    if (getScrollTop() > 200) {
-      blog.addClass(el, 'show')
-    } else {
-      blog.removeClass(el, 'show')
-    }
-  }
-  blog.addEvent(window, 'scroll', ckeckToShow)
-  blog.addEvent(
-    el,
-    'click',
-    function (event) {
-      window.scrollTo(0, 0)
-      event.stopPropagation()
-    },
-    true
-  )
-  ckeckToShow()
-})
-
-// 点击图片全屏预览
-blog.addLoadEvent(function () {
-  if (!document.querySelector('.page-post')) {
-    return
-  }
-  console.debug('init post img click event')
-  let imgMoveOrigin = null
-  let restoreLock = false
-  let imgArr = document.querySelectorAll('.page-post img')
-
-  let css = [
-    '.img-move-bg {',
-    '  transition: opacity 300ms ease;',
-    '  position: fixed;',
-    '  left: 0;',
-    '  top: 0;',
-    '  right: 0;',
-    '  bottom: 0;',
-    '  opacity: 0;',
-    '  background-color: #000000;',
-    '  z-index: 100;',
-    '}',
-    '.img-move-item {',
-    '  transition: all 300ms ease;',
-    '  position: fixed;',
-    '  opacity: 0;',
-    '  cursor: pointer;',
-    '  z-index: 101;',
-    '}'
-  ].join('')
-  var styleDOM = document.createElement('style')
-  if (styleDOM.styleSheet) {
-    styleDOM.styleSheet.cssText = css
-  } else {
-    styleDOM.appendChild(document.createTextNode(css))
-  }
-  document.querySelector('head').appendChild(styleDOM)
-
-  window.addEventListener('resize', toCenter)
-
-  for (let i = 0; i < imgArr.length; i++) {
-    imgArr[i].addEventListener('click', imgClickEvent, true)
-  }
-
-  function prevent(ev) {
-    ev.preventDefault()
-  }
-
-  function toCenter() {
-    if (!imgMoveOrigin) {
-      return
-    }
-    let width = Math.min(imgMoveOrigin.naturalWidth, parseInt(document.documentElement.clientWidth * 0.9))
-    let height = (width * imgMoveOrigin.naturalHeight) / imgMoveOrigin.naturalWidth
-    if (window.innerHeight * 0.95 < height) {
-      height = Math.min(imgMoveOrigin.naturalHeight, parseInt(window.innerHeight * 0.95))
-      width = (height * imgMoveOrigin.naturalWidth) / imgMoveOrigin.naturalHeight
-    }
-
-    let img = document.querySelector('.img-move-item')
-    img.style.left = (document.documentElement.clientWidth - width) / 2 + 'px'
-    img.style.top = (window.innerHeight - height) / 2 + 'px'
-    img.style.width = width + 'px'
-    img.style.height = height + 'px'
-  }
-
-  function restore() {
-    if (restoreLock == true) {
-      return
-    }
-    restoreLock = true
-    let div = document.querySelector('.img-move-bg')
-    let img = document.querySelector('.img-move-item')
-
-    div.style.opacity = 0
-    img.style.opacity = 0
-    img.style.left = imgMoveOrigin.x + 'px'
-    img.style.top = imgMoveOrigin.y + 'px'
-    img.style.width = imgMoveOrigin.width + 'px'
-    img.style.height = imgMoveOrigin.height + 'px'
-
-    setTimeout(function () {
-      restoreLock = false
-      document.body.removeChild(div)
-      document.body.removeChild(img)
-      imgMoveOrigin = null
-    }, 300)
-  }
-
-  function imgClickEvent(event) {
-    imgMoveOrigin = event.target
-
-    let div = document.createElement('div')
-    div.className = 'img-move-bg'
-
-    let img = document.createElement('img')
-    img.className = 'img-move-item'
-    img.src = imgMoveOrigin.src
-    img.style.left = imgMoveOrigin.x + 'px'
-    img.style.top = imgMoveOrigin.y + 'px'
-    img.style.width = imgMoveOrigin.width + 'px'
-    img.style.height = imgMoveOrigin.height + 'px'
-
-    div.onclick = restore
-    div.onmousewheel = restore
-    div.ontouchmove = prevent
-
-    img.onclick = restore
-    img.onmousewheel = restore
-    img.ontouchmove = prevent
-    img.ondragstart = prevent
-
-    document.body.appendChild(div)
-    document.body.appendChild(img)
-
-    setTimeout(function () {
-      div.style.opacity = 0.5
-      img.style.opacity = 1
-      toCenter()
-    }, 0)
-  }
-})
-
-// 切换夜间模式
-blog.addLoadEvent(function () {
-  const $el = document.querySelector('.footer-btn.theme-toggler')
-  const $icon = $el.querySelector('.svg-icon')
-
-  blog.removeClass($el, 'hide')
-  if (blog.darkMode) {
-    blog.removeClass($icon, 'icon-theme-light')
-    blog.addClass($icon, 'icon-theme-dark')
-  }
-
-  function initDarkMode(flag) {
-    blog.removeClass($icon, 'icon-theme-light')
-    blog.removeClass($icon, 'icon-theme-dark')
-    if (flag === 'true') blog.addClass($icon, 'icon-theme-dark')
-    else blog.addClass($icon, 'icon-theme-light')
-
-    document.documentElement.setAttribute('transition', '')
-    setTimeout(function () {
-      document.documentElement.removeAttribute('transition')
-    }, 600)
-
-    blog.initDarkMode(flag)
-  }
-
-  blog.addEvent($el, 'click', function () {
-    const flag = blog.darkMode ? 'false' : 'true'
-    localStorage.darkMode = flag
-    initDarkMode(flag)
-  })
-
-  if (window.matchMedia) {
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (ev) {
-      const systemDark = ev.target.matches
-      if (systemDark !== blog.darkMode) {
-        localStorage.darkMode = '' // 清除用户设置
-        initDarkMode(systemDark ? 'true' : 'false')
-      }
-    })
-  }
-})
-
-// 标题定位
-blog.addLoadEvent(function () {
-  if (!document.querySelector('.page-post')) {
-    return
-  }
-  const list = document.querySelectorAll('.post h1, .post h2')
-  for (var i = 0; i < list.length; i++) {
-    blog.addEvent(list[i], 'click', function (event) {
-      const el = event.target
-      if (el.scrollIntoView) {
-        el.scrollIntoView({ block: 'start' })
-      }
-      if (el.id && history.replaceState) {
-        history.replaceState({}, '', '#' + el.id)
-      }
-    })
-  }
-})
+})()

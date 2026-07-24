@@ -2,9 +2,14 @@ encoding: utf-8
 
 # SEO相关信息
 title: Zhenyuan Yang
-description: Personal website of Zhenyuan Yang
+description: Zhenyuan Yang's personal website — research in AI systems, GPU infrastructure, and efficient inference, with engineering notes and selected work.
 keywords: AI systems, performance engineering, research notes
 author: 杨镇源
+author_en: Zhenyuan Yang
+lang: zh-CN
+email: yangzy723@gmail.com
+github: https://github.com/yangzy723
+orcid: https://orcid.org/0009-0008-3110-8715
 
 # 这些不要动
 permalink: /posts/:year/:month/:day/:title.html
@@ -17,11 +22,12 @@ exclude: ['README.md', '_site', 'dist', 'Gemfile', 'Gemfile.lock', 'blog.sh', 'a
 # 域名配置
 # baseurl配置,如果网站部署在根目录下的其他目录中，请设置为 /目录名
 domainUrl: 'https://yangzy723.github.io'
+url: 'https://yangzy723.github.io'
 baseurl: ''
 
 # 菜单
 # 必填字段 title: '文本' url: '链接'
-# 可选字段 target: '_blank' 新页面打开 
+# 可选字段 target: '_blank' 新页面打开
 menu:
   - title: Home
     url: /
@@ -34,4 +40,3 @@ menu:
 
 # 数学公式支持，默认关闭，需要时在文章 front matter 中按需开启
 extMath: false
-

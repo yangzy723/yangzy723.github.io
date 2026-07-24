@@ -1,17 +1,19 @@
 <header class="header">
-  <a href="{{ site.baseurl }}/" class="brand" aria-label="{{ site.title }}">
+  <a href="{{ site.baseurl }}/" class="brand" aria-label="{{ site.title }} home">
     <span class="brand-avatar" aria-hidden="true"></span>
     <span class="brand-text">
-      <strong>{{ site.author }}</strong>
-      <span>Research Notes</span>
+      <strong>{{ site.author_en }}</strong>
+      <span>AI Systems &amp; Infrastructure</span>
     </span>
   </a>
   <nav class="menu" aria-label="Main navigation">
     {% for menu in site.menu -%}
 
     {%- assign target = "" %}
+    {%- assign rel = "" %}
     {%- if menu.target %}
     {% capture target %}target="{{ menu.target }}"{% endcapture %}
+    {% assign rel = 'rel="noopener noreferrer"' %}
     {%- endif %}
 
     {%- assign href = menu.url %}
@@ -19,7 +21,13 @@
     {% capture href %}{{ site.baseurl }}{{ menu.url }}{% endcapture %}
     {%- endunless -%}
 
-    <a href="{{href}}" {{target}} class="menu-link">{{ menu.title }}</a>
+    {%- assign is_active = false -%}
+    {%- if menu.url == page.url -%}
+    {%- assign is_active = true -%}
+    {%- elsif page.url != "/" and menu.url contains page.url -%}
+    {%- assign is_active = true -%}
+    {%- endif -%}
+    <a href="{{href}}" {{target}} {{rel}} class="menu-link{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>{{ menu.title }}</a>
     {% endfor -%}
   </nav>
 </header>

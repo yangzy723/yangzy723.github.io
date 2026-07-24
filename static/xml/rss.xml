@@ -8,7 +8,6 @@ layout: null
     <link>{{site.domainUrl | append: site.baseurl }}</link>
     <description>{{site.description}}</description>
     <language>zh-CN</language>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{site.time | date_to_rfc822}}</lastBuildDate>
     <generator>Jekyll v{{ jekyll.version }}</generator>
     <atom:link href="{{ site.domainUrl | append: site.baseurl }}/static/xml/rss.xml" rel="self" type="application/rss+xml" />
@@ -16,9 +15,9 @@ layout: null
     <item>
       <title>{{post.title | escape}}</title>
       <link>{{site.domainUrl | append: site.baseurl | append: post.url}}</link>
-      <description>{{post.content | strip_html | strip_newlines | replace: " ", "" | replace: "	", "" | truncate: 120 | escape}}</description>
+      <description>{{post.content | strip_html | normalize_whitespace | truncate: 200 | escape}}</description>
       <pubDate>{{post.date | date_to_rfc822}}</pubDate>
-      <gui>{{site.domainUrl | append: site.baseurl | append: post.url}}</gui>
+      <guid isPermaLink="true">{{site.domainUrl | append: site.baseurl | append: post.url}}</guid>
     </item>
     {%- endfor %}
   </channel>

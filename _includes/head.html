@@ -1,23 +1,34 @@
 <head>
-  <title>{{ page.title }}-{{ site.title }}</title>
+  {%- if page.url == "/" -%}
+  {%- assign document_title = site.title -%}
+  {%- else -%}
+  {%- capture document_title -%}{{ page.title }} · {{ site.title }}{%- endcapture -%}
+  {%- endif -%}
+  {%- assign meta_description = page.description | default: page.excerpt | default: site.description -%}
+  {%- assign meta_description = meta_description | strip_html | normalize_whitespace | truncate: 160 -%}
+  {%- capture canonical_url -%}{{ site.domainUrl }}{{ site.baseurl }}{{ page.url }}{%- endcapture -%}
+  <title>{{ document_title | escape }}</title>
   <meta charset="utf-8" />
-  <meta http-equiv="content-language" content="zh-CN" />
   <meta name="theme-color" content="#ffffff" />
-  <meta name="supported-color-schemes" content="light dark" />
-  <meta name="renderer" content="webkit" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <meta name="applicable-device" content="pc,mobile" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="{{ site.author }}" />
-  {%- if page.categories %}
-  <meta name="description" content="{{ page.title }}" />
-  <meta name="keywords" content="{{ site.author }}{% for category in page.categories %},{{ category }}{% endfor %}" />
-  {% else %}
-  <meta name="description" content="{{ site.description }}" />
-  <meta name="keywords" content="{{ site.keywords }}" />
-  {% endif -%}
+  <meta name="description" content="{{ meta_description | escape }}" />
+  <meta name="keywords" content="{{ site.keywords }}{% for category in page.categories %}, {{ category }}{% endfor %}" />
+  <meta property="og:type" content="{% if page.layout == 'mypost' and page.date %}article{% else %}website{% endif %}" />
+  <meta property="og:site_name" content="{{ site.title }}" />
+  <meta property="og:title" content="{{ document_title | escape }}" />
+  <meta property="og:description" content="{{ meta_description | escape }}" />
+  <meta property="og:url" content="{{ canonical_url }}" />
+  <meta property="og:image" content="{{ site.domainUrl }}{{ site.baseurl }}/static/img/avatar-480.jpg" />
+  <meta name="twitter:card" content="summary" />
+  {%- if page.date %}
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
+  {%- endif %}
+  <link rel="canonical" href="{{ canonical_url }}" />
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ site.domainUrl }}{{ site.baseurl }}/static/xml/rss.xml" />
   <link rel="icon" href="{{site.baseurl}}/static/img/favicon.ico" />
-  <link rel="apple-touch-icon" href="{{site.baseurl}}/static/img/logo.png" />
+  <link rel="apple-touch-icon" href="{{site.baseurl}}/static/img/apple-touch-icon.png" />
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/common.css" />
   <link rel="stylesheet" href="{{site.baseurl}}/static/css/theme-dark.css" />
   {%- if page.layout == "mypost" %}
@@ -36,10 +47,14 @@
         if (flag && flag === 'true') this.darkMode = true
         else if (flag && flag === 'false') this.darkMode = false
         else this.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-        document.documentElement.className = this.darkMode ? 'dark' : ''
+        document.documentElement.classList.toggle('dark', this.darkMode)
         document.querySelector('meta[name=theme-color]').setAttribute('content', this.darkMode ? '#2D2E32' : '#FFFFFF')
       }
     }
-    blog.initDarkMode(localStorage.darkMode)
+    try {
+      blog.initDarkMode(localStorage.getItem('darkMode'))
+    } catch (error) {
+      blog.initDarkMode()
+    }
   </script>
 </head>

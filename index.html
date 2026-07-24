@@ -1,33 +1,47 @@
 ---
 layout: page
 title: Home
+lang: en
+description: Zhenyuan Yang is a master's student at ISCAS working on AI systems, efficient inference, GPU spatial sharing, and edge-cloud infrastructure.
 ---
 <div class="page page-index">
   <section class="hero">
     <div class="hero-content">
+      <p class="eyebrow">AI Systems · GPU Infrastructure</p>
       <h1>Zhenyuan Yang</h1>
-      <p class="identity">M.S. Student · Institute of Software, Chinese Academy of Sciences</p>
+      <p class="identity">Master’s student at the Institute of Software, Chinese Academy of Sciences</p>
       <p class="lead">
-        I am an M.S. student at the Institute of Software, Chinese Academy of Sciences,
-        focusing on AI systems and high-performance infrastructure.
-        This site contains my research notes, engineering write-ups, and selected work.
+        I study how to make AI inference more efficient, predictable, and deployable—across GPUs,
+        resource-constrained devices, and edge–cloud systems. Here I share selected research and
+        practical notes from systems work.
       </p>
       <div class="hero-actions">
-        <a href="{{site.baseurl}}/pages/about.html">About</a>
-        <a href="mailto:yangzy723@gmail.com">Contact</a>
+        <a class="primary" href="{{site.baseurl}}/pages/about.html#selected-research">View research</a>
+        <a href="{{site.baseurl}}/pages/categories.html">Read notes</a>
+        <a href="mailto:{{ site.email }}">Email me</a>
+      </div>
+      <div class="hero-profiles" aria-label="External profiles">
+        <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="{{ site.orcid }}" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
       </div>
     </div>
-    <img class="hero-avatar" src="{{site.baseurl}}/avatar.png" alt="Portrait of Zhenyuan Yang" />
+    <img class="hero-avatar" src="{{site.baseurl}}/static/img/avatar-480.jpg" alt="Portrait of Zhenyuan Yang" width="180" height="240" decoding="async" fetchpriority="high" />
   </section>
 
   <section class="section-card">
     <div class="section-head compact">
-      <h2>Quick Links</h2>
+      <div>
+        <p class="section-kicker">Research &amp; engineering</p>
+        <h2>Selected Work</h2>
+      </div>
     </div>
     <div class="portal-grid">
       <article class="portal-card portal-card-publications">
-        <h3>Publications</h3>
-        <p>Selected publications and active submissions.</p>
+        <div class="card-title-row">
+          <h3>Publications</h3>
+          <span>{{ site.data.publications | size }}</span>
+        </div>
+        <p>Research papers, preprints, and ongoing work.</p>
         <ul class="pub-list">
           {%- for paper in site.data.publications limit:3 %}
           <li class="pub-item">
@@ -51,8 +65,11 @@ title: Home
       </article>
       <div class="portal-stack">
         <article class="portal-card">
-          <h3>Projects</h3>
-          <p>Systems engineering projects and open-source work.</p>
+          <div class="card-title-row">
+            <h3>Projects</h3>
+            <span>{{ site.data.projects | size }}</span>
+          </div>
+          <p>Open-source systems and engineering projects.</p>
           <ul class="project-list">
             {% for project in site.data.projects %}
             <li>
@@ -66,7 +83,10 @@ title: Home
           <a class="portal-more" href="https://github.com/yangzy723" target="_blank" rel="noopener">Open GitHub</a>
         </article>
         <article class="portal-card">
-          <h3>Awards</h3>
+          <div class="card-title-row">
+            <h3>Awards</h3>
+            <span>{{ site.data.awards | size }}</span>
+          </div>
           <p>Selected honors and competition achievements.</p>
           <ul class="award-list">
             {% for award in site.data.awards %}
@@ -82,16 +102,20 @@ title: Home
 
   <section class="section-card">
     <div class="section-head compact">
-      <h2>Recent Writing</h2>
-      <a class="more-link" href="{{site.baseurl}}/pages/categories.html">All categories</a>
+      <div>
+        <p class="section-kicker">Notes &amp; essays</p>
+        <h2>Recent Writing</h2>
+      </div>
+      <a class="more-link" href="{{site.baseurl}}/pages/categories.html">Browse all →</a>
     </div>
     <div class="list-post">
       <ul>
         {% for post in site.posts limit:6 -%}
         <li>
-          <span class="date">{{ post.date | date: "%Y/%m/%d" }}</span>
+          <time class="date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
           <div class="title">
             <a href="{{ site.baseurl | append: post.url }}" class="hover-underline">{{ post.title }}</a>
+            {% if post.categories.first %}<span class="post-list-category">{{ post.categories.first }}</span>{% endif %}
           </div>
         </li>
         {%- endfor %}

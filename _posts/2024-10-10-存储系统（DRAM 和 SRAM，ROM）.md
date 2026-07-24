@@ -4,8 +4,6 @@ title: 存储系统（DRAM 和 SRAM，ROM）
 categories: [杂七杂八]
 ---
 
-# 存储系统（DRAM 和 SRAM，ROM）
-
 ## DRAM和SRAM
 DRAM（动态随机存取存储器）和SRAM（静态随机存取存储器）都是半导体存储器，广泛应用于计算机和其他电子设备中，但它们在设计、性能、成本和应用场景上存在显著差异：
 

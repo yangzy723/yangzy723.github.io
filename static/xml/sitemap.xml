@@ -2,21 +2,20 @@
 layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">	
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   {%- for menu in site.menu %}
   <url>
     <loc>{{ site.domainUrl }}{{ site.baseurl }}{{ menu.url }}</loc>
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <changefreq>{% if menu.url == "/" %}weekly{% else %}monthly{% endif %}</changefreq>
+    <priority>{% if menu.url == "/" %}1.0{% else %}0.8{% endif %}</priority>
   </url>
   {%- endfor %}
   {%- for post in site.posts %}
   <url>
     <loc>{{ site.domainUrl }}{{ site.baseurl }}{{ post.url }}</loc>
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   {%- endfor %}
 </urlset>
