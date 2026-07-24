@@ -2,13 +2,14 @@
 layout: mypost
 title: About
 lang: en
-description: Biography, research interests, publications, projects, experience, and contact information for Zhenyuan Yang.
+eyebrow: Research profile
+subtitle: AI systems researcher focused on efficient inference, predictable GPU sharing, and collaborative edge–cloud systems.
+page_class: page-about
+description: Research profile, publications, projects, experience, and contact information for Zhenyuan Yang.
 permalink: /pages/about.html
 ---
 
-I am a master's student at the Institute of Software, Chinese Academy of Sciences (ISCAS), working on AI systems and high-performance infrastructure. My current interests center on efficient inference for resource-constrained devices, predictable GPU sharing, and edge–cloud collaboration.
-
-I use this site to document research ideas, implementation notes, and lessons learned while building systems.
+<p class="about-summary">I am a master’s student at the Institute of Software, Chinese Academy of Sciences (ISCAS), and a research intern at Huawei 2012 Laboratories. I use this site to document research ideas, implementation notes, and lessons learned from building systems.</p>
 
 ## Education
 
@@ -21,25 +22,43 @@ I use this site to document research ideas, implementation notes, and lessons le
 
 | Period | Organization | Role |
 | --- | --- | --- |
-| Jul 2026 – Present | Huawei 2012 Lab, Central Research Institute | Research Intern |
+| Jul 2026 – Present | Huawei 2012 Laboratories · Central Research Institute | Research Intern |
 
 ## Research Interests
 
 - Efficient inference for resource-constrained edge devices
-- Flexible and predictable spatial multiplexing on modern GPUs
-- Communication and scheduling for edge–cloud collaborative systems
+- Flexible, predictable spatial sharing on modern GPUs
+- Communication and scheduling in collaborative edge–cloud systems
 
 ## Selected Research
 
+<ol class="about-publications">
 {% for paper in site.data.publications %}
-- {{ paper.authors }}. {% if paper.url %}[{{ paper.title }}]({{ paper.url }}){% else %}{{ paper.title }}{% endif %}.{% if paper.status %} [{{ paper.status | replace: "_", " " | capitalize }}]{% endif %}{% if paper.venue %} *{{ paper.venue }}*{% endif %}{% if paper.note %}, {{ paper.note }}{% endif %}{% if paper.year %}, {{ paper.year }}{% endif %}.
+  <li>
+    <p class="publication-title">
+      {% if paper.url %}<a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">{{ paper.title }}</a>{% else %}{{ paper.title }}{% endif %}
+    </p>
+    <p class="publication-authors">{{ paper.authors | replace: site.author_en, '<strong>Zhenyuan Yang</strong>' }}</p>
+    <div class="publication-meta">
+      {% if paper.status %}<span class="publication-status status-{{ paper.status | replace: '_', '-' }}">{{ paper.status | replace: "_", " " | capitalize }}</span>{% endif %}
+      {% if paper.venue %}<span>{{ paper.venue }}</span>{% endif %}
+      {% if paper.note %}<span>{{ paper.note }}</span>{% endif %}
+      {% if paper.year %}<span>{{ paper.year }}</span>{% endif %}
+    </div>
+  </li>
 {% endfor %}
+</ol>
 
 ## Projects
 
+<div class="about-projects">
 {% for project in site.data.projects %}
-- [{{ project.name }}]({{ project.url }}) — {{ project.description }}
+  <a class="about-project" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">
+    <strong>{{ project.name }} <span aria-hidden="true">↗</span></strong>
+    <span>{{ project.description }}</span>
+  </a>
 {% endfor %}
+</div>
 
 ## Awards
 
@@ -49,17 +68,30 @@ I use this site to document research ideas, implementation notes, and lessons le
 
 ## Skills
 
-- Languages: C/C++, Python, Java
-- Systems: Linux, Docker, CMake, GDB, Git
-- AI Infra: PyTorch, DeepSpeed, TensorRT, CUDA
+<dl class="about-facts">
+  <div>
+    <dt>Programming</dt>
+    <dd>C/C++, Python, Java</dd>
+  </div>
+  <div>
+    <dt>Systems &amp; tooling</dt>
+    <dd>Linux, Docker, CMake, GDB, Git</dd>
+  </div>
+  <div>
+    <dt>AI infrastructure</dt>
+    <dd>PyTorch, DeepSpeed, TensorRT, CUDA</dd>
+  </div>
+</dl>
 
 ## Personal Interests
 
-- [Dogs](https://www.dogsindepth.com), especially medium and large breeds
-- [Basketball](https://en.wikipedia.org/wiki/2019_NBA_Finals)
+- Dogs, especially medium and large breeds
+- Basketball, especially the NBA
 
 ## Contact
 
-- Email: [{{ site.email }}](mailto:{{ site.email }})
-- GitHub: [github.com/yangzy723]({{ site.github }})
-- ORCID: [0009-0008-3110-8715]({{ site.orcid }})
+<div class="about-contact" aria-label="Contact and profile links">
+  <a href="mailto:{{ site.email }}">Email</a>
+  <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+  <a href="{{ site.orcid }}" target="_blank" rel="noopener noreferrer">ORCID <span aria-hidden="true">↗</span></a>
+</div>

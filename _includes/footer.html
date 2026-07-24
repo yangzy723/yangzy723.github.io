@@ -1,9 +1,9 @@
 <footer class="footer">
   <div class="footer-meta">
     <span>© {{ site.time | date: "%Y" }} {{ site.author_en }}</span>
-    <span class="footer-note">Built for research notes and systems work.</span>
+    <span class="footer-note">{% if page.lang == "en" %}Notes on research, systems, and engineering.{% else %}研究、系统与工程随笔。{% endif %}</span>
   </div>
-  <nav class="footer-links" aria-label="Profile links">
+  <nav class="footer-links" aria-label="{% if page.lang == "en" %}Site and profile links{% else %}站点与个人资料链接{% endif %}">
     <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a href="{{ site.orcid }}" target="_blank" rel="noopener noreferrer">ORCID</a>
     <a href="{{ site.baseurl }}/static/xml/rss.xml">RSS</a>

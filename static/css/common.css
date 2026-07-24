@@ -343,6 +343,12 @@ code {
   transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
 }
 
+.theme-toggle-slot {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+}
+
 .theme-toggle:hover {
   border-color: var(--line-strong);
   color: var(--accent-strong);

@@ -1,5 +1,5 @@
 <header class="header">
-  <a href="{{ site.baseurl }}/" class="brand" aria-label="{{ site.title }} home">
+  <a href="{{ site.baseurl }}/" class="brand" aria-label="{% if page.lang == "en" %}{{ site.title }} home{% else %}{{ site.author }}首页{% endif %}">
     <span class="brand-avatar" aria-hidden="true"></span>
     <span class="brand-text">
       <strong>{{ site.author_en }}</strong>
@@ -7,7 +7,7 @@
     </span>
   </a>
   <div class="header-actions">
-    <nav class="menu" aria-label="Main navigation">
+    <nav class="menu" aria-label="{% if page.lang == "en" %}Main navigation{% else %}主导航{% endif %}">
       {% for menu in site.menu -%}
 
       {%- assign target = "" %}
@@ -31,8 +31,10 @@
       <a href="{{href}}" {{target}} {{rel}} class="menu-link{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>{{ menu.title }}</a>
       {% endfor -%}
     </nav>
-    <button class="theme-toggle theme-toggler" type="button" aria-label="{% if page.lang == "en" %}Switch color theme{% else %}切换颜色主题{% endif %}" aria-pressed="false" hidden>
-      <i class="svg-icon icon-theme-light" aria-hidden="true"></i>
-    </button>
+    <div class="theme-toggle-slot">
+      <button class="theme-toggle theme-toggler" type="button" aria-label="{% if page.lang == "en" %}Switch color theme{% else %}切换颜色主题{% endif %}" aria-pressed="false" hidden>
+        <i class="svg-icon icon-theme-light" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
 </header>

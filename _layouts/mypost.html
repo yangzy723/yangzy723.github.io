@@ -6,16 +6,25 @@
   <a class="skip-link" href="#main-content">{% if page.lang == "en" %}Skip to content{% else %}跳到正文{% endif %}</a>
   {% include header.html -%}
   <main id="main-content" tabindex="-1">
-    <article class="page page-post">
+    <article class="page page-post{% if page.page_class %} {{ page.page_class }}{% endif %}">
       <header class="post-header">
+        {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
         <h1 class="title">{{ page.title }}</h1>
+        {% if page.subtitle %}<p class="post-deck">{{ page.subtitle }}</p>{% endif %}
         {% if page.date %}
         <div class="post-meta">
-          <span>By {{ site.author_en }}</span>
+          <span>{% if page.lang == "en" %}By {{ site.author_en }}{% else %}作者：{{ site.author }}{% endif %}</span>
           <span aria-hidden="true">·</span>
           <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
           {% for category in page.categories %}
-          <a href="{{ site.baseurl }}/pages/categories.html" class="post-category">{{ category }}</a>
+          {%- assign category_anchor = "" -%}
+          {%- assign sorted_categories = site.categories | sort -%}
+          {%- for category_item in sorted_categories -%}
+          {%- if category_item[0] == category -%}
+          {%- capture category_anchor -%}#category-{{ forloop.index }}{%- endcapture -%}
+          {%- endif -%}
+          {%- endfor %}
+          <a href="{{ site.baseurl }}/pages/categories.html{{ category_anchor }}" class="post-category">{{ category }}</a>
           {% endfor %}
         </div>
         {% endif %}
@@ -24,16 +33,16 @@
         {{ content | replace: '<img ', '<img loading="lazy" decoding="async" ' }}
       </div>
       {% if page.date %}
-      <nav class="post-navigation" aria-label="Adjacent articles">
+      <nav class="post-navigation" aria-label="{% if page.lang == "en" %}Adjacent articles{% else %}相邻文章{% endif %}">
         <div>
           {% if page.previous %}
-          <span>Previous</span>
+          <span>{% if page.lang == "en" %}Previous{% else %}上一篇{% endif %}</span>
           <a href="{{ site.baseurl }}{{ page.previous.url }}">{{ page.previous.title }}</a>
           {% endif %}
         </div>
         <div class="next">
           {% if page.next %}
-          <span>Next</span>
+          <span>{% if page.lang == "en" %}Next{% else %}下一篇{% endif %}</span>
           <a href="{{ site.baseurl }}{{ page.next.url }}">{{ page.next.title }}</a>
           {% endif %}
         </div>

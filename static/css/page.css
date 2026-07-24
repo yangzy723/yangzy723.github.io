@@ -58,6 +58,29 @@
   line-height: 1.85;
 }
 
+.hero-current {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 540;
+}
+
+.hero-current-label {
+  padding: 2px 8px;
+  border: 1px solid color-mix(in srgb, var(--success) 28%, var(--line));
+  border-radius: 999px;
+  color: var(--success);
+  background: var(--surface-soft);
+  font-size: 9px;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -659,6 +682,12 @@
   .hero .lead {
     font-size: 14px;
     line-height: 1.75;
+  }
+
+  .hero-current {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .hero-actions {

@@ -6,8 +6,7 @@
 - authors: "Zhenyuan Yang, Wenxin Zheng, Mingyu Li, Haibo Chen"
   title: "Performance Isolation and Semantic Determinism in Efficient GPU Spatial Sharing"
   status: "preprint"
-  venue: "arXiv"
-  note: "2603.15042"
+  note: "arXiv:2603.15042"
   year: 2026
   url: "https://arxiv.org/abs/2603.15042"
 
@@ -15,6 +14,6 @@
   title: "Towards Large Language Model-Friendly APIs"
   status: "published"
   venue: "ACM SIGOPS Operating Systems Review"
-  note: "59(1):17-23"
+  note: "59(1):17–23"
   year: 2025
   url: "https://doi.org/10.1145/3759441.3759445"

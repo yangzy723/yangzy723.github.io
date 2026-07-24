@@ -6,6 +6,7 @@ description: Browse Zhenyuan Yang's research notes, technical guides, essays, an
 ---
 
 <div class="page page-categories">
+  {% assign sorted_categories = site.categories | sort %}
   <header class="page-heading">
     <p class="eyebrow">Writing archive</p>
     <h1>Categories</h1>
@@ -14,16 +15,17 @@ description: Browse Zhenyuan Yang's research notes, technical guides, essays, an
   <nav class="list-category" aria-label="Article categories">
     <h2>Jump to a topic</h2>
     <div>
-      {%- for category in site.categories %}
+      {%- for category in sorted_categories %}
       <a href="#category-{{ forloop.index }}">{{ category[0] }} <span>{{ category[1] | size }}</span></a>
       {%- endfor %}
     </div>
   </nav>
-  {%- for category in site.categories %}
+  {%- for category in sorted_categories %}
   <section class="list-post category-section" aria-labelledby="category-{{ forloop.index }}">
     <div class="category-title">
       <h2 id="category-{{ forloop.index }}">{{ category[0] }}</h2>
-      <span>{{ category[1] | size }} posts</span>
+      {% assign post_count = category[1] | size %}
+      <span>{{ post_count }} {% if post_count == 1 %}post{% else %}posts{% endif %}</span>
     </div>
     <ul>
       {%- for post in category[1] %}

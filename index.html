@@ -11,18 +11,22 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
       <h1>Zhenyuan Yang</h1>
       <p class="identity">Master’s student at the Institute of Software, Chinese Academy of Sciences</p>
       <p class="lead">
-        I study how to make AI inference more efficient, predictable, and deployable—across GPUs,
-        resource-constrained devices, and edge–cloud systems. Here I share selected research and
-        practical notes from systems work.
+        I work on efficient and predictable AI inference across GPUs, resource-constrained
+        devices, and collaborative edge–cloud systems. This site brings together selected
+        research, open-source projects, and practical notes from systems work.
+      </p>
+      <p class="hero-current">
+        <span class="hero-current-label">Current</span>
+        <span class="hero-current-role">Research Intern · Huawei 2012 Laboratories</span>
       </p>
       <div class="hero-actions">
-        <a class="primary" href="{{site.baseurl}}/pages/about.html#selected-research">View research</a>
+        <a class="primary" href="{{site.baseurl}}/pages/about.html#selected-research">Explore research</a>
         <a href="{{site.baseurl}}/pages/categories.html">Read notes</a>
         <a href="mailto:{{ site.email }}">Email me</a>
       </div>
       <div class="hero-profiles" aria-label="External profiles">
-        <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        <a href="{{ site.orcid }}" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
+        <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <a href="{{ site.orcid }}" target="_blank" rel="noopener noreferrer">ORCID <span aria-hidden="true">↗</span></a>
       </div>
     </div>
     <img class="hero-avatar" src="{{site.baseurl}}/static/img/avatar-480.jpg" alt="Portrait of Zhenyuan Yang" width="180" height="240" decoding="async" fetchpriority="high" />
@@ -41,7 +45,7 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
           <h3>Publications</h3>
           <span aria-label="{{ site.data.publications | size }} publications" title="{{ site.data.publications | size }} publications">{{ site.data.publications | size }}</span>
         </div>
-        <p>Research papers, preprints, and ongoing work.</p>
+        <p>Peer-reviewed work, preprints, and ongoing research.</p>
         <ul class="pub-list">
           {%- for paper in site.data.publications limit:3 %}
           <li class="pub-item">
@@ -61,7 +65,7 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
           </li>
           {%- endfor %}
         </ul>
-        <a class="portal-more" href="{{site.baseurl}}/pages/about.html">View full list</a>
+        <a class="portal-more" href="{{site.baseurl}}/pages/about.html#selected-research">View all research</a>
       </article>
       <div class="portal-stack">
         <article class="portal-card">
@@ -69,7 +73,7 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
             <h3>Projects</h3>
             <span aria-label="{{ site.data.projects | size }} projects" title="{{ site.data.projects | size }} projects">{{ site.data.projects | size }}</span>
           </div>
-          <p>Open-source systems and engineering projects.</p>
+          <p>Open-source software and selected engineering work.</p>
           <ul class="project-list">
             {% for project in site.data.projects %}
             <li>
@@ -78,14 +82,14 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
             </li>
             {% endfor %}
           </ul>
-          <a class="portal-more" href="https://github.com/yangzy723" target="_blank" rel="noopener noreferrer">Open GitHub</a>
+          <a class="portal-more" href="{{ site.github }}" target="_blank" rel="noopener noreferrer">View on GitHub</a>
         </article>
         <article class="portal-card">
           <div class="card-title-row">
             <h3>Awards</h3>
             <span aria-label="{{ site.data.awards | size }} awards" title="{{ site.data.awards | size }} awards">{{ site.data.awards | size }}</span>
           </div>
-          <p>Selected honors and competition achievements.</p>
+          <p>Selected academic honors and research awards.</p>
           <ul class="award-list">
             {% for award in site.data.awards %}
             <li>
@@ -104,7 +108,7 @@ description: Zhenyuan Yang is a master's student at ISCAS working on AI systems,
         <p class="section-kicker">Notes &amp; essays</p>
         <h2>Recent Writing</h2>
       </div>
-      <a class="more-link" href="{{site.baseurl}}/pages/categories.html">Browse all →</a>
+      <a class="more-link" href="{{site.baseurl}}/pages/categories.html">Browse all <span aria-hidden="true">→</span></a>
     </div>
     <div class="list-post">
       <ul>

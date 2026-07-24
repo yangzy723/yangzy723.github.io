@@ -17,6 +17,10 @@
   border-bottom: 1px solid var(--line);
 }
 
+.post-header .eyebrow {
+  margin-bottom: 7px;
+}
+
 .page-post .title {
   color: var(--text-main);
   font-size: clamp(28px, 5vw, 38px);
@@ -24,6 +28,15 @@
   line-height: 1.28;
   letter-spacing: -0.018em;
   text-wrap: balance;
+}
+
+.post-deck {
+  max-width: 680px;
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.75;
+  text-wrap: pretty;
 }
 
 .post-meta {
@@ -310,6 +323,173 @@
   border-radius: 8px;
 }
 
+.page-about {
+  max-width: 880px;
+}
+
+.page-about .about-summary {
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.page-about .about-publications {
+  display: grid;
+  padding-left: 0;
+  gap: 0;
+  list-style: none;
+}
+
+.page-about .about-publications li {
+  padding: 15px 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.page-about .about-publications li:last-child {
+  padding-bottom: 3px;
+}
+
+.page-about .publication-title {
+  font-size: 14px;
+  font-weight: 690;
+  line-height: 1.6;
+}
+
+.page-post.page-about .publication-title a {
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.page-post.page-about .publication-title a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.page-about .publication-authors {
+  margin-top: 5px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.page-about .publication-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.page-about .publication-meta span {
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--surface-soft);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.page-about .publication-meta .status-published {
+  border-color: color-mix(in srgb, var(--success) 32%, var(--line));
+  color: var(--success);
+}
+
+.page-about .about-projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.page-post .post .about-project {
+  display: flex;
+  min-width: 0;
+  padding: 14px 15px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  color: var(--text-main);
+  background: var(--surface-soft);
+  flex-direction: column;
+  text-decoration: none;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.page-post .post .about-project:hover {
+  border-color: var(--line-strong);
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  text-decoration: none;
+}
+
+.about-project strong {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.about-project > span {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.page-about .about-facts {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface-soft);
+}
+
+.page-about .about-facts > div {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 16px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-about .about-facts > div:last-child {
+  border-bottom: 0;
+}
+
+.page-about .about-facts dt {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 690;
+}
+
+.page-about .about-facts dd {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 12px;
+}
+
+.page-about .about-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.page-post .post .about-contact a {
+  display: inline-flex;
+  padding: 7px 12px;
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--text-main);
+  background: var(--surface-soft);
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.page-post .post .about-contact a:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  text-decoration: none;
+}
+
 .post-navigation {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -440,6 +620,15 @@
 
   .post-navigation .next {
     text-align: left;
+  }
+
+  .page-about .about-projects {
+    grid-template-columns: 1fr;
+  }
+
+  .page-about .about-facts > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
   }
 
   .image-dialog {

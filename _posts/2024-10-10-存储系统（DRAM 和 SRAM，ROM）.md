@@ -1,7 +1,7 @@
 ---
 layout: mypost
 title: 存储系统（DRAM 和 SRAM，ROM）
-categories: [杂七杂八]
+categories: [杂记]
 ---
 
 ## DRAM和SRAM

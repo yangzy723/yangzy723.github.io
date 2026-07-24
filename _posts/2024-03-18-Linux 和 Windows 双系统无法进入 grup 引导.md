@@ -1,7 +1,7 @@
 ---
 layout: mypost
 title: Linux 和 Windows 双系统无法进入 GRUB 引导
-categories: [Linux相关]
+categories: [Linux]
 ---
 
 ## 问题描述

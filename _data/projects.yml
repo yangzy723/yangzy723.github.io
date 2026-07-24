@@ -1,7 +1,7 @@
 - name: "SoulKnight"
-  description: "Roguelike game project built with LibGDX and Netty."
+  description: "A roguelike game built with LibGDX and Netty."
   url: "https://github.com/yangzy723/SoulKnight"
 
 - name: "vGPU"
-  description: "GPU kernel hooking and dispatching library."
+  description: "A library for intercepting and dispatching GPU kernel launches."
   url: "https://github.com/yangzy723/vGPU"
