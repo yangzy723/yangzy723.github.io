@@ -12,6 +12,12 @@ I am an M.S. student at the Institute of Software, Chinese Academy of Sciences, 
 | 2021.09 - 2025.06 | Nanjing University | B.Eng. in Computer Science and Technology |
 | 2025.09 - Present | Institute of Software, Chinese Academy of Sciences | M.S. in Computer Science and Technology |
 
+## Experience
+
+| Period | Organization | Role |
+| --- | --- | --- |
+| 2026.07 - Present | Huawei 2012 Lab Central Research Institute | Research Intern |
+
 ## Awards
 
 {% for award in site.data.awards %}
