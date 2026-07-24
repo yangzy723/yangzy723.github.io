@@ -3,7 +3,7 @@ layout: mypost
 title: About
 lang: en
 eyebrow: Research profile
-subtitle: AI systems researcher focused on efficient inference, reliable GPU sharing, and edge–cloud systems.
+subtitle: Systems researcher working on operating systems, efficient ML inference, reliable GPU sharing, and edge–cloud systems.
 page_class: page-about
 description: Research profile, publications, projects, experience, and contact information for Zhenyuan Yang.
 permalink: /pages/about.html
@@ -78,7 +78,7 @@ permalink: /pages/about.html
     <dd>Linux, Docker, CMake, GDB, Git</dd>
   </div>
   <div>
-    <dt>AI infrastructure</dt>
+    <dt>ML systems</dt>
     <dd>PyTorch, DeepSpeed, TensorRT, CUDA</dd>
   </div>
 </dl>

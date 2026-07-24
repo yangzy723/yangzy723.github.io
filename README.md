@@ -1,6 +1,6 @@
 # Zhenyuan Yang — Personal Academic Site
 
-Personal academic website powered by Jekyll, focused on AI systems research, engineering notes,
+Personal academic website powered by Jekyll, focused on operating systems, machine learning systems, engineering notes,
 publications, and open-source projects.
 
 - Live site: <https://yangzy723.github.io>
