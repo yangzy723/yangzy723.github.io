@@ -49,17 +49,6 @@ permalink: /pages/about.html
 {% endfor %}
 </ol>
 
-## Projects
-
-<div class="about-projects">
-{% for project in site.data.projects %}
-  <a class="about-project" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">
-    <strong>{{ project.name }} <span aria-hidden="true">↗</span></strong>
-    <span>{{ project.description }}</span>
-  </a>
-{% endfor %}
-</div>
-
 ## Awards
 
 <ul class="about-awards">
@@ -79,6 +68,17 @@ permalink: /pages/about.html
   </li>
 {% endfor %}
 </ul>
+
+## Projects
+
+<div class="about-projects">
+{% for project in site.data.projects %}
+  <a class="about-project" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">
+    <strong>{{ project.name }} <span aria-hidden="true">↗</span></strong>
+    <span>{{ project.description }}</span>
+  </a>
+{% endfor %}
+</div>
 
 ## Skills
 
