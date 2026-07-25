@@ -5,14 +5,14 @@ layout: null
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   {%- for menu in site.menu %}
   <url>
-    <loc>{{ site.domainUrl }}{{ site.baseurl }}{{ menu.url }}</loc>
+    <loc>{{ menu.url | absolute_url }}</loc>
     <changefreq>{% if menu.url == "/" %}weekly{% else %}monthly{% endif %}</changefreq>
     <priority>{% if menu.url == "/" %}1.0{% else %}0.8{% endif %}</priority>
   </url>
   {%- endfor %}
   {%- for post in site.posts %}
   <url>
-    <loc>{{ site.domainUrl }}{{ site.baseurl }}{{ post.url }}</loc>
+    <loc>{{ post.url | absolute_url }}</loc>
     <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>

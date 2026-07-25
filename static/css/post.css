@@ -214,17 +214,6 @@
   cursor: pointer;
 }
 
-.page-post img[alt='line'] {
-  display: inline-block;
-  margin: 0 4px;
-  border: 0;
-  border-radius: 0;
-  vertical-align: middle;
-  background: transparent;
-  box-shadow: none;
-  line-height: 1;
-}
-
 .page-post code {
   padding: 2px 5px;
   margin: 0 1px;
@@ -343,9 +332,35 @@
   max-width: 860px;
 }
 
+.page-about .about-award-name {
+  display: block;
+}
+
 .page-about .about-award-related {
-  display: inline-block;
-  white-space: nowrap;
+  padding-left: 13px;
+  margin: 6px 0 9px 2px;
+  border-left: 2px solid var(--line);
+}
+
+.page-about .about-award-context {
+  display: block;
+  color: var(--text-faint);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.page-about .about-award-links {
+  display: grid;
+  gap: 2px;
+  margin-top: 3px;
+}
+
+.page-post.page-about .about-award-links a {
+  width: fit-content;
+  font-size: 13px;
+  font-weight: 620;
+  line-height: 1.6;
 }
 
 .page-about .about-publications {
@@ -406,8 +421,9 @@
 }
 
 .page-about .publication-meta .status-published {
-  border-color: color-mix(in srgb, var(--success) 32%, var(--line));
+  border-color: var(--status-success-line);
   color: var(--success);
+  background: var(--status-success-bg);
 }
 
 .page-about .about-projects {
@@ -444,7 +460,7 @@
 .about-project > span {
   margin-top: 4px;
   color: var(--text-muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.65;
 }
 
@@ -469,14 +485,14 @@
 
 .page-about .about-facts dt {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 690;
 }
 
 .page-about .about-facts dd {
   margin: 0;
   color: var(--text-main);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .page-about .about-contact {
@@ -493,7 +509,7 @@
   border-radius: 999px;
   color: var(--text-main);
   background: var(--surface-soft);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
   text-decoration: none;
 }
@@ -644,11 +660,6 @@
   .page-about .about-facts > div {
     grid-template-columns: 1fr;
     gap: 2px;
-  }
-
-  .page-about .about-award-related {
-    display: inline;
-    white-space: normal;
   }
 
   .image-dialog {

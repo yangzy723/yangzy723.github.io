@@ -4,4 +4,4 @@ layout: null
 User-agent: *
 Allow: /
 
-Sitemap: {{ site.domainUrl }}{{ site.baseurl }}/static/xml/sitemap.xml
+Sitemap: {{ '/static/xml/sitemap.xml' | absolute_url }}

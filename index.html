@@ -7,7 +7,7 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
 <div class="page page-index">
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">{{ site.tagline | default: "Operating Systems & ML Systems" | escape }}</p>
+      <p class="eyebrow">{{ site.tagline | escape }}</p>
       <h1>Zhenyuan Yang</h1>
       <p class="identity">Master’s student at the Institute of Software, Chinese Academy of Sciences</p>
       <p class="lead">
@@ -21,8 +21,8 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
         <span class="hero-current-role">Research Intern · Huawei 2012 Laboratories</span>
       </p>
       <div class="hero-actions">
-        <a class="primary" href="{{site.baseurl}}/pages/about.html#selected-research">Explore research</a>
-        <a href="{{site.baseurl}}/pages/categories.html">Read notes</a>
+        <a class="primary" href="{{ '/pages/about.html' | relative_url }}#selected-research">Explore research</a>
+        <a href="{{ '/pages/categories.html' | relative_url }}">Read notes</a>
         <a href="mailto:{{ site.email }}">Email me</a>
       </div>
       <div class="hero-profiles" aria-label="External profiles">
@@ -30,7 +30,7 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
         <a href="{{ site.orcid }}" target="_blank" rel="noopener noreferrer">ORCID <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-    <img class="hero-avatar" src="{{site.baseurl}}/static/img/avatar-480.jpg" alt="Portrait of Zhenyuan Yang" width="180" height="240" decoding="async" fetchpriority="high" />
+    <img class="hero-avatar" src="{{ '/static/img/avatar-480.jpg' | relative_url }}" alt="Portrait of Zhenyuan Yang" width="180" height="240" decoding="async" fetchpriority="high" />
   </section>
 
   <section class="section-card">
@@ -58,17 +58,41 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
               {%- endif %}
             </div>
             <div class="pub-meta">
-              {%- if paper.status %}<span>{{ paper.status | replace: "_", " " | capitalize }}</span>{%- endif %}
+              <span class="status-{{ paper.status | slugify }}">{{ paper.status }}</span>
               {%- if paper.venue %}<span>{{ paper.venue }}</span>{%- endif %}
               {%- if paper.note %}<span>{{ paper.note }}</span>{%- endif %}
-              {%- if paper.year %}<span>{{ paper.year }}</span>{%- endif %}
+              <span>{{ paper.year }}</span>
             </div>
           </li>
           {%- endfor %}
         </ul>
-        <a class="portal-more" href="{{site.baseurl}}/pages/about.html#selected-research">View all research</a>
+        <a class="portal-more" href="{{ '/pages/about.html' | relative_url }}#selected-research">View all research</a>
       </article>
       <div class="portal-stack">
+        <article class="portal-card">
+          <div class="card-title-row">
+            <h3>Awards</h3>
+            <span aria-label="{{ site.data.awards | size }} awards" title="{{ site.data.awards | size }} awards">{{ site.data.awards | size }}</span>
+          </div>
+          <p>Selected academic honors and research awards.</p>
+          <ul class="award-list">
+            {% for award in site.data.awards %}
+            <li>
+              <span class="award-name">{{ award.name }}</span>
+              {% if award.related %}
+              <div class="award-related">
+                <span class="award-related-context">{{ award.related.title }}</span>
+                <span class="award-related-links">
+                  {% for link in award.related.links %}
+                  <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }} <span aria-hidden="true">↗</span></a>
+                  {% endfor %}
+                </span>
+              </div>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </article>
         <article class="portal-card">
           <div class="card-title-row">
             <h3>Projects</h3>
@@ -85,23 +109,6 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
           </ul>
           <a class="portal-more" href="{{ site.github }}" target="_blank" rel="noopener noreferrer">View on GitHub</a>
         </article>
-        <article class="portal-card">
-          <div class="card-title-row">
-            <h3>Awards</h3>
-            <span aria-label="{{ site.data.awards | size }} awards" title="{{ site.data.awards | size }} awards">{{ site.data.awards | size }}</span>
-          </div>
-          <p>Selected academic honors and research awards.</p>
-          <ul class="award-list">
-            {% for award in site.data.awards %}
-            <li>
-              <span class="award-name">{{ award.name | default: award }}</span>
-              {% if award.related_url %}
-              <a class="award-related" href="{{ award.related_url }}" target="_blank" rel="noopener noreferrer">{{ award.related_label }} <span aria-hidden="true">↗</span></a>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-        </article>
       </div>
     </div>
   </section>
@@ -112,7 +119,7 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
         <p class="section-kicker">Notes &amp; essays</p>
         <h2>Recent Writing</h2>
       </div>
-      <a class="more-link" href="{{site.baseurl}}/pages/categories.html">Browse all <span aria-hidden="true">→</span></a>
+      <a class="more-link" href="{{ '/pages/categories.html' | relative_url }}">Browse all <span aria-hidden="true">→</span></a>
     </div>
     <div class="list-post">
       <ul>
@@ -120,8 +127,8 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
         <li>
           <time class="date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
           <div class="title">
-            <a href="{{ site.baseurl | append: post.url }}" class="hover-underline">{{ post.title }}</a>
-            {% if post.categories.first %}<span class="post-list-category">{{ post.categories.first }}</span>{% endif %}
+            <a href="{{ post.url | relative_url }}" class="hover-underline">{{ post.title }}</a>
+            <span class="post-list-category">{{ post.categories.first }}</span>
           </div>
         </li>
         {%- endfor %}

@@ -11,25 +11,25 @@ description: Search all articles and technical notes on Zhenyuan Yang's website.
     <h1>Search</h1>
     <p>Search article titles and full text. Chinese and English keywords are both supported.</p>
   </header>
-  <form class="search-form" role="search" action="#" onsubmit="return false">
+  <form class="search-form" role="search" action="{{ '/pages/search.html' | relative_url }}" method="get">
     <label class="visually-hidden" for="search-input">Search articles</label>
     <div class="search-box">
       <span class="search-icon" aria-hidden="true"></span>
-      <input id="search-input" type="search" inputmode="search" autocomplete="off" placeholder="Try “GPU”, “Linux”, or “SimPy”" />
+      <input id="search-input" name="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" placeholder="Try “GPU”, “Linux”, or “SimPy”" />
       <button class="search-clear" type="button" aria-label="Clear search" hidden>Clear</button>
     </div>
   </form>
   <div class="search-results-head">
     <h2>Results</h2>
     <span id="search-status" role="status" aria-live="polite">Enter a keyword to begin.</span>
-    <i class="svg-icon icon-loading" aria-hidden="true"></i>
+    <span class="svg-icon icon-loading" aria-hidden="true"></span>
   </div>
-  <ul class="list-search">
+  <ul class="list-search" aria-label="Search results">
     {%- for post in site.posts %}
     <li hidden>
-      <a href="{{site.baseurl}}{{ post.url }}">
-        <p class="title">{{ post.title }}</p>
-        <p class="content"></p>
+      <a href="{{ post.url | relative_url }}">
+        <span class="title">{{ post.title }}</span>
+        <span class="content"></span>
       </a>
     </li>
     {%- endfor %}

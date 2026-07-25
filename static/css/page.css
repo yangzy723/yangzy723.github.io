@@ -41,6 +41,7 @@
   font-size: clamp(38px, 6vw, 52px);
   line-height: 1.08;
   letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .hero .identity {
@@ -56,6 +57,7 @@
   color: var(--text-muted);
   font-size: 15px;
   line-height: 1.85;
+  text-wrap: pretty;
 }
 
 .hero-current {
@@ -175,11 +177,6 @@
   letter-spacing: -0.01em;
 }
 
-.section-head > p {
-  color: var(--text-muted);
-  font-size: 13px;
-}
-
 .more-link {
   color: var(--text-muted);
   font-size: 12px;
@@ -192,13 +189,14 @@
 
 .portal-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
-  gap: 13px;
+  grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr);
+  gap: 14px;
 }
 
 .portal-stack {
   display: grid;
-  gap: 13px;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
 }
 
 .portal-card {
@@ -245,20 +243,20 @@
 }
 
 .portal-card > p {
-  min-height: 40px;
   margin-top: 4px;
   color: var(--text-muted);
   font-size: 12px;
   line-height: 1.65;
+  text-wrap: pretty;
 }
 
 .portal-card ul {
-  margin-top: 9px;
+  margin-top: 6px;
   flex: 1;
 }
 
 .portal-card li {
-  padding: 9px 0;
+  padding: 8px 0;
   border-bottom: 1px dashed var(--line);
 }
 
@@ -273,9 +271,10 @@
 .pub-list .pub-title {
   color: var(--text-main);
   font-size: 13px;
-  font-weight: 570;
+  font-weight: 620;
   line-height: 1.58;
   overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
 .pub-list .pub-title a:hover,
@@ -299,28 +298,54 @@
   font-size: 10px;
 }
 
+.pub-list .pub-meta .status-published {
+  border-color: var(--status-success-line);
+  color: var(--success);
+  background: var(--status-success-bg);
+}
+
 .award-list .award-name {
   display: block;
   font-size: 13px;
-  font-weight: 540;
+  font-weight: 590;
   line-height: 1.55;
 }
 
 .award-list .award-related {
-  display: inline-block;
-  margin-top: 3px;
+  padding-left: 9px;
+  margin-top: 5px;
+  border-left: 2px solid var(--line);
+}
+
+.award-list .award-related-context {
+  display: block;
+  color: var(--text-faint);
+  font-size: 11px;
+  font-weight: 620;
+  line-height: 1.5;
+}
+
+.award-list .award-related-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 11px;
+  margin-top: 2px;
+}
+
+.award-list .award-related-links a {
   color: var(--accent);
   font-size: 11px;
   font-weight: 620;
+  white-space: nowrap;
 }
 
-.award-list .award-related:hover {
+.award-list .award-related-links a:hover {
   color: var(--accent-strong);
   text-decoration: underline;
 }
 
 .project-list .project-link {
-  font-weight: 680;
+  font-weight: 650;
   line-height: 1.55;
 }
 
@@ -336,8 +361,8 @@
   align-self: flex-start;
   margin-top: 9px;
   color: var(--accent);
-  font-size: 11px;
-  font-weight: 640;
+  font-size: 12px;
+  font-weight: 650;
 }
 
 .portal-more::after {
@@ -346,13 +371,6 @@
 
 .portal-more:hover {
   text-decoration: underline;
-}
-
-.list-post > h2 {
-  padding: 14px 0 8px;
-  color: var(--text-muted);
-  font-size: 14px;
-  letter-spacing: 0.05em;
 }
 
 .list-post ul {
@@ -415,6 +433,7 @@
   color: var(--text-muted);
   font-size: 14px;
   line-height: 1.75;
+  text-wrap: pretty;
 }
 
 .list-category {
@@ -565,8 +584,9 @@
 
 .search-results-head {
   display: flex;
-  height: 38px;
+  min-height: 38px;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -667,6 +687,7 @@
 
   .portal-stack {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
   }
 }
 
@@ -709,6 +730,7 @@
 
   .portal-stack {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
   }
 
   .section-card {
@@ -736,6 +758,12 @@
 
   .list-post li .title {
     align-items: flex-start;
+  }
+
+  .list-post li .title a {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
   }
 
   .post-list-category {

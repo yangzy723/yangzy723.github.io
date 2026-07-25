@@ -60,7 +60,7 @@ conda activate agent
 ```
 
 Open <http://127.0.0.1:8080>. Changes to pages, posts, data, CSS, and JavaScript are rebuilt
-automatically.
+automatically. Restart the server after changing `_config.yml`.
 
 ### 3. Build the production output
 
@@ -92,6 +92,8 @@ categories: [Category1, Category2]
 ---
 ```
 
+Add `extMath: true` to the front matter only when the post contains MathJax formulas.
+
 Place post assets under [posts](posts), typically using a date path such as
 `posts/yyyy/mm/dd/`, then reference them directly from Markdown.
 
@@ -108,10 +110,12 @@ When updating profile information, check these sources together:
 
 ## Project Structure
 
-- `_layouts/` and `_includes/`: shared page shell, navigation, footer, and article layout
+- `_layouts/default.html`: single shared HTML shell for every page
+- `_layouts/` and `_includes/`: page templates, navigation, footer, metadata, and optional features
 - `_data/`: structured homepage and profile content
 - `static/css/`: design tokens, responsive layouts, post styles, and dark theme
 - `static/js/`: theme switching, search, image preview, and accessibility enhancements
+- `static/search-index.json`: build-time full-text index consumed only by the search page
 - `_posts/` and `posts/`: articles and their assets
 
 ## Credits

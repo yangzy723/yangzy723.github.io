@@ -7,14 +7,6 @@
     return isChinese ? chinese : english
   }
 
-  function ready(callback) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', callback, { once: true })
-    } else {
-      callback()
-    }
-  }
-
   function setStoredTheme(value) {
     try {
       if (value === null) localStorage.removeItem('darkMode')
@@ -40,20 +32,20 @@
     var media = window.matchMedia('(prefers-color-scheme: dark)')
 
     function renderToggle() {
-      var action = blog.darkMode ? 'light' : 'dark'
+      var action = window.blog.darkMode ? 'light' : 'dark'
       var label = isChinese
-        ? '切换到' + (blog.darkMode ? '浅色' : '深色') + '模式'
+        ? '切换到' + (window.blog.darkMode ? '浅色' : '深色') + '模式'
         : 'Switch to ' + action + ' mode'
-      icon.classList.toggle('icon-theme-light', blog.darkMode)
-      icon.classList.toggle('icon-theme-dark', !blog.darkMode)
+      icon.classList.toggle('icon-theme-light', window.blog.darkMode)
+      icon.classList.toggle('icon-theme-dark', !window.blog.darkMode)
       toggle.setAttribute('aria-label', label)
       toggle.setAttribute('title', label)
-      toggle.setAttribute('aria-pressed', String(blog.darkMode))
+      toggle.setAttribute('aria-pressed', String(window.blog.darkMode))
     }
 
     function applyTheme(value) {
       document.documentElement.setAttribute('transition', '')
-      blog.initDarkMode(value)
+      window.blog.initDarkMode(value)
       renderToggle()
       window.setTimeout(function () {
         document.documentElement.removeAttribute('transition')
@@ -64,7 +56,7 @@
     renderToggle()
 
     toggle.addEventListener('click', function () {
-      var nextValue = blog.darkMode ? 'false' : 'true'
+      var nextValue = window.blog.darkMode ? 'false' : 'true'
       setStoredTheme(nextValue)
       applyTheme(nextValue)
     })
@@ -75,8 +67,7 @@
       }
     }
 
-    if (media.addEventListener) media.addEventListener('change', handleSystemTheme)
-    else if (media.addListener) media.addListener(handleSystemTheme)
+    media.addEventListener('change', handleSystemTheme)
   }
 
   function initBackToTop() {
@@ -143,7 +134,7 @@
   function initImageDialog() {
     if (!window.HTMLDialogElement) return
 
-    var images = document.querySelectorAll(".page-post .post img:not([alt='line'])")
+    var images = document.querySelectorAll('.page-post .post img')
     if (!images.length) return
 
     var dialog = document.createElement('dialog')
@@ -206,11 +197,9 @@
     })
   }
 
-  ready(function () {
-    initThemeToggle()
-    initBackToTop()
-    wrapTables()
-    addHeadingAnchors()
-    initImageDialog()
-  })
+  initThemeToggle()
+  initBackToTop()
+  wrapTables()
+  addHeadingAnchors()
+  initImageDialog()
 })()

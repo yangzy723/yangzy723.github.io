@@ -3,7 +3,7 @@ layout: mypost
 title: About
 lang: en
 eyebrow: Research profile
-subtitle: Systems researcher working on operating systems, efficient ML inference, reliable GPU sharing, and edge–cloud systems.
+subtitle: Researcher in operating systems and machine learning systems, focused on efficient inference, reliable GPU sharing, and collaborative edge–cloud computing.
 page_class: page-about
 description: Research profile, publications, projects, experience, and contact information for Zhenyuan Yang.
 permalink: /pages/about.html
@@ -27,7 +27,7 @@ permalink: /pages/about.html
 ## Research Interests
 
 - Efficient inference for resource-constrained edge devices
-- Flexible, reliable, and predictable spatial sharing on modern GPUs
+- Flexible, predictable, and reliable GPU spatial sharing
 - Communication and scheduling in collaborative edge–cloud systems
 
 ## Selected Research
@@ -40,10 +40,10 @@ permalink: /pages/about.html
     </p>
     <p class="publication-authors">{{ paper.authors | replace: site.author_en, '<strong>Zhenyuan Yang</strong>' }}</p>
     <div class="publication-meta">
-      {% if paper.status %}<span class="publication-status status-{{ paper.status | replace: '_', '-' }}">{{ paper.status | replace: "_", " " | capitalize }}</span>{% endif %}
+      <span class="publication-status status-{{ paper.status | slugify }}">{{ paper.status }}</span>
       {% if paper.venue %}<span>{{ paper.venue }}</span>{% endif %}
       {% if paper.note %}<span>{{ paper.note }}</span>{% endif %}
-      {% if paper.year %}<span>{{ paper.year }}</span>{% endif %}
+      <span>{{ paper.year }}</span>
     </div>
   </li>
 {% endfor %}
@@ -62,9 +62,23 @@ permalink: /pages/about.html
 
 ## Awards
 
+<ul class="about-awards">
 {% for award in site.data.awards %}
-- {{ award.name | default: award }}{% if award.related_url %} · <a class="about-award-related" href="{{ award.related_url }}" target="_blank" rel="noopener noreferrer">{{ award.related_label }} <span aria-hidden="true">↗</span></a>{% endif %}
+  <li>
+    <span class="about-award-name">{{ award.name }}</span>
+    {% if award.related %}
+    <div class="about-award-related">
+      <span class="about-award-context">{{ award.related.title }}</span>
+      <div class="about-award-links">
+        {% for link in award.related.links %}
+        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }} <span aria-hidden="true">↗</span></a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </li>
 {% endfor %}
+</ul>
 
 ## Skills
 

@@ -1,12 +1,7 @@
-<script defer src="{{site.baseurl}}/static/js/blog.js"></script>
-{%- if page.name == "search.html" -%}
-<script defer src="{{site.baseurl}}/static/js/search.js"></script>
-{%- endif -%}
-
-{%- if page.layout=="mypost" -%}
-{%- if site.extMath -%}
+<script defer src="{{ '/static/js/blog.js' | relative_url }}"></script>
+{%- if page.name == "search.html" %}
+<script defer src="{{ '/static/js/search.js' | relative_url }}"></script>
+{%- endif %}
+{%- if page.extMath %}
 {% include ext-mathjax.html %}
-{% elsif page.extMath %}
-{% include ext-mathjax.html %}
-{% endif %}
-{% endif %}
+{%- endif %}

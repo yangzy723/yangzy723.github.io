@@ -2,7 +2,6 @@ html.dark {
   --bg: #0b1320;
   --surface: #111c2d;
   --surface-soft: #162236;
-  --surface-raised: #172438;
   --text-main: #e2eaf6;
   --text-muted: #a1b0c5;
   --text-faint: #7f90a8;
@@ -40,11 +39,6 @@ html.dark .brand-avatar {
   border-color: #25344a;
 }
 
-html.dark .menu-link:hover {
-  color: var(--text-main);
-  background: var(--surface-soft);
-}
-
 html.dark .menu-link.active {
   border-color: #3a506d;
   color: #c7e2fb;
@@ -52,7 +46,6 @@ html.dark .menu-link.active {
 }
 
 html.dark .hero {
-  border-color: var(--line);
   background: linear-gradient(115deg, rgba(18, 31, 50, 0.98) 20%, rgba(13, 25, 42, 0.98) 100%);
 }
 
@@ -63,19 +56,10 @@ html.dark .hero::after {
 
 html.dark .hero-avatar {
   border-color: #34445c;
-  background: var(--surface-soft);
 }
 
 html.dark .hero-actions a {
-  border-color: var(--line-strong);
-  color: var(--text-main);
   background: rgba(22, 34, 54, 0.7);
-}
-
-html.dark .hero-actions a:hover {
-  border-color: var(--accent);
-  color: var(--accent-strong);
-  background: var(--accent-soft);
 }
 
 html.dark .hero-actions a.primary,
@@ -85,47 +69,16 @@ html.dark .hero-actions a.primary:hover {
   background: #9bc9f2;
 }
 
-html.dark .section-card,
-html.dark .portal-card,
-html.dark .list-category,
-html.dark .category-section,
-html.dark .page-search .list-search a,
-html.dark .page-post {
-  border-color: var(--line);
-  background: var(--surface);
-}
-
-html.dark .portal-card {
-  background: var(--surface-soft);
-}
-
-html.dark .portal-card:focus-within,
-html.dark .page-search .list-search a:hover {
-  border-color: var(--line-strong);
-}
-
-html.dark .card-title-row > span,
-html.dark .post-list-category {
-  border-color: var(--line);
-  background: var(--surface);
-}
-
-html.dark .portal-card li,
-html.dark .list-post li {
-  border-bottom-color: var(--line);
-}
-
 html.dark .pub-list .pub-meta span {
   border-color: #344b67;
   color: #adc1d8;
   background: #1a2d45;
 }
 
-html.dark .list-category div a,
-html.dark .post-category {
-  border-color: var(--line);
-  color: var(--text-muted);
-  background: var(--surface-soft);
+html.dark .pub-list .pub-meta .status-published {
+  border-color: var(--status-success-line);
+  color: var(--success);
+  background: var(--status-success-bg);
 }
 
 html.dark .list-category div a:hover {
@@ -134,30 +87,13 @@ html.dark .list-category div a:hover {
   background: var(--accent-soft);
 }
 
-html.dark .page-search #search-input {
-  border-color: var(--line-strong);
-  color: var(--text-main);
-  background: var(--surface);
-}
-
 html.dark .page-search #search-input:focus {
-  border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(143, 194, 241, 0.13);
-}
-
-html.dark .search-clear {
-  color: var(--text-muted);
-  background: var(--surface-soft);
 }
 
 html.dark .page-search mark {
   color: #ffdaa0;
   background: #5b4219;
-}
-
-html.dark .page-post blockquote {
-  color: var(--text-muted);
-  background: var(--accent-soft);
 }
 
 html.dark .page-post code {
@@ -173,17 +109,8 @@ html.dark .page-post .highlight pre {
   background: #0f1724;
 }
 
-html.dark .page-post th {
-  background: var(--surface-soft);
-}
-
 html.dark .page-post img {
-  border-color: var(--line);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
-}
-
-html.dark .image-dialog img {
-  border: 0;
 }
 
 html.dark .footer-btn {

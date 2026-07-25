@@ -4,20 +4,20 @@ layout: null
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{site.title}}</title>
-    <link>{{site.domainUrl | append: site.baseurl }}</link>
-    <description>{{site.description}}</description>
-    <language>zh-CN</language>
-    <lastBuildDate>{{site.time | date_to_rfc822}}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    <atom:link href="{{ site.domainUrl | append: site.baseurl }}/static/xml/rss.xml" rel="self" type="application/rss+xml" />
+    <title>{{ site.title | escape }}</title>
+    <link>{{ '/' | absolute_url }}</link>
+    <description>{{ site.description | escape }}</description>
+    <language>{{ site.lang }}</language>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <generator>Jekyll</generator>
+    <atom:link href="{{ '/static/xml/rss.xml' | absolute_url }}" rel="self" type="application/rss+xml" />
     {%- for post in site.posts %}
     <item>
-      <title>{{post.title | escape}}</title>
-      <link>{{site.domainUrl | append: site.baseurl | append: post.url}}</link>
-      <description>{{post.content | strip_html | normalize_whitespace | truncate: 200 | escape}}</description>
-      <pubDate>{{post.date | date_to_rfc822}}</pubDate>
-      <guid isPermaLink="true">{{site.domainUrl | append: site.baseurl | append: post.url}}</guid>
+      <title>{{ post.title | escape }}</title>
+      <link>{{ post.url | absolute_url }}</link>
+      <description>{{ post.content | strip_html | normalize_whitespace | truncate: 200 | escape }}</description>
+      <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+      <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
     </item>
     {%- endfor %}
   </channel>

@@ -1,10 +1,6 @@
-encoding: utf-8
-
-# SEO相关信息
 title: Zhenyuan Yang
 tagline: Operating Systems & ML Systems
 description: Zhenyuan Yang's academic homepage — research in operating systems, machine learning systems, efficient inference, and reliable GPU sharing.
-keywords: Zhenyuan Yang, operating systems, machine learning systems, efficient inference, GPU sharing
 author: 杨镇源
 author_en: Zhenyuan Yang
 lang: zh-CN
@@ -12,23 +8,24 @@ email: yangzy723@gmail.com
 github: https://github.com/yangzy723
 orcid: https://orcid.org/0009-0008-3110-8715
 
-# 这些不要动
+url: https://yangzy723.github.io
+baseurl: ''
 permalink: /posts/:year/:month/:day/:title.html
+
 kramdown:
   auto_ids: true
   input: GFM
   syntax_highlighter: rouge
-exclude: ['README.md', '_site', 'dist', 'Gemfile', 'Gemfile.lock', 'archive']
 
-# 域名配置
-# baseurl配置,如果网站部署在根目录下的其他目录中，请设置为 /目录名
-domainUrl: 'https://yangzy723.github.io'
-url: 'https://yangzy723.github.io'
-baseurl: ''
+exclude:
+  - README.md
+  - _site
+  - archive
+  - dist
+  - environment.yml
+  - Gemfile
+  - Gemfile.lock
 
-# 菜单
-# 必填字段 title: '文本' url: '链接'
-# 可选字段 target: '_blank' 新页面打开
 menu:
   - title: Home
     url: /
@@ -38,6 +35,3 @@ menu:
     url: /pages/search.html
   - title: About
     url: /pages/about.html
-
-# 数学公式支持，默认关闭，需要时在文章 front matter 中按需开启
-extMath: false

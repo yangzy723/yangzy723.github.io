@@ -4,44 +4,48 @@
   {%- else -%}
   {%- capture document_title -%}{{ page.title }} · {{ site.title }}{%- endcapture -%}
   {%- endif -%}
-  {%- assign meta_description = page.description | default: page.excerpt | default: site.description -%}
+  {%- assign meta_description = page.description | default: page.excerpt -%}
   {%- assign meta_description = meta_description | strip_html | normalize_whitespace | truncate: 160 -%}
-  {%- capture canonical_url -%}{{ site.domainUrl }}{{ site.baseurl }}{{ page.url }}{%- endcapture -%}
+  {%- assign meta_description = meta_description | default: site.description -%}
+  {%- assign canonical_url = page.url | absolute_url -%}
   <title>{{ document_title | escape }}</title>
   <meta charset="utf-8" />
   <meta name="theme-color" content="#ffffff" />
   <meta name="color-scheme" content="light dark" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="author" content="{{ site.author }}" />
+  <meta name="author" content="{{ site.author_en }}" />
   <meta name="description" content="{{ meta_description | escape }}" />
-  <meta name="keywords" content="{{ site.keywords }}{% for category in page.categories %}, {{ category }}{% endfor %}" />
   <meta property="og:type" content="{% if page.layout == 'mypost' and page.date %}article{% else %}website{% endif %}" />
   <meta property="og:site_name" content="{{ site.title }}" />
   <meta property="og:title" content="{{ document_title | escape }}" />
   <meta property="og:description" content="{{ meta_description | escape }}" />
   <meta property="og:url" content="{{ canonical_url }}" />
-  <meta property="og:image" content="{{ site.domainUrl }}{{ site.baseurl }}/static/img/avatar-480.jpg" />
+  <meta property="og:image" content="{{ '/static/img/avatar-480.jpg' | absolute_url }}" />
+  <meta property="og:image:alt" content="Portrait of {{ site.author_en }}" />
   <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="{{ '/static/img/avatar-480.jpg' | absolute_url }}" />
+  <meta name="twitter:image:alt" content="Portrait of {{ site.author_en }}" />
   {%- if page.date %}
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
   {%- endif %}
   <link rel="canonical" href="{{ canonical_url }}" />
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ site.domainUrl }}{{ site.baseurl }}/static/xml/rss.xml" />
-  <link rel="icon" href="{{site.baseurl}}/favicon.ico" sizes="32x32" />
-  <link rel="apple-touch-icon" href="{{site.baseurl}}/static/img/apple-touch-icon.png" />
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/common.css" />
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/theme-dark.css" />
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/static/xml/rss.xml' | absolute_url }}" />
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="32x32" />
+  <link rel="apple-touch-icon" href="{{ '/static/img/apple-touch-icon.png' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/static/css/common.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/static/css/theme-dark.css' | relative_url }}" />
   {%- if page.layout == "mypost" %}
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/post.css" />
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-dark.css" />
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/code-light.css" />
-  {%- endif %} {%- if page.layout == "page" %}
-  <link rel="stylesheet" href="{{site.baseurl}}/static/css/page.css" />
+  <link rel="stylesheet" href="{{ '/static/css/post.css' | relative_url }}" />
+  {%- if page.date %}
+  <link rel="stylesheet" href="{{ '/static/css/code-dark.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/static/css/code-light.css' | relative_url }}" />
+  {%- endif %}
+  {%- elsif page.layout == "page" %}
+  <link rel="stylesheet" href="{{ '/static/css/page.css' | relative_url }}" />
   {%- endif %}
   <script>
     window.blog = {
-      baseurl: '{{site.baseurl}}',
-      buildAt: '{{ site.github.build_revision | default: site.time | date: "%Y%m%d%H%M%S" }}',
+      baseurl: {{ site.baseurl | jsonify }},
       darkMode: false,
       initDarkMode: function (flag) {
         if (flag && flag === 'true') this.darkMode = true
@@ -52,9 +56,9 @@
       }
     }
     try {
-      blog.initDarkMode(localStorage.getItem('darkMode'))
+      window.blog.initDarkMode(localStorage.getItem('darkMode'))
     } catch (error) {
-      blog.initDarkMode()
+      window.blog.initDarkMode()
     }
   </script>
 </head>

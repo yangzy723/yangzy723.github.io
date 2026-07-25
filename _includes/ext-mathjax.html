@@ -1,27 +1,9 @@
 <script>
   window.MathJax = {
     tex: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-    },
-    startup: {
-      pageReady: async function () {
-        await MathJax.startup.defaultPageReady();
-
-        const mathArray = document.querySelectorAll('script[type="math/tex; mode=display"]');
-        mathArray.forEach(function (el) {
-          const math = el.textContent;
-          const displayMath = '\\[' + math + '\\]';
-          const node = document.createElement('span');
-          node.innerHTML = displayMath;
-          el.parentNode.replaceChild(node, el);
-        });
-
-        return MathJax.typesetPromise();
-      }
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
     }
-  };
+  }
 </script>
-
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
