@@ -51,18 +51,18 @@ permalink: /pages/about.html
 
 ## Awards
 
-<ul class="about-awards">
+<ul class="award-list">
 {% for award in site.data.awards %}
   <li>
-    <span class="about-award-name">{{ award.name }}</span>
+    <span class="award-name">{{ award.name }}</span>
     {% if award.related %}
-    <div class="about-award-related">
-      <span class="about-award-context">{{ award.related.title }}</span>
-      <div class="about-award-links">
+    <div class="award-related">
+      <span class="award-related-context">{{ award.related.title }}</span>
+      <span class="award-related-links">
         {% for link in award.related.links %}
         <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }} <span aria-hidden="true">↗</span></a>
         {% endfor %}
-      </div>
+      </span>
     </div>
     {% endif %}
   </li>

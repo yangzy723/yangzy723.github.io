@@ -32,16 +32,16 @@
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/static/xml/rss.xml' | absolute_url }}" />
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="32x32" />
   <link rel="apple-touch-icon" href="{{ '/static/img/apple-touch-icon.png' | relative_url }}" />
-  <link rel="stylesheet" href="{{ '/static/css/common.css' | relative_url }}" />
-  <link rel="stylesheet" href="{{ '/static/css/theme-dark.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/static/css/common.css' | relative_url }}?v={{ asset_version }}" />
+  <link rel="stylesheet" href="{{ '/static/css/theme-dark.css' | relative_url }}?v={{ asset_version }}" />
   {%- if page.layout == "mypost" %}
-  <link rel="stylesheet" href="{{ '/static/css/post.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/static/css/post.css' | relative_url }}?v={{ asset_version }}" />
   {%- if page.date %}
-  <link rel="stylesheet" href="{{ '/static/css/code-dark.css' | relative_url }}" />
-  <link rel="stylesheet" href="{{ '/static/css/code-light.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/static/css/code-dark.css' | relative_url }}?v={{ asset_version }}" />
+  <link rel="stylesheet" href="{{ '/static/css/code-light.css' | relative_url }}?v={{ asset_version }}" />
   {%- endif %}
   {%- elsif page.layout == "page" %}
-  <link rel="stylesheet" href="{{ '/static/css/page.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/static/css/page.css' | relative_url }}?v={{ asset_version }}" />
   {%- endif %}
   <script>
     window.blog = {
