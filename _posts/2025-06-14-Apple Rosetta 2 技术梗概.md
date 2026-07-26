@@ -7,7 +7,7 @@ categories: [macOS]
 ## 背景介绍
 Apple 在 2020 年 6 月宣布将 Mac 过渡到自研 Apple Silicon（ARM 架构）。作为这一“约两年完成过渡”计划的一部分，macOS Big Sur 引入了 Rosetta 2 翻译技术。Rosetta（译名“Rosetta Stone【罗塞塔石碑】”，那是一块帮助学者破译古埃及象形文字的石碑）最初用于 2006 年 PowerPC 向 Intel 转换，Rosetta 2 则帮助用户在新款 M 系列芯片上运行旧有的 Intel (x86_64) 应用。苹果宣称 Rosetta 2 旨在简化过渡，对用户来说“平均用户应该觉察不到它的存在”。
 
-![Rosetta](rosetta.jpg)
+![Rosetta](rosetta.jpg){: width="1200" height="800" }
 
 ## Rosetta 2 的工作原理
 Rosetta 2 是一个动态二进制翻译（Dynamic Binary Translation）系统，主要通过以下两种方式将 x86_64 指令转换为 ARM64：
@@ -69,4 +69,3 @@ Rosetta 2 是 Apple Silicon 迁移中的关键技术：
 - 开发者仍需尽早完成向 ARM 原生架构迁移。
 
 这项技术成功实现了架构跨越的“平滑过渡”，也为未来构建统一的 Apple 生态打下坚实基础。
-

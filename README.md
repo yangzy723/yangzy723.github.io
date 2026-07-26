@@ -97,6 +97,13 @@ Add `extMath: true` to the front matter only when the post contains MathJax form
 Place post assets under [posts](posts), typically using a date path such as
 `posts/yyyy/mm/dd/`, then reference them directly from Markdown.
 
+Include each image's intrinsic dimensions so the browser can reserve its layout space without
+altering or recompressing the original file:
+
+```markdown
+![Descriptive alternative text](image.png){: width="1200" height="800" }
+```
+
 ### Keep profile content aligned
 
 When updating profile information, check these sources together:

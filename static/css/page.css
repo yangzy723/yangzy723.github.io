@@ -282,6 +282,19 @@
   color: var(--accent);
 }
 
+.pub-list .pub-authors {
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.pub-list .pub-authors strong {
+  color: var(--text-main);
+  font-weight: 680;
+}
+
 .pub-list .pub-meta {
   display: flex;
   flex-wrap: wrap;

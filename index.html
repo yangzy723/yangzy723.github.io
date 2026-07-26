@@ -57,6 +57,7 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
               {{ paper.title }}
               {%- endif %}
             </div>
+            <div class="pub-authors">{{ paper.authors | replace: site.author_en, '<strong>Zhenyuan Yang</strong>' }}</div>
             <div class="pub-meta">
               <span class="status-{{ paper.status | slugify }}">{{ paper.status }}</span>
               {%- if paper.venue %}<span>{{ paper.venue }}</span>{%- endif %}
