@@ -4,8 +4,8 @@
   year: 2026
 
 - authors: "Zhenyuan Yang, Wenxin Zheng, Mingyu Li, Haibo Chen"
-  title: "Performance Isolation and Semantic Determinism in Efficient GPU Spatial Sharing"
-  status: "Preprint"
+  title: "Determinism-Preserving GPU Spatial Sharing with Vitamin-E"
+  status: "Under Review"
   note: "arXiv:2603.15042"
   year: 2026
   url: "https://arxiv.org/abs/2603.15042"
