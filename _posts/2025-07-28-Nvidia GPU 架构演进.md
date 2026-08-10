@@ -1,5 +1,4 @@
 ---
-layout: mypost
 title: NVIDIA GPU 架构演进
 categories: [AI Infrastructure]
 description: NVIDIA 消费级与数据中心 GPU 架构的时间线、核心特性和代表型号对照。

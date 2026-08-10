@@ -1,0 +1,1 @@
+{%- for author in include.authors -%}{%- if author == site.author_en -%}<strong>{{ author | escape }}</strong>{%- else -%}{{ author | escape }}{%- endif -%}{%- unless forloop.last -%}, {% endunless -%}{%- endfor -%}

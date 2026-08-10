@@ -1,5 +1,5 @@
 ---
-layout: mypost
+layout: article
 title: DistServe：Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving
 categories: [论文阅读]
 ---

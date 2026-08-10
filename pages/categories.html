@@ -3,40 +3,39 @@ layout: page
 title: Categories
 lang: en
 description: Browse Zhenyuan Yang's research notes, technical guides, essays, and photography by topic.
+permalink: /pages/categories.html
 ---
 
-<div class="page page-categories">
-  {% assign sorted_categories = site.categories | sort %}
-  <header class="page-heading">
-    <p class="eyebrow">Writing archive</p>
-    <h1>Categories</h1>
-    <p>Browse {{ site.posts | size }} notes by topic, from systems engineering and machine learning systems to essays and photography.</p>
-  </header>
-  <nav class="list-category" aria-label="Article categories">
-    <h2>Jump to a topic</h2>
-    <div>
-      {%- for category in sorted_categories %}
-      <a href="#category-{{ category[0] | slugify: 'raw' }}">{{ category[0] }} <span>{{ category[1] | size }}</span></a>
-      {%- endfor %}
-    </div>
-  </nav>
-  {%- for category in sorted_categories %}
-  <section class="list-post category-section" aria-labelledby="category-{{ category[0] | slugify: 'raw' }}">
-    <div class="category-title">
-      <h2 id="category-{{ category[0] | slugify: 'raw' }}">{{ category[0] }}</h2>
-      {% assign post_count = category[1] | size %}
-      <span>{{ post_count }} {% if post_count == 1 %}post{% else %}posts{% endif %}</span>
-    </div>
-    <ul>
-      {%- for post in category[1] %}
-      <li>
-        <time class="date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
-        <div class="title">
-          <a href="{{ post.url | relative_url }}" class="hover-underline">{{ post.title }}</a>
-        </div>
-      </li>
-      {%- endfor %}
-    </ul>
-  </section>
-  {%- endfor %}
-</div>
+{% assign sorted_categories = site.categories | sort %}
+<header class="page-heading">
+  <p class="eyebrow">Writing archive</p>
+  <h1>Categories</h1>
+  <p>Browse {{ site.posts | size }} notes by topic, from systems engineering and machine learning systems to essays and photography.</p>
+</header>
+<nav class="list-category" aria-label="Article categories">
+  <h2>Jump to a topic</h2>
+  <div>
+    {%- for category in sorted_categories %}
+    <a href="#category-{{ category[0] | slugify: 'raw' }}">{{ category[0] }} <span>{{ category[1] | size }}</span></a>
+    {%- endfor %}
+  </div>
+</nav>
+{%- for category in sorted_categories %}
+<section class="list-post category-section" aria-labelledby="category-{{ category[0] | slugify: 'raw' }}">
+  <div class="category-title">
+    <h2 id="category-{{ category[0] | slugify: 'raw' }}">{{ category[0] }}</h2>
+    {% assign post_count = category[1] | size %}
+    <span>{{ post_count }} {% if post_count == 1 %}post{% else %}posts{% endif %}</span>
+  </div>
+  <ul>
+    {%- for post in category[1] %}
+    <li>
+      <time class="date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+      <div class="title">
+        <a href="{{ post.url | relative_url }}" class="hover-underline">{{ post.title }}</a>
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endfor %}

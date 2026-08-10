@@ -1,5 +1,5 @@
 ---
-layout: mypost
+layout: article
 title: AntMan：Dynamic Scaling on GPU Clusters for Deep Learning
 categories: [论文阅读]
 ---

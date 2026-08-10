@@ -1,5 +1,5 @@
 ---
-layout: mypost
+layout: article
 title: Orion：Interference-aware, Fine-grained GPU Sharing for ML Applications
 categories: [论文阅读]
 ---

@@ -1,5 +1,5 @@
 ---
-layout: mypost
+layout: article
 title: Microkernel Goes General： Performance and Compatibility in the HongMeng Production Microkernel
 categories: [论文阅读]
 ---

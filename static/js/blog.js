@@ -9,8 +9,7 @@
 
   function setStoredTheme(value) {
     try {
-      if (value === null) localStorage.removeItem('darkMode')
-      else localStorage.setItem('darkMode', value)
+      localStorage.setItem('darkMode', value)
     } catch (error) {
       // Theme switching still works for the current page when storage is unavailable.
     }
@@ -25,21 +24,18 @@
   }
 
   function initThemeToggle() {
-    var toggle = document.querySelector('.theme-toggler')
-    if (!toggle) return
-
+    var toggle = document.querySelector('.theme-toggle')
     var icon = toggle.querySelector('.svg-icon')
     var media = window.matchMedia('(prefers-color-scheme: dark)')
 
     function renderToggle() {
       var action = window.blog.darkMode ? 'light' : 'dark'
-      var label = isChinese
+      var title = isChinese
         ? '切换到' + (window.blog.darkMode ? '浅色' : '深色') + '模式'
         : 'Switch to ' + action + ' mode'
       icon.classList.toggle('icon-theme-light', window.blog.darkMode)
       icon.classList.toggle('icon-theme-dark', !window.blog.darkMode)
-      toggle.setAttribute('aria-label', label)
-      toggle.setAttribute('title', label)
+      toggle.setAttribute('title', title)
       toggle.setAttribute('aria-pressed', String(window.blog.darkMode))
     }
 
@@ -72,10 +68,7 @@
 
   function initBackToTop() {
     var button = document.querySelector('.to-top')
-    if (!button) return
-
     var ticking = false
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
     function update() {
       button.classList.toggle('show', window.scrollY > 560)
@@ -95,7 +88,7 @@
     )
 
     button.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' })
+      window.scrollTo({ top: 0 })
     })
 
     update()
@@ -104,7 +97,6 @@
   function wrapTables() {
     var tables = document.querySelectorAll('.page-post .post > table')
     tables.forEach(function (table) {
-      if (table.parentElement.classList.contains('table-container')) return
       var wrapper = document.createElement('div')
       wrapper.className = 'table-container'
       wrapper.setAttribute('role', 'region')
@@ -118,7 +110,6 @@
   function addHeadingAnchors() {
     var headings = document.querySelectorAll('.page-post .post h1[id], .page-post .post h2[id], .page-post .post h3[id]')
     headings.forEach(function (heading) {
-      if (heading.querySelector('.heading-anchor')) return
       var anchor = document.createElement('a')
       anchor.className = 'heading-anchor'
       anchor.href = '#' + encodeURIComponent(heading.id)
@@ -132,8 +123,6 @@
   }
 
   function initImageDialog() {
-    if (!window.HTMLDialogElement) return
-
     var images = document.querySelectorAll('.page-post .post img')
     if (!images.length) return
 
@@ -144,7 +133,6 @@
 
     dialog.className = 'image-dialog'
     dialog.setAttribute('aria-label', translate('Image preview', '图片预览'))
-    preview.alt = ''
     close.className = 'image-dialog-close'
     close.type = 'button'
     close.textContent = '×'

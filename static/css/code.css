@@ -1,0 +1,116 @@
+.highlight .c,
+.highlight .c1 {
+  color: #999988;
+  font-style: italic;
+}
+
+.highlight .k,
+.highlight .kn,
+.highlight .o,
+.highlight .ow {
+  color: #000000;
+  font-weight: bold;
+}
+
+.highlight .mf,
+.highlight .mi {
+  color: #009999;
+}
+
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sa,
+.highlight .se,
+.highlight .sh,
+.highlight .si {
+  color: #d14;
+}
+
+.highlight .na,
+.highlight .nv {
+  color: #008080;
+}
+
+.highlight .bp {
+  color: #999999;
+}
+
+.highlight .nb {
+  color: #0086b3;
+}
+
+.highlight .nc {
+  color: #445588;
+  font-weight: bold;
+}
+
+.highlight .nf {
+  color: #990000;
+  font-weight: bold;
+}
+
+.highlight .nt {
+  color: #000080;
+}
+
+.highlight .w {
+  color: #bbbbbb;
+}
+
+html.dark .highlight {
+  color: #abb2bf;
+}
+
+html.dark .highlight .c,
+html.dark .highlight .c1 {
+  color: #5c6370;
+  font-style: italic;
+}
+
+html.dark .highlight .k,
+html.dark .highlight .kn {
+  color: #c678dd;
+}
+
+html.dark .highlight .mf,
+html.dark .highlight .mi,
+html.dark .highlight .na {
+  color: #d19a66;
+}
+
+html.dark .highlight .s,
+html.dark .highlight .s1,
+html.dark .highlight .s2,
+html.dark .highlight .sa,
+html.dark .highlight .se,
+html.dark .highlight .sh,
+html.dark .highlight .si {
+  color: #98c379;
+}
+
+html.dark .highlight .bp,
+html.dark .highlight .nb,
+html.dark .highlight .nc,
+html.dark .highlight .nv,
+html.dark .highlight .py {
+  color: #e5c07b;
+}
+
+html.dark .highlight .nf,
+html.dark .highlight .o,
+html.dark .highlight .ow {
+  color: #abb2bf;
+}
+
+html.dark .highlight .ow {
+  font-weight: 700;
+}
+
+html.dark .highlight .nt {
+  color: #e06c75;
+}
+
+html.dark .highlight .w {
+  color: #f8f8f2;
+}

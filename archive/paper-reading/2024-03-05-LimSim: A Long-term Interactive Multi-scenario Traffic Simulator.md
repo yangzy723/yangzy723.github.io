@@ -1,5 +1,5 @@
 ---
-layout: mypost
+layout: article
 title: LimSim：A Long-term Interactive Multi-scenario Traffic Simulator
 categories: [论文阅读]
 ---

@@ -1,5 +1,5 @@
 ---
-layout: mypost
+layout: article
 title: About
 lang: en
 eyebrow: Research profile
@@ -13,16 +13,34 @@ permalink: /pages/about.html
 
 ## Education
 
-| Period | Institution | Program |
-| --- | --- | --- |
-| Sep 2025 – Present | Institute of Software, Chinese Academy of Sciences | M.S. in Computer Science and Technology |
-| Sep 2021 – Jun 2025 | Nanjing University | B.Eng. in Computer Science and Technology |
+<ol class="about-timeline">
+  <li>
+    <span class="about-period">Sep 2025 – Present</span>
+    <span class="about-entry">
+      <strong>Institute of Software, Chinese Academy of Sciences</strong>
+      <span>M.S. in Computer Science and Technology</span>
+    </span>
+  </li>
+  <li>
+    <span class="about-period">Sep 2021 – Jun 2025</span>
+    <span class="about-entry">
+      <strong>Nanjing University</strong>
+      <span>B.Eng. in Computer Science and Technology</span>
+    </span>
+  </li>
+</ol>
 
 ## Experience
 
-| Period | Organization | Role |
-| --- | --- | --- |
-| Jul 2026 – Present | Huawei 2012 Laboratories · Central Research Institute | Research Intern |
+<ol class="about-timeline">
+  <li>
+    <span class="about-period">Jul 2026 – Present</span>
+    <span class="about-entry">
+      <strong>Huawei 2012 Laboratories · Central Research Institute</strong>
+      <span>Research Intern</span>
+    </span>
+  </li>
+</ol>
 
 ## Research Interests
 
@@ -38,9 +56,9 @@ permalink: /pages/about.html
     <p class="publication-title">
       {% if paper.url %}<a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">{{ paper.title }}</a>{% else %}{{ paper.title }}{% endif %}
     </p>
-    <p class="publication-authors">{{ paper.authors | replace: site.author_en, '<strong>Zhenyuan Yang</strong>' }}</p>
+    <p class="publication-authors">{% include publication-authors.html authors=paper.authors %}</p>
     <div class="publication-meta">
-      <span class="publication-status status-{{ paper.status | slugify }}">{{ paper.status }}</span>
+      <span{% if paper.status == "Published" %} class="status-published"{% endif %}>{{ paper.status }}</span>
       {% if paper.venue %}<span>{{ paper.venue }}</span>{% endif %}
       {% if paper.note %}<span>{{ paper.note }}</span>{% endif %}
       <span>{{ paper.year }}</span>
@@ -51,23 +69,7 @@ permalink: /pages/about.html
 
 ## Awards
 
-<ul class="award-list">
-{% for award in site.data.awards %}
-  <li>
-    <span class="award-name">{{ award.name }}</span>
-    {% if award.related %}
-    <div class="award-related">
-      <span class="award-related-context">{{ award.related.title }}</span>
-      <span class="award-related-links">
-        {% for link in award.related.links %}
-        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }} <span aria-hidden="true">↗</span></a>
-        {% endfor %}
-      </span>
-    </div>
-    {% endif %}
-  </li>
-{% endfor %}
-</ul>
+{% include award-list.html %}
 
 ## Projects
 

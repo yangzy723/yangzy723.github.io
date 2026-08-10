@@ -4,15 +4,11 @@
   var form = document.querySelector('.search-form')
   var input = document.getElementById('search-input')
   var list = document.querySelector('.list-search')
-  var items = Array.from(list.querySelectorAll('li'))
   var loadingIcon = document.querySelector('.search-results-head .icon-loading')
   var status = document.getElementById('search-status')
   var clearButton = document.querySelector('.search-clear')
   var emptyState = document.querySelector('.search-empty')
-  var titles = items.map(function (item) {
-    return item.querySelector('.title').textContent.trim()
-  })
-  var contents = null
+  var documents = null
   var pendingRequest = null
   var debounceTimer = null
   var composing = false
@@ -27,29 +23,34 @@
     status.textContent = message
   }
 
-  function loadContents() {
-    if (contents) return Promise.resolve(contents)
+  function isValidDocument(entry) {
+    return (
+      entry &&
+      typeof entry.title === 'string' &&
+      typeof entry.url === 'string' &&
+      typeof entry.date === 'string' &&
+      typeof entry.category === 'string' &&
+      typeof entry.content === 'string'
+    )
+  }
+
+  function loadDocuments() {
+    if (documents) return Promise.resolve(documents)
     if (pendingRequest) return pendingRequest
 
     setLoading(true)
     setStatus('Loading article index…')
-    pendingRequest = fetch(window.blog.baseurl + '/static/search-index.json', {
-      credentials: 'same-origin'
-    })
+    pendingRequest = fetch(window.blog.searchIndexUrl)
       .then(function (response) {
         if (!response.ok) throw new Error('Search index request failed')
         return response.json()
       })
       .then(function (value) {
-        var valid =
-          Array.isArray(value) &&
-          value.length === items.length &&
-          value.every(function (entry) {
-            return typeof entry === 'string'
-          })
-        if (!valid) throw new Error('Invalid search index')
-        contents = value
-        return contents
+        if (!Array.isArray(value) || !value.every(isValidDocument)) {
+          throw new Error('Invalid search index')
+        }
+        documents = value
+        return documents
       })
       .finally(function () {
         pendingRequest = null
@@ -59,18 +60,14 @@
     return pendingRequest
   }
 
-  function hideResults() {
-    items.forEach(function (item, index) {
-      item.hidden = true
-      item.querySelector('.title').textContent = titles[index]
-      item.querySelector('.content').textContent = ''
-    })
+  function clearResults() {
+    list.textContent = ''
   }
 
   function appendHighlighted(element, text, keyword) {
     element.textContent = ''
-    var lowerText = text.toLocaleLowerCase()
-    var lowerKeyword = keyword.toLocaleLowerCase()
+    var lowerText = text.toLowerCase()
+    var lowerKeyword = keyword.toLowerCase()
     var start = 0
     var matchIndex = lowerText.indexOf(lowerKeyword)
 
@@ -93,43 +90,69 @@
     return (start > 0 ? '…' : '') + content.slice(start, end).trim() + (end < content.length ? '…' : '')
   }
 
-  function runSearch(rawKeyword) {
-    var keyword = rawKeyword.trim()
+  function createResult(entry, keyword, lowerKeyword) {
+    var titleMatch = entry.title.toLowerCase().indexOf(lowerKeyword)
+    var contentMatch = entry.content.toLowerCase().indexOf(lowerKeyword)
+    if (titleMatch === -1 && contentMatch === -1) return null
+
+    var item = document.createElement('li')
+    var link = document.createElement('a')
+    var title = document.createElement('span')
+    var meta = document.createElement('span')
+    var content = document.createElement('span')
+
+    link.href = entry.url
+    title.className = 'title'
+    meta.className = 'search-result-meta'
+    content.className = 'content'
+    appendHighlighted(title, entry.title, keyword)
+    meta.textContent = entry.date + (entry.category ? ' · ' + entry.category : '')
+
+    var snippet = createSnippet(entry.content, contentMatch)
+    if (snippet) appendHighlighted(content, snippet, keyword)
+
+    link.appendChild(title)
+    link.appendChild(meta)
+    link.appendChild(content)
+    item.appendChild(link)
+
+    return {
+      element: item,
+      titleMatch: titleMatch !== -1
+    }
+  }
+
+  function runSearch(keyword) {
+    clearResults()
+
     if (!keyword) {
-      hideResults()
       emptyState.hidden = false
       emptyState.textContent = 'Your matches will appear here.'
       setStatus('Enter a keyword to begin.')
       return
     }
 
-    var lowerKeyword = keyword.toLocaleLowerCase()
-    var resultCount = 0
+    var lowerKeyword = keyword.toLowerCase()
+    var matches = documents
+      .map(function (entry) {
+        return createResult(entry, keyword, lowerKeyword)
+      })
+      .filter(Boolean)
 
-    items.forEach(function (item, index) {
-      var title = titles[index]
-      var content = contents[index]
-      var titleMatch = title.toLocaleLowerCase().indexOf(lowerKeyword)
-      var contentMatch = content.toLocaleLowerCase().indexOf(lowerKeyword)
-      var titleElement = item.querySelector('.title')
-      var contentElement = item.querySelector('.content')
-
-      if (titleMatch === -1 && contentMatch === -1) {
-        item.hidden = true
-        return
-      }
-
-      appendHighlighted(titleElement, title, keyword)
-      var snippet = createSnippet(content, contentMatch)
-      if (snippet) appendHighlighted(contentElement, snippet, keyword)
-      else contentElement.textContent = ''
-      item.hidden = false
-      resultCount += 1
+    matches.sort(function (left, right) {
+      if (left.titleMatch !== right.titleMatch) return left.titleMatch ? -1 : 1
+      return 0
     })
 
-    emptyState.hidden = resultCount > 0
+    var fragment = document.createDocumentFragment()
+    matches.forEach(function (match) {
+      fragment.appendChild(match.element)
+    })
+    list.appendChild(fragment)
+
+    emptyState.hidden = matches.length > 0
     emptyState.textContent = 'No articles matched “' + keyword + '”. Try a shorter or broader term.'
-    setStatus(resultCount + (resultCount === 1 ? ' result' : ' results') + ' for “' + keyword + '”.')
+    setStatus(matches.length + (matches.length === 1 ? ' result' : ' results') + ' for “' + keyword + '”.')
   }
 
   function updateUrl(keyword) {
@@ -145,29 +168,27 @@
     window.clearTimeout(debounceTimer)
     clearButton.hidden = !keyword
 
+    if (!keyword) {
+      updateUrl('')
+      runSearch('')
+      return
+    }
+
     debounceTimer = window.setTimeout(function () {
       updateUrl(keyword)
-      if (!keyword) {
-        runSearch('')
-        return
-      }
-
-      loadContents()
+      loadDocuments()
         .then(function () {
           if (revision === searchRevision) runSearch(keyword)
         })
         .catch(function () {
           if (revision !== searchRevision) return
-          hideResults()
+          clearResults()
           emptyState.hidden = false
           emptyState.textContent = 'The search index could not be loaded. Please refresh and try again.'
           setStatus('Search is temporarily unavailable.')
         })
     }, 160)
   }
-
-  hideResults()
-  emptyState.hidden = false
 
   form.addEventListener('submit', function (event) {
     event.preventDefault()

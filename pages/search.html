@@ -3,9 +3,13 @@ layout: page
 title: Search
 lang: en
 description: Search all articles and technical notes on Zhenyuan Yang's website.
+permalink: /pages/search.html
+search: true
+robots: noindex, follow
+sitemap: false
 ---
 
-<div class="page page-search">
+<div class="page-search">
   <header class="page-heading">
     <p class="eyebrow">Article index</p>
     <h1>Search</h1>
@@ -25,14 +29,6 @@ description: Search all articles and technical notes on Zhenyuan Yang's website.
     <span class="svg-icon icon-loading" aria-hidden="true"></span>
   </div>
   <ul class="list-search" aria-label="Search results">
-    {%- for post in site.posts %}
-    <li hidden>
-      <a href="{{ post.url | relative_url }}">
-        <span class="title">{{ post.title }}</span>
-        <span class="content"></span>
-      </a>
-    </li>
-    {%- endfor %}
   </ul>
   <p class="search-empty">Your matches will appear here.</p>
 </div>

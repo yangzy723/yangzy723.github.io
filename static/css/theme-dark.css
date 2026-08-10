@@ -13,8 +13,6 @@ html.dark {
   --success: #74c8a8;
   --shadow-sm: 0 5px 18px rgba(0, 0, 0, 0.16);
   --shadow: 0 20px 54px rgba(0, 0, 0, 0.25);
-  color: var(--text-main);
-  background: var(--bg);
 }
 
 html.dark body::before {
@@ -103,8 +101,7 @@ html.dark .page-post code {
 }
 
 html.dark .page-post pre,
-html.dark .page-post .highlight,
-html.dark .page-post .highlight pre {
+html.dark .page-post .highlight {
   border-color: #2e3c50;
   background: #0f1724;
 }
@@ -113,12 +110,12 @@ html.dark .page-post img {
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
 }
 
-html.dark .footer-btn {
+html.dark .to-top {
   border-color: rgba(219, 232, 248, 0.2);
   color: #e4eef9;
   background: rgba(39, 57, 80, 0.88);
 }
 
-html.dark .footer-btn:hover {
+html.dark .to-top:hover {
   background: #376a99;
 }

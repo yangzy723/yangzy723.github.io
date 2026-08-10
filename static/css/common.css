@@ -91,8 +91,6 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6,
 ul,
 ol,
 li,
@@ -121,9 +119,7 @@ a {
 }
 
 button,
-input,
-select,
-textarea {
+input {
   color: inherit;
   font: inherit;
 }
@@ -432,9 +428,11 @@ code {
   text-decoration: underline;
 }
 
-.footer-btn {
+.to-top {
   position: fixed;
   z-index: 99;
+  right: 20px;
+  bottom: 18px;
   display: flex;
   width: 38px;
   height: 38px;
@@ -448,28 +446,22 @@ code {
   box-shadow: 0 8px 24px rgba(9, 15, 26, 0.2);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
   transition: transform 180ms ease, opacity 180ms ease, background-color 180ms ease;
 }
 
-.footer-btn:hover {
+.to-top:hover {
   background: rgba(23, 105, 170, 0.92);
   transform: translateY(-2px);
 }
 
-.footer-btn i {
+.to-top i {
   font-size: 20px;
-  background: currentColor;
 }
 
-.footer-btn.to-top {
-  right: 20px;
-  bottom: 18px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(8px);
-}
-
-.footer-btn.to-top.show {
+.to-top.show {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
@@ -564,7 +556,7 @@ code {
     content: none;
   }
 
-  .footer-btn {
+  .to-top {
     width: 40px;
     height: 40px;
   }
@@ -572,14 +564,12 @@ code {
 
 @media print {
   html,
-  html.dark,
   body {
     color: #111111;
     background: #ffffff;
   }
 
-  html,
-  html.dark {
+  html {
     --bg: #ffffff !important;
     --surface: #ffffff !important;
     --surface-soft: #f5f5f5 !important;
@@ -604,7 +594,7 @@ code {
   .skip-link,
   .header,
   .footer,
-  .footer-btn {
+  .to-top {
     display: none !important;
   }
 }

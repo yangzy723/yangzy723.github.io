@@ -1,5 +1,5 @@
 <script defer src="{{ '/static/js/blog.js' | relative_url }}?v={{ asset_version }}"></script>
-{%- if page.name == "search.html" %}
+{%- if page.search %}
 <script defer src="{{ '/static/js/search.js' | relative_url }}?v={{ asset_version }}"></script>
 {%- endif %}
 {%- if page.extMath %}

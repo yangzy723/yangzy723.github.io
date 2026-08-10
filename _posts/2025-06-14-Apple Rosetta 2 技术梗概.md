@@ -1,5 +1,4 @@
 ---
-layout: mypost
 title: Apple Rosetta 2 技术梗概
 categories: [macOS]
 ---

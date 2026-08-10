@@ -1,5 +1,5 @@
 ---
-layout: mypost
+layout: article
 title: Fast Exact Shortest-Path Distance Queries on Large Networks by Pruned Landmark Labeling
 categories: [论文阅读]
 ---

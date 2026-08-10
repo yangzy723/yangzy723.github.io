@@ -1,5 +1,5 @@
 ---
-layout: mypost
+layout: article
 title: Continuous Trajectory Generation Based on Two-Stage GAN
 categories: [论文阅读]
 ---

@@ -9,13 +9,15 @@ github: https://github.com/yangzy723
 orcid: https://orcid.org/0009-0008-3110-8715
 
 url: https://yangzy723.github.io
-baseurl: ''
 permalink: /posts/:year/:month/:day/:title.html
+timezone: Asia/Shanghai
 
-kramdown:
-  auto_ids: true
-  input: GFM
-  syntax_highlighter: rouge
+defaults:
+  - scope:
+      path: ''
+      type: posts
+    values:
+      layout: article
 
 exclude:
   - README.md
@@ -23,8 +25,16 @@ exclude:
   - archive
   - dist
   - environment.yml
-  - Gemfile
-  - Gemfile.lock
+  # Source assets for archived paper notes; retained in Git but omitted from deployment.
+  - posts/2024/03/05
+  - posts/2024/03/10
+  - posts/2024/03/30
+  - posts/2024/04/16
+  - posts/2024/08/08
+  - posts/2024/09/29
+  - posts/2024/11/10
+  - posts/2024/11/20
+  - posts/2024/11/21
 
 menu:
   - title: Home

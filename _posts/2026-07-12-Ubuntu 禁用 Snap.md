@@ -1,5 +1,4 @@
 ---
-layout: mypost
 title: Ubuntu 下删除并禁用 Snap
 categories: [Linux]
 description: 在 Ubuntu 中完整卸载 Snap、清理残留文件并阻止 apt 自动重新安装 snapd。

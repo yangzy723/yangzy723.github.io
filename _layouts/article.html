@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="page page-post{% if page.page_class %} {{ page.page_class }}{% endif %}">
+<article class="page-post{% if page.page_class %} {{ page.page_class }}{% endif %}">
   <header class="post-header">
     {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
     <h1 class="title">{{ page.title }}</h1>
@@ -18,7 +18,13 @@ layout: default
     {% endif %}
   </header>
   <div class="post">
+    {%- if page.eager_image -%}
+    {%- assign enhanced_content = content | replace_first: '<img ', '__EAGER_IMAGE__' -%}
+    {%- assign enhanced_content = enhanced_content | replace: '<img ', '<img loading="lazy" decoding="async" ' -%}
+    {{ enhanced_content | replace: '__EAGER_IMAGE__', '<img loading="eager" decoding="async" fetchpriority="high" ' }}
+    {%- else -%}
     {{ content | replace: '<img ', '<img loading="lazy" decoding="async" ' }}
+    {%- endif %}
   </div>
   {% if page.date %}
   <nav class="post-navigation" aria-label="{% if page.lang == "en" %}Adjacent articles{% else %}相邻文章{% endif %}">

@@ -4,7 +4,7 @@ title: Home
 lang: en
 description: Zhenyuan Yang is a master's student at ISCAS researching operating systems, machine learning systems, and reliable AI inference.
 ---
-<div class="page page-index">
+<div class="page-index">
   <section class="hero">
     <div class="hero-content">
       <p class="eyebrow">{{ site.tagline | escape }}</p>
@@ -18,7 +18,7 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
       </p>
       <p class="hero-current">
         <span class="hero-current-label">Current</span>
-        <span class="hero-current-role">Research Intern · Huawei 2012 Laboratories</span>
+        <span>Research Intern · Huawei 2012 Laboratories</span>
       </p>
       <div class="hero-actions">
         <a class="primary" href="{{ '/pages/about.html' | relative_url }}#selected-research">Explore research</a>
@@ -34,14 +34,14 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
   </section>
 
   <section class="section-card">
-    <div class="section-head compact">
+    <div class="section-head">
       <div>
         <p class="section-kicker">Research &amp; engineering</p>
         <h2>Selected Work</h2>
       </div>
     </div>
     <div class="portal-grid">
-      <article class="portal-card portal-card-publications">
+      <article class="portal-card">
         <div class="card-title-row">
           <h3>Publications</h3>
           <span aria-label="{{ site.data.publications | size }} publications" title="{{ site.data.publications | size }} publications">{{ site.data.publications | size }}</span>
@@ -49,7 +49,7 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
         <p>Peer-reviewed work, preprints, and ongoing research.</p>
         <ul class="pub-list">
           {%- for paper in site.data.publications limit:3 %}
-          <li class="pub-item">
+          <li>
             <div class="pub-title">
               {%- if paper.url %}
               <a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">{{ paper.title }}</a>
@@ -57,9 +57,9 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
               {{ paper.title }}
               {%- endif %}
             </div>
-            <div class="pub-authors">{{ paper.authors | replace: site.author_en, '<strong>Zhenyuan Yang</strong>' }}</div>
+            <div class="pub-authors">{% include publication-authors.html authors=paper.authors %}</div>
             <div class="pub-meta">
-              <span class="status-{{ paper.status | slugify }}">{{ paper.status }}</span>
+              <span{% if paper.status == "Published" %} class="status-published"{% endif %}>{{ paper.status }}</span>
               {%- if paper.venue %}<span>{{ paper.venue }}</span>{%- endif %}
               {%- if paper.note %}<span>{{ paper.note }}</span>{%- endif %}
               <span>{{ paper.year }}</span>
@@ -76,23 +76,7 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
             <span aria-label="{{ site.data.awards | size }} awards" title="{{ site.data.awards | size }} awards">{{ site.data.awards | size }}</span>
           </div>
           <p>Selected academic honors and research awards.</p>
-          <ul class="award-list">
-            {% for award in site.data.awards %}
-            <li>
-              <span class="award-name">{{ award.name }}</span>
-              {% if award.related %}
-              <div class="award-related">
-                <span class="award-related-context">{{ award.related.title }}</span>
-                <span class="award-related-links">
-                  {% for link in award.related.links %}
-                  <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }} <span aria-hidden="true">↗</span></a>
-                  {% endfor %}
-                </span>
-              </div>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
+          {% include award-list.html %}
         </article>
         <article class="portal-card">
           <div class="card-title-row">
@@ -115,7 +99,7 @@ description: Zhenyuan Yang is a master's student at ISCAS researching operating 
   </section>
 
   <section class="section-card">
-    <div class="section-head compact">
+    <div class="section-head">
       <div>
         <p class="section-kicker">Notes &amp; essays</p>
         <h2>Recent Writing</h2>

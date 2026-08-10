@@ -72,6 +72,9 @@ JEKYLL_ENV=production "$CONDA_PREFIX/bin/bundle" _2.4.22_ exec jekyll build \
 
 The generated `dist/` directory is ignored by Git.
 
+Every push and pull request also runs the same production build on GitHub Actions, including JSON
+and XML validation.
+
 ## Content Workflow
 
 ### Write a new post
@@ -86,13 +89,14 @@ Front matter example:
 
 ```yaml
 ---
-layout: mypost
 title: My Post Title
 categories: [Category1, Category2]
 ---
 ```
 
-Add `extMath: true` to the front matter only when the post contains MathJax formulas.
+Posts receive the shared `article` layout from `_config.yml`. Add `extMath: true` only when a post
+contains MathJax formulas. For a photography post whose first image is the primary content, add
+`eager_image: true` so that image is prioritized while all later images remain lazy-loaded.
 
 Place post assets under [posts](posts), typically using a date path such as
 `posts/yyyy/mm/dd/`, then reference them directly from Markdown.
@@ -118,12 +122,14 @@ When updating profile information, check these sources together:
 ## Project Structure
 
 - `_layouts/default.html`: single shared HTML shell for every page
-- `_layouts/` and `_includes/`: page templates, navigation, footer, metadata, and optional features
+- `_layouts/article.html`: long-form layout shared by posts, About, and the 404 page
+- `_includes/`: reusable navigation, footer, metadata, awards, and publication-author components
 - `_data/`: structured homepage and profile content
 - `static/css/`: design tokens, responsive layouts, post styles, and dark theme
 - `static/js/`: theme switching, search, image preview, and accessibility enhancements
 - `static/search-index.json`: build-time full-text index consumed only by the search page
 - `_posts/` and `posts/`: articles and their assets
+- `archive/`: source-only notes; their supporting files stay in Git but are excluded from deployment
 
 ## Credits
 
