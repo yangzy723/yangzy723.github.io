@@ -72,8 +72,7 @@ JEKYLL_ENV=production "$CONDA_PREFIX/bin/bundle" _2.4.22_ exec jekyll build \
 
 The generated `dist/` directory is ignored by Git.
 
-Every push and pull request also runs the same production build on GitHub Actions, including JSON
-and XML validation.
+Every push and pull request also runs the same production build on GitHub Actions, including JSON and XML validation.
 
 ## Content Workflow
 
