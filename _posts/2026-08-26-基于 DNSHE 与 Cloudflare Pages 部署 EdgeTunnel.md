@@ -1,6 +1,6 @@
 ---
 title: 基于 DNSHE 与 Cloudflare Pages 部署 EdgeTunnel
-categories: [网络]
+categories: [杂项]
 description: 使用 DNSHE、Cloudflare DNS、Pages、Workers KV 与 EdgeTunnel 构建 Serverless Edge Tunnel 的部署过程与系统架构。
 ---
 本文记录如何使用 **DNSHE、Cloudflare DNS、Cloudflare Pages、Workers KV 与 EdgeTunnel** 搭建 Serverless Edge Tunnel，并说明域名、计算、存储和代理协议在系统中的职责。
