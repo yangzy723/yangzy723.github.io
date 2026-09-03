@@ -1,6 +1,6 @@
 ---
 title: 存储系统（DRAM 和 SRAM，ROM）
-categories: [杂记]
+categories: [杂项]
 ---
 
 ## DRAM和SRAM
